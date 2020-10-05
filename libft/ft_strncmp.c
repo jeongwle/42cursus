@@ -6,12 +6,11 @@
 /*   By: jeongwle <jeongwle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 21:09:44 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/09/30 00:40:00 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/06 01:10:46 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
+#include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -27,13 +26,4 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	if (i == n)
 		i -= 1;
 	return (s1[i] - s2[i]);
-}
-
-int	main(void)
-{
-	char arr1[] = "Happy";
-	char arr2[] = "HappyC";
-
-	printf("%d \n", ft_strncmp(arr1, arr2, 7));
-	return (0);
 }

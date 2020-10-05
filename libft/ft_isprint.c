@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeongwle <jeongwle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/03 16:04:13 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/06 00:29:35 by jeongwle         ###   ########.fr       */
+/*   Created: 2020/10/05 20:54:03 by jeongwle          #+#    #+#             */
+/*   Updated: 2020/10/05 20:54:34 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+int	ft_isprint(int c)
 {
-	int		i;
-	size_t	src_len;
-
-	i = 0;
-	src_len = ft_strlen(src);
-	while (i < dstsize - 1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (src_len);
+	if (32 <= c && c <= 126)
+		return (1);
+	return (0);
 }
