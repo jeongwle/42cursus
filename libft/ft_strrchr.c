@@ -6,9 +6,11 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 05:15:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/06 05:42:23 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/06 23:56:35 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {

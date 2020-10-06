@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:04:13 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/06 00:29:35 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/06 23:45:53 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	int		i;
+	size_t	i;
 	size_t	src_len;
 
 	i = 0;

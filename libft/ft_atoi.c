@@ -6,9 +6,11 @@
 /*   By: jeongwle <jeongwle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 13:53:52 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/09/28 14:49:42 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/06 23:57:02 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	is_space(char c)
 {

@@ -6,12 +6,11 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 06:15:18 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/06 06:40:51 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/06 23:58:51 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
@@ -34,13 +33,4 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		i++;
 	}
 	return (NULL);
-}
-
-int	main(void)
-{
-	char haystack[] = "Happy Coding Funny Coding";
-	char needle[] = "Co";
-	
-	printf("%s \n", ft_strnstr(haystack, needle, 8));
-	return (0);
 }
