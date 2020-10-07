@@ -1,40 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/06 06:15:18 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/07 21:52:31 by jeongwle         ###   ########.fr       */
+/*   Created: 2020/10/08 02:32:14 by jeongwle          #+#    #+#             */
+/*   Updated: 2020/10/08 02:38:50 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char	*ft_strdup(const char *s1)
 {
-	size_t	i;
-	size_t	n_len;
-	size_t	h_len;
-	int		j;
+	int		s1_len;
+	int		i;
+	char	*res;
 
 	i = 0;
-	j = 0;
-	n_len = ft_strlen(needle);
-	h_len = ft_strlen(haystack);
-	if (!*needle)
-		return ((char *)haystack);
-	if (len < n_len || h_len < n_len)
+	s1_len = ft_strlen(s1);
+	res = (char *)malloc(sizeof(char) * (s1_len + 1));
+	if (!res)
 		return (NULL);
-	while (i < len - n_len + 1)
+	while (s1[i])
 	{
-		if (haystack[i] == needle[j])
-		{
-			if (ft_strncmp(&haystack[i], needle, n_len) == 0)
-				return ((char *)&haystack[i]);
-		}
+		res[i] = s1[i];
 		i++;
 	}
-	return (NULL);
+	res[i] = '\0';
+	return (res);
 }

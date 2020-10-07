@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/06 06:15:18 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/07 21:52:31 by jeongwle         ###   ########.fr       */
+/*   Created: 2020/10/08 02:54:40 by jeongwle          #+#    #+#             */
+/*   Updated: 2020/10/08 03:29:01 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+void	*ft_calloc(size_t count, size_t size)
 {
-	size_t	i;
-	size_t	n_len;
-	size_t	h_len;
-	int		j;
+	int		i;
+	void	*res;
 
 	i = 0;
-	j = 0;
-	n_len = ft_strlen(needle);
-	h_len = ft_strlen(haystack);
-	if (!*needle)
-		return ((char *)haystack);
-	if (len < n_len || h_len < n_len)
+	res = malloc(size * count);
+	if (!res)
 		return (NULL);
-	while (i < len - n_len + 1)
+	count *= size;
+	while (count--)
 	{
-		if (haystack[i] == needle[j])
-		{
-			if (ft_strncmp(&haystack[i], needle, n_len) == 0)
-				return ((char *)&haystack[i]);
-		}
+		*((unsigned char *)res + i) = 0;
 		i++;
 	}
-	return (NULL);
+	return (res);
 }

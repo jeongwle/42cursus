@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 21:09:44 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/07 00:33:00 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/08 04:18:29 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	size_t	i;
 
 	i = 0;
+	if (n == 0)
+		return (0);
 	while (i < n && s1[i] != '\0')
 	{
 		if (s1[i] != s2[i])

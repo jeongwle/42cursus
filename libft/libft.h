@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 18:37:11 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/06 23:59:04 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/08 03:23:06 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ int		ft_isascii(int c);
 int		ft_isprint(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+char	*ft_strdup(const char *s1);
+void	*ft_calloc(size_t count, size_t size);
 
 #endif
