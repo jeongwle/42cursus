@@ -6,13 +6,13 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 17:05:28 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/11 20:51:50 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/12 18:55:01 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	start_point(char const *s1, char const *set)
+static size_t	start_point(char const *s1, char const *set)
 {
 	size_t	i;
 
@@ -22,7 +22,7 @@ size_t	start_point(char const *s1, char const *set)
 	return (i);
 }
 
-size_t	end_point(char const *s1, char const *set)
+static size_t	end_point(char const *s1, char const *set)
 {
 	size_t	i;
 
@@ -36,7 +36,7 @@ size_t	end_point(char const *s1, char const *set)
 	return (i);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char			*ft_strtrim(char const *s1, char const *set)
 {
 	char	*res;
 	size_t	start;
