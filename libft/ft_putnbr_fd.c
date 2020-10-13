@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:11:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/13 15:47:43 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/14 04:31:53 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_putnbr_fd(int n, int fd)
 {
 	char	c;
 
+	if (fd < 0)
+		return ;
 	if (n == -2147483648)
 	{
 		write(fd, "-2147483648", 11);

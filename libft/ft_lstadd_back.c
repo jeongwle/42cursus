@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 03:02:48 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/14 03:52:26 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/14 05:16:17 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
+	t_list *temp;
+
 	if (!lst || !new)
 		return ;
 	if (!*lst)
@@ -22,8 +24,9 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		new->next = NULL;
 		return ;
 	}
-	while ((*lst)->next)
-		*lst = (*lst)->next;
-	(*lst)->next = new;
+	temp = *lst;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
 	new->next = NULL;
 }
