@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:51:51 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/12 17:26:35 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/13 17:01:26 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int		word_count(char const *s, char c)
 
 	i = 0;
 	count = 0;
+	if (*(s + i) != c && *(s + i) != 0)
+		count++;
 	while (*(s + i))
 	{
 		if (*(s + i) == c)
@@ -30,7 +32,6 @@ static int		word_count(char const *s, char c)
 		}
 		i++;
 	}
-	count += 1;
 	return (count);
 }
 
