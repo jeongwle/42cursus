@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 17:02:11 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/13 22:18:36 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/14 19:11:36 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	dst_len;
 	size_t	src_len;
-	int		i;
+	size_t	i;
 	int		j;
 
 	dst_len = ft_strlen(dst);
