@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:51:51 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/13 17:01:26 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/15 19:37:57 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static size_t	word_len(char const *s, char c)
 	return (len);
 }
 
-void			*ft_free(char **str)
+static void		*ft_free(char **str)
 {
 	int	i;
 
