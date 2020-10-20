@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 05:15:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/06 23:56:35 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/18 03:13:43 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ char	*ft_strrchr(const char *s, int c)
 	i = 0;
 	while (s_temp[i])
 		i++;
-	if (s_temp[i] == (unsigned char)c)
-		return ((char *)&s_temp[i]);
 	while (i >= 0)
 	{
 		if (s_temp[i] == (unsigned char)c)

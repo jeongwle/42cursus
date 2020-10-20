@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 15:36:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/16 05:03:42 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/17 22:32:37 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		end = ft_strlen(s) - 1;
 	if (start_len >= len)
 		end = start + len - 1;
-	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
+	if (!(res = (char *)malloc(sizeof(char) * (end - start + 2))))
 		return (NULL);
 	while (start <= end)
 	{
