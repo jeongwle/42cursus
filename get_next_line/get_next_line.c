@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 01:28:12 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/24 03:32:33 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/10/26 20:43:10 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ int	get_next_line(int fd, char **line)
 		reposit = ft_strdup("");
 	if (fd < 0 || !line || BUFFER_SIZE < 1)
 		return (-1);
-	while ((read_val = read(fd, buf, BUFFER_SIZE)) > 0 && (!(ft_strchr(reposit, '\n'))))
+	while (!(ft_strchr(reposit, '\n')) && (read_val = read(fd, buf, BUFFER_SIZE)))
 	{
 		buf[read_val] = 0;
 		reposit_temp = reposit;
 		reposit = ft_strjoin(reposit, buf);
 		free(reposit_temp);
 	}
+	if (read_val < 0)
+		return (-1);
 	reposit_temp = reposit;
-	while (*reposit != '\n' && *reposit)
-		reposit++;
-	if (*reposit == '\n')
+	if ((reposit = ft_strchr(reposit_temp, '\n')))
 	{
 		*reposit = 0;
 		*line = ft_strdup(reposit_temp);
@@ -44,7 +44,7 @@ int	get_next_line(int fd, char **line)
 	else
 	{
 		*line = ft_strdup(reposit_temp);
-		reposit = ft_strdup(reposit);
+		reposit = ft_strdup("");
 		free(reposit_temp);
 	}
 	return (0);
