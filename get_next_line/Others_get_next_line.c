@@ -82,6 +82,7 @@ int					get_next_line(int fd, char **line)
 //  넘겨버리는거 러쉬때도 봤는데 쓸 생각을 난 하지 못했음. 킹받
 }
 
+
 #include "get_next_line.h"
 
 static int	proc_remain(char **line, char **store, char *tmp_ptr)
@@ -138,6 +139,7 @@ int		get_next_line(int fd, char **line)
 	return (proc_remain(line, &store[fd], tmp_ptr));
 }
 
+
 #include "get_next_line.h"
 
 int		make_keep(int rd_buff, char **keep, char *temp, char **line)
@@ -150,10 +152,12 @@ int		make_keep(int rd_buff, char **keep, char *temp, char **line)
 		*line = ft_strdup(*keep);
 		temp = *keep;
 		*keep = ft_strdup(ft_strchr(*keep, 0) + 1); // 널문자를 찾은 후 그 다음 주소로 다시 스태틱 변수를 채워줌
-		free(temp); // 라인에 dup를 이용해서 담아주고 스태틱변수에는 새로운 주소를 담았기 때문에 새로운 주소를 담기전의 스태틱변수 주소는 프리를 해주어야함 그래서 프리프리 이니스프리
+		free(temp); // 라인에 dup를 이용해서 담아주고 스태틱변수에는 새로운 주소를 담았기 때문에 새로운 주소를
+	 //	담기전의 스태틱변수 주소는 프리를 해주어야함 그래서 프리프리 이니스프리
 		return (1);
 	}
-	else if (rd_buff == 0) // rd_buff가 0일때도 개행이 있는 경우는 위의 이프문에서 걸러지기 때문에 개행이 없고 rd_buff가 0일때 이 조건문으로 들어오게된다. 결국 개행 없는 널로 종료되는 문자열만 남았을 경우 들어오게 된다.
+	else if (rd_buff == 0) // rd_buff가 0일때도 개행이 있는 경우는 위의 이프문에서 걸러지기 때문에 개행이 없고 
+//	rd_buff가 0일때 이 조건문으로 들어오게된다. 결국 개행 없는 널로 종료되는 문자열만 남았을 경우 들어오게 된다.
 	{
 		*line = *keep; // 담아주고
 		*keep = ft_strdup(""); // 주소값 변경해주고
@@ -180,7 +184,8 @@ int		get_next_line(int fd, char **line)
 
 	if (fd < 0 || !line || BUFFER_SIZE <= 0 || fd > 10240)
 		return (-1); // 이제는 익숙한 예외처리
-	while ((rd_buff = read(fd, buff, BUFFER_SIZE)) >= 0) // 와일문에서는 읽고 안에서 개행 만났을 경우는 rd_buff가 0일때도 와일문을 계속 돌게해서 와일문 안에서 처리
+	while ((rd_buff = read(fd, buff, BUFFER_SIZE)) >= 0) // 와일문에서는 읽고 안에서 개행 만났을 경우는 
+//	rd_buff가 0일때도 와일문을 계속 돌게해서 와일문 안에서 처리
 	{
 		keep = keep == NULL ? ft_strdup("") : keep; // 스태틱 변수가 널포인터를 가리키고 있으면 빈문자열을 넣어주고 아니면 그냥 그대로
 		buff[rd_buff] = 0;
@@ -195,4 +200,58 @@ int		get_next_line(int fd, char **line)
 	if (rd_buff < 0)
 		return (-1);
 	return (0);
+}
+
+
+int					return_status(char **line, char **prev, char *index)
+{
+	char			*temp;
+	if (index) // 개행문자를 찾았을 경우
+	{
+		*line = ft_substr(*prev, 0, index - *prev); // index - *prev는 개행주소에서 현재 스태틱 변수의 
+	//  0번째 인덱스 주소값을 뺐으니까 길이가 나옴.
+		temp = ft_substr(*prev, (index + 1) - *prev,
+		ft_strlen(*prev) - ft_strlen(*line)); // index+1 - *prev가 시작 인덱스. 라인에 담긴 길이에서 
+	//	스태틱변수 전체길이를 빼면 딱 그만큼 길이가 나오는게 맞음.
+		free(*prev);
+		*prev = ft_strdup(temp);
+		free(temp);
+		return (1);
+	}
+	else
+	{
+		*line = ft_strdup(*prev);
+		free(*prev);
+		*prev = NULL;
+	}
+	return (0);
+}
+
+int					get_next_line(int fd, char **line)
+{
+	char			*buf; // 리드한 것을 담을 저장소
+	static	char	*prev[OPEN_MAX]; // 스태틱변수
+	char			*temp; // 임시 저장소
+	char			*index; // 개행문자 위치를 담을 저장소
+	ssize_t			status; // 리드 반환값을 담을 저장소
+
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX ||
+	!(buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))) || !line)
+		return (-1); // 이제는 흔한 오류처리
+	if (!prev[fd]) // 스태틱 변수에 아무것도 담겨 있지 않을 경우 빈문자열을 넣어줌. 왜? 개행만 들어왔을경우에는 
+//	return status 함수의 else로 넘어갈텐데 그 때는 개행 앞문자열 즉 빈 문자열만 라인에 담아주어야 하기 때문이라고 생각.
+		prev[fd] = ft_strdup("");
+	while (!(index = is_in_newline(prev[fd]))
+	&& (status = read(fd, buf, BUFFER_SIZE)) > 0)
+	{
+		buf[status] = '\0';
+		temp = ft_strjoin(prev[fd], buf);
+		free(prev[fd]);
+		prev[fd] = ft_strdup(temp);
+		free(temp);
+	}
+	free(buf);
+	if (status < 0)
+		return (-1);
+	return (return_status(line, &prev[fd], index));
 }
