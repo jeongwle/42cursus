@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:35:42 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/10 13:28:53 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/10 21:14:42 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,80 +20,65 @@ void	initialize_variable(t_format *flag)
 	flag->width = 0;
 	flag->dot = 0;
 	flag->precision = 0;
+	flag->asterisk = 0;
 }
 
-void	check_conversion(const char **foramt, t_format *flag)
+char	check_conversion(const char **format)
 {
-//	if (**format == 'c')
-//		return ();
-//	else if (**format == 's')
-//		return ();
-//	else if (**format == 'p')
-//		return ();
-	else if (**format == 'd')
-		return (write_d();
-//	else if (**format == 'i')
-//		return ();
-//	else if (**format == 'u')
-//		return ();
-//	else if (**format == 'x')
-//		return ();
-//	else if (**format == 'X')
-//		return ();
+   	if (**format == 'c' || **format == 's' || **format == 'p' ||
+			**format == 'd' || **format == 'i' || **format == 'u' ||
+			**format == 'x' || **format == 'X')
+		return (**format);
+	return (0);
 }
 
-void	put_flag(const char **format)
+char	put_flag(const char **format, t_format *flag)
 {
-	t_format	flag;
-
-	initialize_variable(&flag);
 	while (**format)
 	{
-		if (ft_isdigit(**format) && !(flag.dot))
+		print_flag(flag);
+		if (ft_isdigit(**format) && !(flag->dot))
 		{
 			if (**format == '0')
-				flag.zero = 1;
-			flag.width = ft_atoi(*format);
+				flag->zero = 1;
+			flag->width = ft_atoi(*format);
 			while (ft_isdigit(**format))
 				(*format)++;
 		}
-		else if (ft_isdigit(**format) && flag.dot)
+		else if (ft_isdigit(**format) && flag->dot)
 		{
-			flag.precision = ft_atoi(*format);
+			flag->precision = ft_atoi(*format);
 			while (ft_isdigit(**format))
 				(*format)++;
+		}
+		else if (**format == '*')
+		{
+			flag->asterisk += 1;
+			(*format)++;
 		}
 		else if (**format == '0')
 		{
-			flag.zero = 1;
+			flag->zero = 1;
 			(*format)++;
 		}
 		else if (**format == '-')
 		{
-			flag.minus = 1;
+			flag->minus = 1;
 			(*format)++;
 		}
 		else if (**format == '.')
 		{
-			flag.dot = 1;
+			flag->dot = 1;
 			(*format)++;
 		}
-		return (check_conversion(*format, &flag);
-/*		else if (**format == 'c' || **format == 's' || **format == 'p' ||
-				**format == 'd' || **format == 'i' || **format == 'u' ||
-				**format == 'x' || **format == 'X')
-			(*format)++;*/
+		else
+			return (check_conversion(format));
 	}
+	return (0);
 }
 
-int main(void)
+void	parsing_by_conversion(char conversion, va_list ap, t_format *flag)
 {
-	const char	*temp;
-	const char	*temp_temp;
-
-	temp = ft_strdup("0000-1010.4d");
-	temp_temp = temp;
-	put_flag(&temp);
-	printf("%s", temp_temp);
-	return (0);
+	if (conversion == 'd')
+		return (check_asterisk(ap, flag));
 }
