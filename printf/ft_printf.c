@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:04:39 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/10 21:14:41 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/12 18:28:23 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int	ft_printf(const char *format, ...)
 	va_list		ap;
 	t_format	flag;
 	char		conversion;
+	int			result;
 
+	result = 0;
 	va_start(ap, format);
 	while (*format)
 	{
@@ -38,18 +40,20 @@ int	ft_printf(const char *format, ...)
 			format++;
 			conversion = put_flag(&format, &flag);
 			parsing_by_conversion(conversion, ap, &flag);
+			format++;
 		}
 		else
 		{
 			write(1, format, 1);
+			result++;
 			format++;
 		}
 	}
 	va_end(ap);
 	return (0);
 }
-
+/*
 int	main(void)
 {
-	ft_printf("%-010.5d", 1);
-}
+	ft_printf("[%.6d]", -3);
+}*/

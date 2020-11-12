@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:35:42 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/10 21:14:42 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/12 18:28:24 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	check_conversion(const char **format)
    	if (**format == 'c' || **format == 's' || **format == 'p' ||
 			**format == 'd' || **format == 'i' || **format == 'u' ||
 			**format == 'x' || **format == 'X')
-		return (**format);
+		return ((char)**format);
 	return (0);
 }
 
@@ -36,7 +36,7 @@ char	put_flag(const char **format, t_format *flag)
 {
 	while (**format)
 	{
-		print_flag(flag);
+//		print_flag(flag);
 		if (ft_isdigit(**format) && !(flag->dot))
 		{
 			if (**format == '0')
