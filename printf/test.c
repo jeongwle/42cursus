@@ -2,6 +2,6 @@
 
 int	main(void)
 {
-	printf("[%5d]", 123);
+	printf("[%04.3d]", 0);
 	return (0);
 }

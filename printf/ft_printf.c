@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:04:39 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/12 18:28:23 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/13 18:34:07 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	print_flag(t_format *flag)
 	printf("%d ", flag->minus);
 	printf("%d ", flag->width);
 	printf("%d ", flag->dot);
-	printf("%d ", flag->precision);
-	printf("%d\n", flag->asterisk);
+	printf("%d\n", flag->precision);
 }
 
 int	ft_printf(const char *format, ...)
@@ -38,8 +37,8 @@ int	ft_printf(const char *format, ...)
 		{
 			initialize_variable(&flag);
 			format++;
-			conversion = put_flag(&format, &flag);
-			parsing_by_conversion(conversion, ap, &flag);
+			conversion = put_flag(&format, &flag, ap);
+			result += parsing_by_conversion(conversion, ap, &flag);
 			format++;
 		}
 		else
@@ -50,10 +49,17 @@ int	ft_printf(const char *format, ...)
 		}
 	}
 	va_end(ap);
-	return (0);
+	return (result);
 }
-/*
+
 int	main(void)
 {
-	ft_printf("[%.6d]", -3);
-}*/
+	ft_printf("[%-5.3d]\n", -123);
+//	printf("[%-5.3d]\n", -123);
+	while (1)
+	{
+		;
+	}
+	return (0);
+
+}

@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putchar_for_pft.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
+/*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/13 14:07:35 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/13 15:07:58 by jeongwle         ###   ########.fr       */
+/*   Created: 2020/11/13 15:08:37 by jeongwle          #+#    #+#             */
+/*   Updated: 2020/11/13 15:39:20 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_for_pft(char *str)
 {
-	size_t	len;
+	int	index;
 
-	if (fd < 0 || !s)
-		return ;
-	len = ft_strlen(s);
-	write(fd, s, len);
+	index = 0;
+	while (str[index] != '\0')
+	{
+		write(1, &str[index], 1);
+		index++;
+	}
+	return (index);
 }

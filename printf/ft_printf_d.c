@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:35:42 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/12 18:28:24 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/13 18:34:08 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	initialize_variable(t_format *flag)
 	flag->width = 0;
 	flag->dot = 0;
 	flag->precision = 0;
-	flag->asterisk = 0;
 }
 
 char	check_conversion(const char **format)
@@ -32,11 +31,11 @@ char	check_conversion(const char **format)
 	return (0);
 }
 
-char	put_flag(const char **format, t_format *flag)
+char	put_flag(const char **format, t_format *flag, va_list ap)
 {
 	while (**format)
 	{
-//		print_flag(flag);
+	//	print_flag(flag);
 		if (ft_isdigit(**format) && !(flag->dot))
 		{
 			if (**format == '0')
@@ -53,7 +52,23 @@ char	put_flag(const char **format, t_format *flag)
 		}
 		else if (**format == '*')
 		{
-			flag->asterisk += 1;
+			if (flag->dot)
+			{
+				flag->precision = va_arg(ap, int);
+				if (flag->precision < 0)
+				{
+					flag->precision = 0;
+					flag->dot = 0;
+				}
+			}
+			else
+			{
+				if ((flag->width = va_arg(ap, int)) < 0)
+				{
+					flag->width *= -1;
+					flag->minus = 1;
+				}
+			}
 			(*format)++;
 		}
 		else if (**format == '0')
@@ -77,8 +92,9 @@ char	put_flag(const char **format, t_format *flag)
 	return (0);
 }
 
-void	parsing_by_conversion(char conversion, va_list ap, t_format *flag)
+int	parsing_by_conversion(char conversion, va_list ap, t_format *flag)
 {
 	if (conversion == 'd')
-		return (check_asterisk(ap, flag));
+		return (check_temp(ap, flag));
+	return (0);
 }
