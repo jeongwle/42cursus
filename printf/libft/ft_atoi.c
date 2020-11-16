@@ -6,18 +6,18 @@
 /*   By: jeongwle <jeongwle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 13:53:52 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/15 19:35:22 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/16 19:45:18 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	is_space(char c)
+static int		is_space(char c)
 {
 	return (c == ' ' || (9 <= c && c <= 13));
 }
 
-int			ft_atoi(const char *str)
+long long int	ft_atoi(const char *str)
 {
 	int				i;
 	int				sign;
@@ -37,10 +37,6 @@ int			ft_atoi(const char *str)
 	while ('0' <= str[i] && str[i] <= '9')
 	{
 		res = res * 10 + str[i] - '0';
-		if (sign == 1 && res > 2147483647)
-			return (-1);
-		if (sign == -1 && res > 2147483648)
-			return (0);
 		i++;
 	}
 	return (sign * res);

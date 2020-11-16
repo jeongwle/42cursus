@@ -6,20 +6,20 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 17:35:41 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/12 18:45:40 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/16 19:44:44 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t		len_count(int n)
+static size_t		len_count(long long int n)
 {
 	size_t			count;
 	long long int	num;
 
 	count = 1;
 	if (n < 0)
-		num = -1 * (long long int)n;
+		num = -1 * n;
 	if (n >= 0)
 		num = n;
 	while (num / 10)
@@ -30,7 +30,7 @@ static size_t		len_count(int n)
 	return (count);
 }
 
-static char			*if_plus(int n)
+static char			*if_plus(long long int n)
 {
 	char	*res;
 	size_t	size;
@@ -48,14 +48,14 @@ static char			*if_plus(int n)
 	return (res);
 }
 
-static char			*if_minus(int n)
+static char			*if_minus(long long int n)
 {
 	char			*res;
 	size_t			size;
 	long long int	num;
 
 	size = len_count(n);
-	num = -1 * (long long int)n;
+	num = -1 * n;
 	if (!(res = (char *)malloc(sizeof(char) * (size + 2))))
 		return (NULL);
 	res[size + 1] = 0;
@@ -69,7 +69,7 @@ static char			*if_minus(int n)
 	return (res);
 }
 
-char				*ft_itoa(int n)
+char				*ft_itoa(long long int n)
 {
 	char			*res;
 

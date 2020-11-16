@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 18:37:11 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/13 15:27:55 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/16 19:44:30 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ size_t				ft_strlcat(char *dst, const char *src, size_t dstsize);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strnstr(const char *h_s, const char *n_d, size_t len);
-int					ft_atoi(const char *str);
+long long int		ft_atoi(const char *str);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -50,7 +50,7 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *s, char c);
-char				*ft_itoa(int n);
+char				*ft_itoa(long long int n);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);

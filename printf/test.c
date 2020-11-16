@@ -2,6 +2,7 @@
 
 int	main(void)
 {
-	printf("[%04.3d]", 0);
+	printf("[%-10.1d]\n", 0);
+	printf("[%-10.1u]\n", 0);
 	return (0);
 }

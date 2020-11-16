@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:35:42 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/13 18:34:08 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/16 19:52:28 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	initialize_variable(t_format *flag)
 
 char	check_conversion(const char **format)
 {
-   	if (**format == 'c' || **format == 's' || **format == 'p' ||
-			**format == 'd' || **format == 'i' || **format == 'u' ||
-			**format == 'x' || **format == 'X')
+	if (**format == 'c' || **format == 's' || **format == 'p' ||
+**format == 'd' || **format == 'i' || **format == 'u' ||
+**format == 'x' || **format == 'X')
 		return ((char)**format);
 	return (0);
 }
@@ -96,5 +96,9 @@ int	parsing_by_conversion(char conversion, va_list ap, t_format *flag)
 {
 	if (conversion == 'd')
 		return (check_temp(ap, flag));
+	if (conversion == 'i')
+		return (check_temp(ap, flag));
+	if (conversion == 'u')
+		return (check_u_temp(ap, flag));
 	return (0);
 }

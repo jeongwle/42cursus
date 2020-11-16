@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:04:39 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/13 18:34:07 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/16 19:51:48 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_flag(t_format *flag)
 	printf("%d\n", flag->precision);
 }
 
-int	ft_printf(const char *format, ...)
+int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	t_format	flag;
@@ -51,7 +51,7 @@ int	ft_printf(const char *format, ...)
 	va_end(ap);
 	return (result);
 }
-
+/*
 int	main(void)
 {
 	ft_printf("[%-5.3d]\n", -123);
@@ -62,4 +62,4 @@ int	main(void)
 	}
 	return (0);
 
-}
+}*/
