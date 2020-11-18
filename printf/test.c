@@ -2,7 +2,7 @@
 
 int	main(void)
 {
-	printf("[%-10.1d]\n", 0);
-	printf("[%-10.1u]\n", 0);
+	printf("[%5d]\n", 17);
+	printf("[%5x]\n", 17);
 	return (0);
 }

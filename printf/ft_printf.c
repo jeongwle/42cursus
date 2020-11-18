@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:04:39 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/16 19:51:48 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/18 16:10:50 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ int		ft_printf(const char *format, ...)
 /*
 int	main(void)
 {
-	ft_printf("[%-5.3d]\n", -123);
-//	printf("[%-5.3d]\n", -123);
-	while (1)
-	{
-		;
-	}
+	ft_printf("[%-4.0x]\n", 13);
+	printf("[%-4.0x]\n", 13);
+//	while (1)
+//	{
+//		;
+//	}
 	return (0);
 
 }*/

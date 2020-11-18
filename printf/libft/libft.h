@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 18:37:11 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/16 19:44:30 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/18 14:37:19 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
 int					ft_putstr_for_pft(char *str);
+char				*ft_itoa_hex(long long int n, char conversion);
 
 #endif
