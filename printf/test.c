@@ -2,7 +2,6 @@
 
 int	main(void)
 {
-	printf("[%5d]\n", 17);
-	printf("[%5x]\n", 17);
+	printf("[%-4c]\n", 'a');
 	return (0);
 }

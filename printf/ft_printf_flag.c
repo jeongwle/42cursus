@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_d.c                                      :+:      :+:    :+:   */
+/*   ft_printf_flag.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 17:35:42 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/18 19:32:49 by jeongwle         ###   ########.fr       */
+/*   Created: 2020/11/19 15:11:42 by jeongwle          #+#    #+#             */
+/*   Updated: 2020/11/20 19:53:57 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,12 @@ int	parsing_by_conversion(char conversion, va_list ap, t_format *flag)
 	if (conversion == 'u')
 		return (check_u_temp(ap, flag));
 	if (conversion == 'x')
-		return (check_x_X(ap, flag, conversion));
+		return (check_x_upperx(ap, flag, conversion));
 	if (conversion == 'X')
-		return (check_x_X(ap, flag, conversion));
+		return (check_x_upperx(ap, flag, conversion));
+	if (conversion == 'p')
+		return (check_p_temp(ap, flag));
+	if (conversion == 'c')
+		return (check_c_temp(ap, flag));
 	return (0);
 }
