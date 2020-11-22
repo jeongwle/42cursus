@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 15:20:54 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/20 19:53:55 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/22 19:50:57 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ int	check_c_temp(va_list ap, t_format *flag)
 	int				param_len;
 
 	param = (char)va_arg(ap, int);
-	param_len = ft_strlen(&param);
+	param_len = 1;
 	return (write_c(flag, param, param_len));
 }

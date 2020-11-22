@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 15:11:42 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/20 19:53:57 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/22 20:51:08 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,7 @@ int	parsing_by_conversion(char conversion, va_list ap, t_format *flag)
 		return (check_p_temp(ap, flag));
 	if (conversion == 'c')
 		return (check_c_temp(ap, flag));
+	if (conversion == 's')
+		return (check_s_temp(ap, flag));
 	return (0);
 }

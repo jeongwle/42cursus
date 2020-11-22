@@ -8,7 +8,7 @@ SRCS		= ./ft_printf.c \
 			  ./ft_printf_flag.c \
 			  ./ft_printf_write_d.c \
 			  ./ft_printf_check_temp.c \
-			  ./ft_printf_write_c.c
+			  ./ft_printf_check_write.c
 
 
 OBJS		= $(SRCS:.c=.o)

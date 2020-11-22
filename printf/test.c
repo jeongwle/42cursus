@@ -2,6 +2,7 @@
 
 int	main(void)
 {
-	printf("[%-4c]\n", 'a');
+	int	i;
+	printf("[%p]\n", &i);
 	return (0);
 }

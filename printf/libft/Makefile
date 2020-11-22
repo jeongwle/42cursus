@@ -33,7 +33,8 @@ SRCS	= ./ft_memset.c \
  		  ./ft_putendl_fd.c \
  		  ./ft_putnbr_fd.c \
 		  ./ft_putstr_for_pft.c \
-		  ./ft_itoa_hex.c
+		  ./ft_itoa_hex.c \
+		  ./ft_putchar.c
 
 SRCS_B = ./ft_lstnew.c \
 		 ./ft_lstadd_front.c \
