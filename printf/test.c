@@ -3,6 +3,6 @@
 int	main(void)
 {
 	int	i;
-	printf("[%p]\n", &i);
+	printf("[%-03.4%]\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:05:12 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/22 20:48:59 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/23 21:26:13 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void				write_s(t_format *flag, int temp_len, char *temp,
 					int *res);
 void				write_s_else(t_format *flag, int temp_len, char *temp,
 					int *res);
+int					write_percent(t_format *flag);
 
 #endif
