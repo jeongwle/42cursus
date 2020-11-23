@@ -6,14 +6,14 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 15:20:54 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/23 22:41:36 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/23 23:24:38 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-int	check_u_temp(va_list ap, t_format *flag)
+int		check_u_temp(va_list ap, t_format *flag)
 {
 	char			*temp;
 	long long int	param;
@@ -31,7 +31,7 @@ int	check_u_temp(va_list ap, t_format *flag)
 	return (write_d(flag, temp_len, temp));
 }
 
-int	check_x_upperx(va_list ap, t_format *flag, char conversion)
+int		check_x_upperx(va_list ap, t_format *flag, char conversion)
 {
 	char			*temp;
 	long long int	param;
@@ -53,31 +53,36 @@ int	check_x_upperx(va_list ap, t_format *flag, char conversion)
 	return (write_d(flag, temp_len, temp));
 }
 
-int	check_p_temp(va_list ap, t_format *flag)
+int		check_p_temp(va_list ap, t_format *flag)
 {
 	char			*temp;
 	char			*temp_temp;
-	char			*p_temp;
 	long long int	param;
 	int				temp_len;
 
 	param = va_arg(ap, long long int);
-	p_temp = ft_strdup("0x");
 	temp = ft_itoa_hex(param, 'x');
 	if ((ft_atoi(temp)) == 0 && flag->dot && !(flag->precision))
 	{
 		free(temp);
 		temp = ft_strdup("");
 	}
-	temp_temp = temp;
-	temp = ft_strjoin(p_temp, temp);
-	free(p_temp);
-	free(temp_temp);
 	temp_len = ft_strlen(temp);
-	return (write_d(flag, temp_len, temp));
+	if (temp_len < flag->precision)
+	{
+		write(1, "0x", 2);
+		return (write_d(flag, temp_len, temp) + 2);
+	}
+	else
+	{
+		temp_temp = temp;
+		temp = ft_strjoin("0x", temp);
+		free(temp_temp);
+	}
+	return (write_d(flag, temp_len + 2, temp));
 }
 
-int	check_c_temp(va_list ap, t_format *flag)
+int		check_c_temp(va_list ap, t_format *flag)
 {
 	char			param;
 	int				param_len;
