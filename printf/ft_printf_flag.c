@@ -6,36 +6,67 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 15:11:42 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/23 22:41:37 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/24 23:44:29 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-void	initialize_variable(t_format *flag)
-{
-	flag->zero = 0;
-	flag->minus = 0;
-	flag->width = 0;
-	flag->dot = 0;
-	flag->precision = 0;
-}
-
-char	check_conversion(const char **format)
+int		put_flag_else(const char **format)
 {
 	if (**format == 'c' || **format == 's' || **format == 'p' ||
-**format == 'd' || **format == 'i' || **format == 'u' ||
-**format == 'x' || **format == 'X' || **format == '%')
+			**format == 'd' || **format == 'i' || **format == 'u' ||
+			**format == 'x' || **format == 'X' || **format == '%')
 		return ((char)**format);
-	return (0);
+	else
+		return (-1);
 }
 
-char	put_flag(const char **format, t_format *flag, va_list ap)
+void	asterisk(const char **format, t_format *flag, va_list ap)
+{
+	if (flag->dot)
+	{
+		flag->precision = va_arg(ap, int);
+		if (flag->precision < 0)
+		{
+			flag->precision = 0;
+			flag->dot = 0;
+		}
+	}
+	else
+	{
+		if ((flag->width = va_arg(ap, int)) < 0)
+		{
+			flag->width *= -1;
+			flag->minus = 1;
+		}
+	}
+	(*format)++;
+}
+
+void	put_flag_sub(const char **format, t_format *flag)
+{
+	if (**format == '0')
+	{
+		flag->zero = 1;
+		(*format)++;
+	}
+	else if (**format == '-')
+	{
+		flag->minus = 1;
+		(*format)++;
+	}
+	else if (**format == '.')
+	{
+		flag->dot = 1;
+		(*format)++;
+	}
+}
+
+int		put_flag(const char **format, t_format *flag, va_list ap)
 {
 	while (**format)
 	{
-//		print_flag(flag);
 		if (ft_isdigit(**format) && !(flag->dot))
 		{
 			if (**format == '0')
@@ -51,66 +82,35 @@ char	put_flag(const char **format, t_format *flag, va_list ap)
 				(*format)++;
 		}
 		else if (**format == '*')
-		{
-			if (flag->dot)
-			{
-				flag->precision = va_arg(ap, int);
-				if (flag->precision < 0)
-				{
-					flag->precision = 0;
-					flag->dot = 0;
-				}
-			}
-			else
-			{
-				if ((flag->width = va_arg(ap, int)) < 0)
-				{
-					flag->width *= -1;
-					flag->minus = 1;
-				}
-			}
-			(*format)++;
-		}
-		else if (**format == '0')
-		{
-			flag->zero = 1;
-			(*format)++;
-		}
-		else if (**format == '-')
-		{
-			flag->minus = 1;
-			(*format)++;
-		}
-		else if (**format == '.')
-		{
-			flag->dot = 1;
-			(*format)++;
-		}
+			asterisk(format, flag, ap);
+		else if (**format == '0' || **format == '-' || **format == '.')
+			put_flag_sub(format, flag);
 		else
-			return (check_conversion(format));
+			return (put_flag_else(format));
 	}
-	return (0);
+	return (-1);
 }
 
-int	parsing_by_conversion(char conversion, va_list ap, t_format *flag)
+int		parsing(const char **format, int conv, va_list ap, t_format *flag)
 {
-	if (conversion == 'd')
+	(*format)++;
+	if (conv == 'd')
 		return (check_temp(ap, flag));
-	if (conversion == 'i')
+	if (conv == 'i')
 		return (check_temp(ap, flag));
-	if (conversion == 'u')
+	if (conv == 'u')
 		return (check_u_temp(ap, flag));
-	if (conversion == 'x')
-		return (check_x_upperx(ap, flag, conversion));
-	if (conversion == 'X')
-		return (check_x_upperx(ap, flag, conversion));
-	if (conversion == 'p')
+	if (conv == 'x')
+		return (check_x_upperx(ap, flag, conv));
+	if (conv == 'X')
+		return (check_x_upperx(ap, flag, conv));
+	if (conv == 'p')
 		return (check_p_temp(ap, flag));
-	if (conversion == 'c')
+	if (conv == 'c')
 		return (check_c_temp(ap, flag));
-	if (conversion == 's')
+	if (conv == 's')
 		return (check_s_temp(ap, flag));
-	if (conversion == '%')
+	if (conv == '%')
 		return (write_percent(flag));
 	return (0);
 }

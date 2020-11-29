@@ -6,12 +6,11 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 15:20:54 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/23 23:24:38 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/25 04:15:09 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 int		check_u_temp(va_list ap, t_format *flag)
 {

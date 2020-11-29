@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:05:12 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/23 21:26:13 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/24 23:40:33 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ typedef struct		s_format
 }					t_format;
 
 int					ft_printf(const char *format, ...);
-void				print_flag(t_format *flag);
-void				initialize_variable(t_format *flag);
-char				put_flag(const char **format, t_format *flag, va_list ap);
-char				check_conversion(const char **format);
-int					parsing_by_conversion(char conversion, va_list ap,
-					t_format *flag);
+void				initialize_variable(const char **format, t_format *flag);
+int					put_flag(const char **format, t_format *flag, va_list ap);
+int					parsing(const char **foramt, int conv,
+					va_list ap, t_format *flag);
 int					check_temp(va_list ap, t_format *flag);
 int					write_d(t_format *flag, int temp_len, char *temp);
 int					flag_minus(t_format *flag, int temp_l, int temp_s,
@@ -53,5 +51,8 @@ void				write_s(t_format *flag, int temp_len, char *temp,
 void				write_s_else(t_format *flag, int temp_len, char *temp,
 					int *res);
 int					write_percent(t_format *flag);
+void				asterisk(const char **format, t_format *flag, va_list ap);
+int					put_flag_else(const char **format);
+void				put_flag_sub(const char **format, t_format *flag);
 
 #endif

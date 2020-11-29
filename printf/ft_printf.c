@@ -6,21 +6,11 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:04:39 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/23 22:41:38 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/24 23:44:42 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
-
-void	print_flag(t_format *flag)
-{
-	printf("%d ", flag->zero);
-	printf("%d ", flag->minus);
-	printf("%d ", flag->width);
-	printf("%d ", flag->dot);
-	printf("%d\n", flag->precision);
-}
 
 int		write_percent(t_format *flag)
 {
@@ -50,11 +40,21 @@ int		write_percent(t_format *flag)
 	return (res);
 }
 
+void	initialize_variable(const char **format, t_format *flag)
+{
+	flag->zero = 0;
+	flag->minus = 0;
+	flag->width = 0;
+	flag->dot = 0;
+	flag->precision = 0;
+	(*format)++;
+}
+
 int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	t_format	flag;
-	char		conversion;
+	int			conversion;
 	int			result;
 
 	result = 0;
@@ -63,11 +63,10 @@ int		ft_printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			initialize_variable(&flag);
-			format++;
-			conversion = put_flag(&format, &flag, ap);
-			result += parsing_by_conversion(conversion, ap, &flag);
-			format++;
+			initialize_variable(&format, &flag);
+			if ((conversion = put_flag(&format, &flag, ap)) == -1)
+				return (-1);
+			result += parsing(&format, conversion, ap, &flag);
 		}
 		else
 		{
@@ -79,18 +78,3 @@ int		ft_printf(const char *format, ...)
 	va_end(ap);
 	return (result);
 }
-/*
-int	main(void)
-{
-	int	i;
-
-	i = 0;
-	ft_printf("[%2c]\n", '!');
-	printf("[%2c]\n", '!');
-//	while (1)
-//	{
-//		;
-//	}
-	return (0);
-
-}*/

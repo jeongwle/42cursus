@@ -6,12 +6,11 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 12:59:59 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/11/22 21:10:00 by jeongwle         ###   ########.fr       */
+/*   Updated: 2020/11/25 02:44:21 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 int	not_minus_zero(t_format *flag, int temp_l, int temp_s, char *temp)
 {
