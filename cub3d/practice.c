@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 06:55:50 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/02/03 14:52:13 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/02/22 21:27:07 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,18 @@ void		init_map(t_img *img)
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 	memcpy(img->map, map, sizeof(int) * 10 * 10);
 }
 
-void		draw_map(t_window *window, t_img *img)
+#include <stdio.h>
+
+int		draw_map(t_window *window, t_img *img)
 {
 	int	row;
 	int	col;
@@ -88,7 +90,9 @@ void		draw_map(t_window *window, t_img *img)
 					x = 0;
 					while (x < tile_width)
 					{
-						img->data[(y + (col * tile_height)) * window->width + (x + (row * tile_width))] = 0x00FFFF;
+						printf("%d %d %d %d\n", x, y, row, col);
+						img->data[tile_height * y + x] = 0xFFFFFF;
+						//img->data[(y + (col * tile_height)) * window->width + (x + (row * tile_width))] = 0xFFFFFF;
 						x++;
 					}
 					y++;
@@ -98,7 +102,35 @@ void		draw_map(t_window *window, t_img *img)
 		}
 		col++;
 	}
+	return (0);
+}
 
+int			ft_sunmin(t_window *window, t_img *img)
+{
+	int	tile_width;
+	int	tile_height;
+	int	x;
+	int	y;
+
+	tile_width = window->width / window->col;
+	tile_height = window->height / window->row;
+
+	y = 0;
+	while (y < window->height)
+	{
+		x = 0;
+		while (x < window->width)
+		{
+			if (img->map[(int)(y / tile_height)][(int)(x / tile_width)] == 1)
+			{
+				img->data[tile_height * y + x] = 0xFFFFFF;
+			}
+			x++;
+		}
+		y++;
+	}
+	printf("why?\n");
+	return (0);
 }
 
 int			draw_grid(t_window *window)
@@ -136,7 +168,7 @@ int			move_plyaer(int key, t_window *window)
 	if ((0 < window->player.x && window->player.x <= window->width) &&
 			(0 < window->player.y && window->player.y <= window->height))
 	{
-		mlx_pixel_put(window->mlx, window->win, window->player.x, window->player.y, 0x000000);
+//		mlx_pixel_put(window->mlx, window->win, window->player.x, window->player.y, 0x000000);
 		if (key == KEY_W)
 			window->player.y -= 5;
 		else if (key == KEY_S)
@@ -158,6 +190,16 @@ int			move_plyaer(int key, t_window *window)
 	return (0);
 }
 
+int		ft_123(t_window *window, t_img *img)
+{
+	ft_sunmin(window, img);
+//	draw_map(window, img);
+	mlx_put_image_to_window(window->mlx, window->win, img->img, 0, 0);	
+	draw_grid(window);
+	mlx_pixel_put(window->mlx, window->win, window->player.x, window->player.y, window->player.color);
+	return (0);
+}
+
 int		main(void)
 {
 	t_window	window;
@@ -176,10 +218,10 @@ int		main(void)
 	init_map(&img);
 	img.img = mlx_new_image(window.mlx, window.width, window.height);
 	img.data = (int *)mlx_get_data_addr(img.img, &img.bpp, &img.size_l, &img.endian);
-	draw_map(&window, &img);
-	mlx_put_image_to_window(window.mlx, window.win, img.img, 0, 0);
-	mlx_loop_hook(window.mlx, draw_grid, &window);
-	mlx_pixel_put(window.mlx, window.win, window.player.x, window.player.y, window.player.color);
+//	draw_map(&window, &img);
+//	mlx_put_image_to_window(window.mlx, window.win, img.img, 0, 0);
+	mlx_loop_hook(window.mlx, ft_123, &window);
+//	mlx_pixel_put(window.mlx, window.win, window.player.x, window.player.y, window.player.color);
 	mlx_key_hook(window.win, move_plyaer, &window);
 	mlx_loop(window.mlx);
 }
