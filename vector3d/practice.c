@@ -6,17 +6,19 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 06:55:50 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/01 22:36:00 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/03 04:10:37 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./mlx/mlx.h"
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #define KEY_W 13
 #define KEY_S 1
 #define KEY_A 0
 #define KEY_D 2
+#define KEY_ESC 53
 
 typedef struct	s_window
 {
@@ -34,13 +36,22 @@ typedef struct	s_window
 	int			col;
 	int			grid_color;
 	int			p_color;
+	int			key_w;
+	int			key_s;
+	int			key_a;
+	int			key_d;
+	int			key_esc;
 	double		posx;
 	double		posy;
 	double		dirx;
 	double		diry;
+	double		planex;
+	double		planey;
+	double		movespeed;
+	double		rotspeed;
 }				t_window;
 
-int		sujicsun(int key, t_window *window);
+int		sujicsun(t_window *window);
 /*
 int map[10][10] = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -169,21 +180,81 @@ int			draw_grid(t_window *window)
 	return (0);
 }
 
-int			move_player(int key, t_window *window)
+int			key_init(t_window *window)
+{
+	window->key_w = 0;
+	window->key_s = 0;
+	window->key_a = 0;
+	window->key_d = 0;
+	window->key_esc = 0;
+	return (0);
+}
+int			key_press(int key, t_window *window)
+{
+	if (key == KEY_W)
+		window->key_w = 1;
+	else if (key == KEY_S)
+		window->key_s = 1;
+	else if (key == KEY_A)
+		window->key_a = 1;
+	else if (key == KEY_D)
+		window->key_d = 1;
+	else if (key == KEY_ESC)
+		window->key_esc = 1;
+	return (0);
+}
+
+int			key_release(int key, t_window *window)
+{
+	if (key == KEY_W)
+		window->key_w = 0;
+	else if (key == KEY_S)
+		window->key_s = 0;
+	else if (key == KEY_A)
+		window->key_a = 0;
+	else if (key == KEY_D)
+		window->key_d = 0;
+	else if (key == KEY_ESC)
+		window->key_esc = 0;
+	return (0);
+}
+int			move_player(t_window *window)
 {
 	if ((0 < window->posx && window->posx <= window->width) &&
 			(0 < window->posy && window->posy <= window->height))
 	{
 //		mlx_pixel_put(window->mlx, window->win, window->player.x, window->player.y, 0x000000);
-		if (key == KEY_W)
+/*		if (key == KEY_W)
 			window->posy -= 5;
 		else if (key == KEY_S)
 			window->posy += 5;
 		else if (key == KEY_A)
 			window->posx -= 5;
 		else if (key == KEY_D)
-			window->posx += 5;
-		else if (key == 53)
+			window->posx += 5;*/
+		if (window->key_w)
+		{
+			window->posx += window->dirx * window->movespeed;
+			window->posy += window->diry * window->movespeed;
+		}
+		if (window->key_s)
+		{
+			window->posx -= window->dirx * window->movespeed;
+			window->posy -= window->diry * window->movespeed;
+		}
+		if (window->key_a)
+		{
+			double olddirx = window->dirx;
+			window->dirx = window->dirx * cos(window->rotspeed) - window->diry * sin(window->rotspeed);
+			window->diry = olddirx * sin(window->rotspeed) + window->diry * cos(window->rotspeed);
+		}
+		if (window->key_d)
+		{
+			double olddirx = window->dirx;
+			window->dirx = window->dirx * cos(-window->rotspeed) - window->diry * sin(-window->rotspeed);
+			window->diry = olddirx * sin(-window->rotspeed) + window->diry * cos(-window->rotspeed);
+		}
+		else if (window->key_esc)
 			exit(0);
 		if (window->posx <= 0)
 			window->posx = 1;
@@ -193,64 +264,56 @@ int			move_player(int key, t_window *window)
 			window->posx = window->width;
 		if (window->posy > window->height)
 			window->posy = window->height;
-		mlx_pixel_put(window->mlx, window->win, window->posx, window->posy, window->p_color);
-		sujicsun(key, window);
 	}
 	return (0);
 }
+#include <stdio.h>
 
-int		sujicsun(int key, t_window *window)
+int		sujicsun(t_window *window)
 {
 	int	i;
-	int j;
+	int	j;
+	double	k;
+	double	camera;
 
-	i = window->posy - 1;
-	if (key == KEY_W)
+	i = 0;
+	j = 0;
+	k = window->planey;
+	while (i < 100)
 	{
-		i = window->posy - 1;
-		while (i > window->posy - 10)
-		{
-			mlx_pixel_put(window->mlx, window->win, window->posx, i, 0x00FF00);
-			i--;
-		}
+		mlx_pixel_put(window->mlx, window->win, window->posy + window->diry * i, window->posx + window->dirx * i, 0x00FF00);
+		i++;
 	}
-	else if (key == KEY_S)
+	while (j < 100)
 	{
-		i = window->posy + 1;
-		while (i < window->posy + 10)
-		{
-			mlx_pixel_put(window->mlx, window->win, window->posx, i, 0x00FF00);
-			i++;
-		}
-	}
-	else if (key == KEY_A)
-	{
-		j = window->posx - 1;
-		while (j > window->posx - 10)
-		{
-			mlx_pixel_put(window->mlx, window->win, j, window->posy, 0x00FF00);
-			j--;
-		}
-	}
-	else if (key == KEY_D)
-	{
-		j = window->posx + 1;
-		while (j < window->posx + 10)
-		{
-			mlx_pixel_put(window->mlx, window->win, j, window->posy, 0x00FF00);
-			j++;
-		}
+		camera = 2 * j / 100 - 1;
+		mlx_pixel_put(window->mlx, window->win, window->posy + (window->diry + (j * (k * camera))), window->posx + (window->dirx + (j * (k * camera))), 0x00FF00);
+		j++;
 	}
 	return (0);
 }
 
 int		ft_123(t_window *window)
 {
+	int	i = -5;
+	int	j;
 //	ft_sunmin(window, img);
+	move_player(window);
 	draw_map(window);
 	mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
 	draw_grid(window);
-	mlx_pixel_put(window->mlx, window->win, window->posx, window->posy, window->p_color);
+	while (i <= 5)
+	{
+		j = -5;
+		while (j <= 5)
+		{
+			mlx_pixel_put(window->mlx, window->win, window->posy + i, window->posx + j, window->p_color);
+			j++;
+		}
+		i++;
+	}
+	sujicsun(window);
+//	mlx_pixel_put(window->mlx, window->win, window->posx, window->posy, window->p_color);
 
 	return (0);
 }
@@ -268,7 +331,14 @@ int		main(void)
 //	window.player.y = 220;
 	window.posx = 220;
 	window.posy = 220;
+	window.dirx = -1;
+	window.diry = 0;
+	window.planex = 0;
+	window.planey = 0.66;
+	window.movespeed = 2;
+	window.rotspeed = 0.05;
 	window.p_color = 0xFF0000;
+	key_init(&window);
 	window.mlx = mlx_init();
 	window.win = mlx_new_window(window.mlx, window.width, window.height, "draw_grid");
 	init_map(&window);
@@ -278,6 +348,7 @@ int		main(void)
 //	mlx_put_image_to_window(window.mlx, window.win, img.img, 0, 0);
 	mlx_loop_hook(window.mlx, ft_123, &window);
 //	mlx_pixel_put(window.mlx, window.win, window.player.x, window.player.y, window.player.color);
-	mlx_key_hook(window.win, &move_player, &window);
+	mlx_hook(window.win, 2, 0, &key_press, &window);
+	mlx_hook(window.win, 3, 0, &key_release, &window);
 	mlx_loop(window.mlx);
 }
