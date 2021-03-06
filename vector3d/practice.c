@@ -6,11 +6,17 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 06:55:50 by jeongwle          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/07 03:37:07 by jeongwle         ###   ########.fr       */
+=======
+/*   Updated: 2021/03/05 17:48:49 by jeongwle         ###   ########.fr       */
+>>>>>>> 114014be9fd3d610e4213c45ebd51d856ea709cd
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./mlx/mlx.h"
+//#include "mlx.h"
+#include "mlx_opengl.h"
+#include "mlx.h"
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -74,9 +80,15 @@ void		init_map(t_window *window)
  {
 	 int map[10][10] = {
 	 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+<<<<<<< HEAD
 	 	{1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
 	 	{1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
 	 	{1, 0, 0, 0, 1, 0, 0, 1, 1, 1},
+=======
+	 	{1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+	 	{1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
+	 	{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
+>>>>>>> 114014be9fd3d610e4213c45ebd51d856ea709cd
 	 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	 	{1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
 	 	{1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
@@ -327,11 +339,17 @@ int		ray(t_window *window)
 		i++;
 	}
 	while (j < 100)
+<<<<<<< HEAD
 player(window);
 338     draw_map(wi	{
 		double rdirx = window->dirx + window->planex;
 		double rdiry = window->diry + window->planey;
 		mlx_pixel_put(window->mlx, window->win, window->posy + rdiry * j, window->posx + rdirx * j, 0xFF0000);
+=======
+	{
+		camera = 2 * j / 100 - 1;
+		mlx_pixel_put(window->mlx, window->win, window->posy + (window->diry * (j * (k * camera))), window->posx + (window->dirx * (j * (k * camera))), 0xFFFF00);
+>>>>>>> 114014be9fd3d610e4213c45ebd51d856ea709cd
 		j++;
 	}
 	while (l < 100)
