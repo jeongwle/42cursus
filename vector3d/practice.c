@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 06:55:50 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/03 04:10:37 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/07 03:37:07 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <stdio.h>
 #define KEY_W 13
 #define KEY_S 1
 #define KEY_A 0
@@ -49,9 +50,12 @@ typedef struct	s_window
 	double		planey;
 	double		movespeed;
 	double		rotspeed;
+	double		rdirx;
+	double		rdiry;
 }				t_window;
 
-int		sujicsun(t_window *window);
+int		ray(t_window *window);
+int		my_pixel_put(t_window *window, int x, int y, int color);
 /*
 int map[10][10] = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -70,20 +74,18 @@ void		init_map(t_window *window)
  {
 	 int map[10][10] = {
 	 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	 	{1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
+	 	{1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+	 	{1, 0, 0, 0, 1, 0, 0, 1, 1, 1},
 	 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	 	{1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
 	 	{1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
 	 	{1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-	 	{1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+	 	{1, 0, 0, 1, 0, 0, 1, 0, 0, 1},
 	 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	 };
  	memcpy(window->map, map, sizeof(int) * 10 * 10);
  }
-
-#include <stdio.h>
 
 int		draw_map(t_window *window)
 {
@@ -161,7 +163,7 @@ int			draw_grid(t_window *window)
 		draw_position = 0;
 		while(draw_position <= window->width)
 		{
-			mlx_pixel_put(window->mlx, window->win, draw_position, i * (window->height / window->row), window->grid_color);
+			my_pixel_put(window, draw_position, i * (window->height / window->row), window->grid_color);
 			draw_position++;
 		}
 		i++;
@@ -172,11 +174,36 @@ int			draw_grid(t_window *window)
 		draw_position = 0;
 		while (draw_position <= window->height)
 		{
-			mlx_pixel_put(window->mlx, window->win, i * (window->width / window->col), draw_position, window->grid_color);
+			my_pixel_put(window, i * (window->width / window->col), draw_position, window->grid_color);
 			draw_position++;
 		}
 		i++;
 	}
+	return (0);
+}
+
+int			image_clean(t_window *window)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < window->height)
+	{
+		j = 0;
+		while (j < window->width)
+		{
+			window->data[i * window->width + j] = 0x000000;
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int			my_pixel_put(t_window *window, int x, int y, int color)
+{
+	window->data[y * window->width + x] = color;
 	return (0);
 }
 
@@ -220,39 +247,43 @@ int			key_release(int key, t_window *window)
 }
 int			move_player(t_window *window)
 {
+	double	olddirx;
+	double	oldplanex;
+
 	if ((0 < window->posx && window->posx <= window->width) &&
 			(0 < window->posy && window->posy <= window->height))
 	{
-//		mlx_pixel_put(window->mlx, window->win, window->player.x, window->player.y, 0x000000);
-/*		if (key == KEY_W)
-			window->posy -= 5;
-		else if (key == KEY_S)
-			window->posy += 5;
-		else if (key == KEY_A)
-			window->posx -= 5;
-		else if (key == KEY_D)
-			window->posx += 5;*/
 		if (window->key_w)
 		{
-			window->posx += window->dirx * window->movespeed;
-			window->posy += window->diry * window->movespeed;
+			if (!window->map[(int)(window->posx + window->dirx * window->movespeed) / 50][(int)window->posy / 50])
+				window->posx += window->dirx * window->movespeed;
+			if (!window->map[(int)window->posx / 50][(int)(window->posy + window->diry * window->movespeed) / 50])
+				window->posy += window->diry * window->movespeed;
 		}
 		if (window->key_s)
 		{
-			window->posx -= window->dirx * window->movespeed;
-			window->posy -= window->diry * window->movespeed;
+			if (!window->map[(int)(window->posx - window->dirx * window->movespeed) / 50][(int)window->posy / 50])
+				window->posx -= window->dirx * window->movespeed;
+			if (!window->map[(int)window->posx / 50][(int)(window->posy - window->diry * window->movespeed) / 50])
+				window->posy -= window->diry * window->movespeed;
 		}
 		if (window->key_a)
 		{
-			double olddirx = window->dirx;
+			olddirx = window->dirx;
 			window->dirx = window->dirx * cos(window->rotspeed) - window->diry * sin(window->rotspeed);
 			window->diry = olddirx * sin(window->rotspeed) + window->diry * cos(window->rotspeed);
+			oldplanex = window->planex;
+			window->planex = window->planex * cos(window->rotspeed) - window->planey * sin(window->rotspeed);
+			window->planey = oldplanex * sin(window->rotspeed) + window->planey * cos(window->rotspeed);
 		}
 		if (window->key_d)
 		{
-			double olddirx = window->dirx;
+			olddirx = window->dirx;
 			window->dirx = window->dirx * cos(-window->rotspeed) - window->diry * sin(-window->rotspeed);
 			window->diry = olddirx * sin(-window->rotspeed) + window->diry * cos(-window->rotspeed);
+			oldplanex = window->planex;
+			window->planex = window->planex * cos(-window->rotspeed) - window->planey * sin(-window->rotspeed);
+			window->planey = oldplanex * sin(-window->rotspeed) + window->planey * cos(-window->rotspeed);
 		}
 		else if (window->key_esc)
 			exit(0);
@@ -267,29 +298,49 @@ int			move_player(t_window *window)
 	}
 	return (0);
 }
-#include <stdio.h>
 
-int		sujicsun(t_window *window)
+int		ray(t_window *window)
 {
 	int	i;
-	int	j;
-	double	k;
-	double	camera;
+	double	j;
 
-	i = 0;
-	j = 0;
-	k = window->planey;
+	j = -1;
+	while (j <= 1)
+	{
+		i = 0;
+		while (i < sqrt(pow(window->width, 2) + pow(window->height, 2)))
+		{
+			window->rdirx = window->dirx + window->planex * j;
+			window->rdiry = window->diry + window->planey * j;
+			if (!window->map[(int)(window->posx + window->rdirx * i) / 50][(int)(window->posy + window->rdiry * i) / 50])
+				my_pixel_put(window, (int)(window->posy + window->rdiry * i), (int)(window->posx + window->rdirx * i), 0x00FF00);
+			else
+				break;
+			i++;
+		}
+		j += 0.03;
+	}
+	/*
 	while (i < 100)
 	{
 		mlx_pixel_put(window->mlx, window->win, window->posy + window->diry * i, window->posx + window->dirx * i, 0x00FF00);
 		i++;
 	}
 	while (j < 100)
-	{
-		camera = 2 * j / 100 - 1;
-		mlx_pixel_put(window->mlx, window->win, window->posy + (window->diry + (j * (k * camera))), window->posx + (window->dirx + (j * (k * camera))), 0x00FF00);
+player(window);
+338     draw_map(wi	{
+		double rdirx = window->dirx + window->planex;
+		double rdiry = window->diry + window->planey;
+		mlx_pixel_put(window->mlx, window->win, window->posy + rdiry * j, window->posx + rdirx * j, 0xFF0000);
 		j++;
 	}
+	while (l < 100)
+	{
+		double rdirx = window->dirx - window->planex;
+		double rdiry = window->diry - window->planey;
+		mlx_pixel_put(window->mlx, window->win, window->posy + rdiry * l, window->posx + rdirx * l, 0x00FFFF);
+		l++;
+	}*/
 	return (0);
 }
 
@@ -297,23 +348,22 @@ int		ft_123(t_window *window)
 {
 	int	i = -5;
 	int	j;
-//	ft_sunmin(window, img);
+	image_clean(window);
 	move_player(window);
 	draw_map(window);
-	mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
+	ray(window);
 	draw_grid(window);
 	while (i <= 5)
 	{
 		j = -5;
 		while (j <= 5)
 		{
-			mlx_pixel_put(window->mlx, window->win, window->posy + i, window->posx + j, window->p_color);
+			my_pixel_put(window, window->posy + i, window->posx + j, window->p_color);
 			j++;
 		}
 		i++;
-	}
-	sujicsun(window);
-//	mlx_pixel_put(window->mlx, window->win, window->posx, window->posy, window->p_color);
+	}	
+	mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
 
 	return (0);
 }
@@ -327,8 +377,6 @@ int		main(void)
 	window.row = 10;
 	window.col = 10;
 	window.grid_color = 0x00FFFF;
-//	window.player.x = 220;
-//	window.player.y = 220;
 	window.posx = 220;
 	window.posy = 220;
 	window.dirx = -1;
@@ -337,6 +385,8 @@ int		main(void)
 	window.planey = 0.66;
 	window.movespeed = 2;
 	window.rotspeed = 0.05;
+	window.rdirx = 0;
+	window.rdiry = 0;
 	window.p_color = 0xFF0000;
 	key_init(&window);
 	window.mlx = mlx_init();
@@ -344,10 +394,7 @@ int		main(void)
 	init_map(&window);
 	window.img = mlx_new_image(window.mlx, window.width, window.height);
 	window.data = (int *)mlx_get_data_addr(window.img, &window.bpp, &window.size_l, &window.endian);
-//	draw_map(&window, &img);
-//	mlx_put_image_to_window(window.mlx, window.win, img.img, 0, 0);
 	mlx_loop_hook(window.mlx, ft_123, &window);
-//	mlx_pixel_put(window.mlx, window.win, window.player.x, window.player.y, window.player.color);
 	mlx_hook(window.win, 2, 0, &key_press, &window);
 	mlx_hook(window.win, 3, 0, &key_release, &window);
 	mlx_loop(window.mlx);
