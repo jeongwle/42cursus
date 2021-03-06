@@ -6,11 +6,13 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 06:55:50 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/03 04:10:37 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/05 17:48:49 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./mlx/mlx.h"
+//#include "mlx.h"
+#include "mlx_opengl.h"
+#include "mlx.h"
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -70,9 +72,9 @@ void		init_map(t_window *window)
  {
 	 int map[10][10] = {
 	 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	 	{1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+	 	{1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
+	 	{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
 	 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	 	{1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
 	 	{1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
@@ -234,13 +236,17 @@ int			move_player(t_window *window)
 			window->posx += 5;*/
 		if (window->key_w)
 		{
-			window->posx += window->dirx * window->movespeed;
-			window->posy += window->diry * window->movespeed;
+			if (!window->map[(int)(window->posx + window->dirx * window->movespeed) / 50][(int)window->posy / 50])
+				window->posx += window->dirx * window->movespeed;
+			if (!window->map[(int)window->posx / 50][(int)(window->posy + window->diry * window->movespeed) / 50])
+				window->posy += window->diry * window->movespeed;
 		}
 		if (window->key_s)
 		{
-			window->posx -= window->dirx * window->movespeed;
-			window->posy -= window->diry * window->movespeed;
+			if (!window->map[(int)(window->posx - window->dirx * window->movespeed) / 50][(int)window->posy / 50])
+				window->posx -= window->dirx * window->movespeed;
+			if (!window->map[(int)window->posx / 50][(int)(window->posy - window->diry * window->movespeed) / 50])
+				window->posy -= window->diry * window->movespeed;
 		}
 		if (window->key_a)
 		{
@@ -287,7 +293,7 @@ int		sujicsun(t_window *window)
 	while (j < 100)
 	{
 		camera = 2 * j / 100 - 1;
-		mlx_pixel_put(window->mlx, window->win, window->posy + (window->diry + (j * (k * camera))), window->posx + (window->dirx + (j * (k * camera))), 0x00FF00);
+		mlx_pixel_put(window->mlx, window->win, window->posy + (window->diry * (j * (k * camera))), window->posx + (window->dirx * (j * (k * camera))), 0xFFFF00);
 		j++;
 	}
 	return (0);
