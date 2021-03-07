@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 06:55:50 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/07 03:44:34 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/07 22:29:02 by jeongwle         ###   ########.fr       */
 /*   Updated: 2021/03/05 17:48:49 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -54,6 +54,7 @@ typedef struct	s_window
 	double		rotspeed;
 	double		rdirx;
 	double		rdiry;
+	int			index;
 }				t_window;
 
 int		ray(t_window *window);
@@ -301,12 +302,33 @@ int			move_player(t_window *window)
 	return (0);
 }
 
+void	wall(t_window *window, double len)
+{
+	int		wall;
+	int		start;
+	int		end;
+
+	wall = (int)(window->height / (len / 50));
+	start = window->height / 2 - wall / 2;
+	end = window->height / 2 + wall / 2;
+	while (start < end)
+	{
+		my_pixel_put(window, start, window->index, 0x00FF00);
+		start++;
+	}
+}
+/*
 int		ray(t_window *window)
 {
-	int	i;
+	int		i;
 	double	j;
+	double	len;
+	int		idx;
 
+	idx = 0;
+	
 	j = -1;
+	window->index = 0;
 	while (j <= 1)
 	{
 		i = 0;
@@ -315,12 +337,77 @@ int		ray(t_window *window)
 			window->rdirx = window->dirx + window->planex * j;
 			window->rdiry = window->diry + window->planey * j;
 			if (!window->map[(int)(window->posx + window->rdirx * i) / 50][(int)(window->posy + window->rdiry * i) / 50])
-				my_pixel_put(window, (int)(window->posy + window->rdiry * i), (int)(window->posx + window->rdirx * i), 0x00FF00);
+//				my_pixel_put(window, (int)(window->posy + window->rdiry * i), (int)(window->posx + window->rdirx * i), 0x00FF00);
+				;
 			else
 				break;
 			i++;
 		}
-		j += 0.03;
+		idx++;
+		len = sqrt(pow(fabs(window->posx - window->rdirx), 2) + pow(fabs(window->posy - window->rdiry), 2));
+//		printf("%f %f\n", window->rdirx, window->rdiry);
+		wall(window, len);
+		window->index++;
+		j += 0.004;
+	}
+	while (i < 100)
+	{
+		mlx_pixel_put(window->mlx, window->win, window->posy + window->diry * i, window->posx + window->dirx * i, 0x00FF00);
+		i++;
+	}
+	while (j < 100)
+	{
+		camera = 2 * j / 100 - 1;
+		mlx_pixel_put(window->mlx, window->win, window->posy + (window->diry * (j * (k * camera))), window->posx + (window->dirx * (j * (k * camera))), 0xFFFF00);
+		j++;
+	}
+	while (l < 100)
+	{
+		double rdirx = window->dirx - window->planex;
+		double rdiry = window->diry - window->planey;
+		mlx_pixel_put(window->mlx, window->win, window->posy + rdiry * l, window->posx + rdirx * l, 0x00FFFF);
+		l++;
+	}
+	return (0);
+}*/
+
+int		ray(t_window *window)
+{
+	int		i;
+	double	j;
+	double	len;
+	int		idx;
+	double 	ray_x;
+	double	ray_y;
+
+	idx = 0;
+	
+	j = -1;
+	window->index = 0;
+	while (j <= 1)
+	{
+		i = 0;
+		ray_x = (window->posx / 50);
+		ray_y = (window->posy / 50);
+		while (1)
+		{
+			ray_x += window->dirx *j;
+			ray_y += window->diry *j;
+			if (!window->map[(int)(ray_x)][(int)(ray_y)])
+//				my_pixel_put(window, (int)(window->posy + window->rdiry * i), (int)(window->posx + window->rdirx * i), 0x00FF00);
+				;
+			else
+				break;
+			i++;
+		}
+		idx++;
+		// printf("%f %f\n",ray_x, ray_y);
+		len = sqrt(pow(fabs(window->posx - ray_x), 2) + pow(fabs(window->posy - ray_y), 2));
+		// printf("%f\n",len);
+//		printf("%f %f\n", window->rdirx, window->rdiry);
+		wall(window, len);
+		window->index++;
+		j += 0.004;
 	}
 	/*
 	while (i < 100)
@@ -350,9 +437,9 @@ int		ft_123(t_window *window)
 	int	j;
 	image_clean(window);
 	move_player(window);
-	draw_map(window);
+//	draw_map(window);
 	ray(window);
-	draw_grid(window);
+//	draw_grid(window);
 	while (i <= 5)
 	{
 		j = -5;
