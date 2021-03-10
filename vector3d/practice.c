@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 06:55:50 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/07 22:29:02 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/10 18:30:54 by jeongwle         ###   ########.fr       */
 /*   Updated: 2021/03/05 17:48:49 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -81,10 +81,10 @@ void		init_map(t_window *window)
 	 	{1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
 	 	{1, 0, 0, 0, 1, 0, 0, 1, 1, 1},
 	 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 	{1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
-	 	{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-	 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 	{1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
+	 	{1, 0, 0, 1, 0, 0, 1, 0, 0, 1},
+	 	{1, 0, 1, 0, 0, 0, 1, 0, 0, 1},
+	 	{1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+	 	{1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
 	 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	 };
  	memcpy(window->map, map, sizeof(int) * 10 * 10);
@@ -219,6 +219,7 @@ int			key_init(t_window *window)
 	window->key_esc = 0;
 	return (0);
 }
+
 int			key_press(int key, t_window *window)
 {
 	if (key == KEY_W)
@@ -248,6 +249,7 @@ int			key_release(int key, t_window *window)
 		window->key_esc = 0;
 	return (0);
 }
+
 int			move_player(t_window *window)
 {
 	double	olddirx;
@@ -308,24 +310,21 @@ void	wall(t_window *window, double len)
 	int		start;
 	int		end;
 
-	wall = (int)(window->height / (len / 50));
+	wall = (int)(window->height / len);
 	start = window->height / 2 - wall / 2;
 	end = window->height / 2 + wall / 2;
 	while (start < end)
 	{
-		my_pixel_put(window, start, window->index, 0x00FF00);
+		my_pixel_put(window, window->index, start, 0x00FF00);
 		start++;
 	}
 }
-/*
+
 int		ray(t_window *window)
 {
 	int		i;
 	double	j;
 	double	len;
-	int		idx;
-
-	idx = 0;
 	
 	j = -1;
 	window->index = 0;
@@ -337,19 +336,17 @@ int		ray(t_window *window)
 			window->rdirx = window->dirx + window->planex * j;
 			window->rdiry = window->diry + window->planey * j;
 			if (!window->map[(int)(window->posx + window->rdirx * i) / 50][(int)(window->posy + window->rdiry * i) / 50])
-//				my_pixel_put(window, (int)(window->posy + window->rdiry * i), (int)(window->posx + window->rdirx * i), 0x00FF00);
-				;
+				my_pixel_put(window, (int)(window->posy + window->rdiry * i), (int)(window->posx + window->rdirx * i), 0x00FF00);
 			else
 				break;
 			i++;
 		}
-		idx++;
-		len = sqrt(pow(fabs(window->posx - window->rdirx), 2) + pow(fabs(window->posy - window->rdiry), 2));
-//		printf("%f %f\n", window->rdirx, window->rdiry);
+		len =sqrt(pow(fabs(window->rdirx * i) , 2) + pow(fabs(window->rdiry * i), 2));
 		wall(window, len);
 		window->index++;
 		j += 0.004;
 	}
+	/*
 	while (i < 100)
 	{
 		mlx_pixel_put(window->mlx, window->win, window->posy + window->diry * i, window->posx + window->dirx * i, 0x00FF00);
@@ -367,10 +364,10 @@ int		ray(t_window *window)
 		double rdiry = window->diry - window->planey;
 		mlx_pixel_put(window->mlx, window->win, window->posy + rdiry * l, window->posx + rdirx * l, 0x00FFFF);
 		l++;
-	}
+	}*/
 	return (0);
-}*/
-
+}
+/*
 int		ray(t_window *window)
 {
 	int		i;
@@ -409,7 +406,7 @@ int		ray(t_window *window)
 		window->index++;
 		j += 0.004;
 	}
-	/*
+	
 	while (i < 100)
 	{
 		mlx_pixel_put(window->mlx, window->win, window->posy + window->diry * i, window->posx + window->dirx * i, 0x00FF00);
@@ -427,19 +424,20 @@ int		ray(t_window *window)
 		double rdiry = window->diry - window->planey;
 		mlx_pixel_put(window->mlx, window->win, window->posy + rdiry * l, window->posx + rdirx * l, 0x00FFFF);
 		l++;
-	}*/
+	}
 	return (0);
-}
+}*/
 
 int		ft_123(t_window *window)
 {
 	int	i = -5;
 	int	j;
+	
 	image_clean(window);
 	move_player(window);
-//	draw_map(window);
+	draw_map(window);
 	ray(window);
-//	draw_grid(window);
+	draw_grid(window);
 	while (i <= 5)
 	{
 		j = -5;
@@ -449,9 +447,8 @@ int		ft_123(t_window *window)
 			j++;
 		}
 		i++;
-	}	
+	}
 	mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
-
 	return (0);
 }
 
