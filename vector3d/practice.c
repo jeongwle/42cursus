@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 06:55:50 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/10 22:28:04 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/11 19:53:12 by jeongwle         ###   ########.fr       */
 /*   Updated: 2021/03/09 08:10:06 by jeongwle         ###   ########.fr       */
 /*   Updated: 2021/03/05 17:48:49 by jeongwle         ###   ########.fr       */
 /*                                                                            */
@@ -77,7 +77,7 @@ int map[10][10] = {
 		{1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };*/
-/*
+
 void		init_map(t_window *window)
  {
 	 int map[mapwidth][mapheight] = {
@@ -107,9 +107,9 @@ void		init_map(t_window *window)
 	 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	 };
  	memcpy(window->map, map, sizeof(int) * mapwidth * mapheight);
- }*/
+ }
 
-
+/*
 void		init_map(t_window *window)
  {
 	 int map[mapwidth][mapheight] = {
@@ -139,19 +139,19 @@ void		init_map(t_window *window)
 	 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	 };
  	memcpy(window->map, map, sizeof(int) * mapwidth * mapheight);
- }
+ }*/
 
 int		draw_map(t_window *window)
 {
 	int	row;
 	int	col;
-	int	tile_width;
-	int	tile_height;
+	double	tile_width;
+	double	tile_height;
 	int	x;
 	int	y;
 
-	tile_width = window->width / mapwidth;
-	tile_height = window->height / mapheight;
+	tile_width = (double)window->width / mapwidth;
+	tile_height = (double)window->height / mapheight;
 	col = 0;
 	while (col < mapwidth)
 	{
@@ -166,7 +166,7 @@ int		draw_map(t_window *window)
 					x = 0;
 					while (x < tile_width)
 					{
-						window->data[(y + (col * tile_height)) * window->width + (x + (row * tile_width))] = 0xFFFFFF;
+						window->data[(int)((y + (col * tile_height)) * window->width + (x + (row * tile_width)))] = 0xFFFFFF;
 						x++;
 					}
 					y++;
@@ -228,7 +228,7 @@ int			draw_grid(t_window *window)
 		draw_position = 0;
 		while (draw_position <= window->height)
 		{
-			my_pixel_put(window, i * (window->width / mapwidth), draw_position, window->grid_color);
+			my_pixel_put(window, (int)(i * ((double)window->width / mapwidth)), draw_position, window->grid_color);
 			draw_position++;
 		}
 		i++;
@@ -257,7 +257,7 @@ int			image_clean(t_window *window)
 
 int			my_pixel_put(t_window *window, int x, int y, int color)
 {
-	window->data[y * 480 + x] = color;
+	window->data[y * window->width + x] = color;
 	return (0);
 }
 
@@ -347,10 +347,10 @@ int			move_player(t_window *window)
 			window->posx = 1;
 		if (window->posy <= 0)
 			window->posy = 1;
-		if (window->posx > screenwidth)
-			window->posx = screenwidth;
-		if (window->posy > screenheight)
-			window->posy = screenheight;
+		if (window->posx > window->width)
+			window->posx = window->width;
+		if (window->posy > window->height)
+			window->posy = window->height;
 	}
 	return (0);
 }
@@ -366,7 +366,7 @@ void	wall(t_window *window, double len)
 	end = window->height / 2 + wall / 2;
 	while (start < end)
 	{
-		my_pixel_put(window, window->index, start, 0xFF0000);
+//		my_pixel_put(window, window->index, start, 0xFF0000);
 		start++;
 	}
 }
@@ -501,7 +501,7 @@ int		ft_123(t_window *window)
 	draw_map(window);
 	ray2(window);
 	ray(window);
-//	draw_grid(window);
+	draw_grid(window);
 	while (i <= 5)
 	{
 		j = -5;
@@ -520,7 +520,7 @@ int		main(void)
 {
 	t_window	window;
 
-	window.width = 480;
+	window.width = 640;
 	window.height = 480;
 	window.row = 10;
 	window.col = 10;
