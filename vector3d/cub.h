@@ -6,13 +6,13 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:53:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/12 18:57:20 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/13 17:50:46 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB_H
 # define CUB_H
 
-# include "./mlx/mlx.h"
+# include "mlx.h"
 # include <stdlib.h>
 # include <string.h>
 # include <math.h>

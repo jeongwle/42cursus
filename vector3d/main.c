@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/12 18:58:03 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/13 20:04:44 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,36 @@ void	init_param(t_param *p)
 	p->rotspeed = 0.05;
 	p->width = 600;
 	p->height = 600;
+	p->mapx = (int)p->posx;
+	p->mapy = (int)p->posy;
+	p->mlx = mlx_init();
+	p->win = mlx_new_window(p->mlx, p->width, p->height, "cub3d");
+	p->img = mlx_new_image(p->win, p->width, p->height);
+}
+
+int		my_pixel_put(t_param *p, int x, int y, int color)
+{
+	p->data[y * p->width + x] = color;
+	return (0);
+}
+
+int		image_clean(t_param *p)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < p->height)
+	{
+		j = 0;
+		while (j < p-> width)
+		{
+			p->data[i * p->width + j] = 0x000000;
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
 
 int		key_press(int key, t_param *p)
@@ -158,9 +188,10 @@ void	wall_param(t_param *p)
 		end = p->height - 1;
 	while (start < end)
 	{
-		mlx_pixel_put(p->mlx, p->win, p->index, start, 0x00FF00);
+		my_pixel_put(p, p->index, start, 0x0000FF);
 		start++;
 	}
+//	printf("%d %d %d %d \n", p->index, start, end, len);
 }
 
 void	DDA_param_two(t_param *p)
@@ -182,14 +213,14 @@ void	DDA_param_two(t_param *p)
 	}
 	else
 	{
-		p->stepy = -1;
+		p->stepy = 1;
 		p->sidedy = (p->mapy + 1.0 - p->posy) * p->deldy;
 	}
 }
 
 void	DDA_param(t_param *p)
 {
-		p->camerax = 2 * p->index / p->width - 1;
+		p->camerax = 2 * p->index / (double)p->width - 1;
 		p->rdirx = p->dirx + p->planex * p->camerax;
 		p->rdiry = p->diry + p->planey * p->camerax;
 		p->mapx = (int)p->posx;
@@ -206,6 +237,7 @@ void	DDA(t_param *p)
 	while (++p->index < p->width)
 	{
 		DDA_param(p);
+		printf("x = %d / %f .... y = %d / %f\n", p->mapx, p->posx, p->mapy, p->posy);
 		while (p->hit == 0)
 		{
 			if (p->sidedx < p->sidedy)
@@ -224,17 +256,40 @@ void	DDA(t_param *p)
 				p->hit = 1;
 		}
 		if (p->side == 0)
+		{
 			p->walld = (p->mapx - p->posx + (1 - p->stepx) / 2) / p->rdirx;
+//			printf("side == 0 //   %d %f %d %f %f\n", p->mapx, p->posx, p->stepx, p->rdirx, p->walld);
+			printf("x = %d %f \n", p->mapx, p->posx);
+		}
 		else
+		{
 			p->walld = (p->mapy - p->posy + (1 - p->stepy) / 2) / p->rdiry;
+//			printf("else //   %d %f %d %f %f\n", p->mapy, p->posy, p->stepy, p->rdiry, p->walld);
+		}
 		wall_param(p);
 	}
 }
 
 int		main_loop(t_param *p)
 {
+	int	i;
+	int	j;
+
+	image_clean(p);
 	DDA(p);
 	move_player(p);
+	i = 0;
+	while (i < 5)
+	{
+		j = 0;
+		while (j < 5)
+		{
+			my_pixel_put(p, p->posy * 25 + i, p->posx * 25 + j, 0x00FF00);
+			j++;
+		}
+		i++;
+	}
+	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
 	return (0);
 }
 
@@ -243,12 +298,11 @@ int		main(void)
 	t_param p;
 
 	init_param(&p);
-	p.mlx = mlx_init();
-	p.win = mlx_new_window(p.mlx, p.width, p.height, "cub3d");
+	p.data = (int *)mlx_get_data_addr(p.img, &p.bpp, &p.size_l, &p.endian);
 	mlx_loop_hook(p.mlx, main_loop, &p);
 	mlx_hook(p.win, 2, 0, &key_press, &p);
 	mlx_hook(p.win, 3, 0, &key_release, &p);
-	mlx_loop(p.win);
+	mlx_loop(p.mlx);
 
 
 }
