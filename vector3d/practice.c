@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 06:55:50 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/11 19:53:12 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/12 15:51:53 by jeongwle         ###   ########.fr       */
 /*   Updated: 2021/03/09 08:10:06 by jeongwle         ###   ########.fr       */
 /*   Updated: 2021/03/05 17:48:49 by jeongwle         ###   ########.fr       */
 /*                                                                            */
@@ -185,10 +185,8 @@ int			ft_sunmin(t_window *window, t_img *img)
 	int	tile_height;
 	int	x;
 	int	y;
-
 	tile_width = window->width / window->col;
 	tile_height = window->height / window->row;
-
 	y = 0;
 	while (y < window->height)
 	{
@@ -439,7 +437,6 @@ int		ray(t_window *window)
 	int		idx;
 	double 	ray_x;
 	double	ray_y;
-
 	idx = 0;
 	
 	j = -1;
@@ -520,7 +517,7 @@ int		main(void)
 {
 	t_window	window;
 
-	window.width = 640;
+	window.width = 480;
 	window.height = 480;
 	window.row = 10;
 	window.col = 10;
