@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/14 18:37:52 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/15 20:44:48 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 int		map[mapheight][mapwidth] =
 {
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
 
 void	init_param(t_param *p)
@@ -55,13 +55,60 @@ void	init_param(t_param *p)
 	p->planey = 0.66;
 	p->movespeed = 0.1;
 	p->rotspeed = 0.05;
-	p->width = 600;
-	p->height = 600;
+	p->width = 640;
+	p->height = 480;
 	p->mapx = (int)p->posx;
 	p->mapy = (int)p->posy;
 	p->mlx = mlx_init();
 	p->win = mlx_new_window(p->mlx, p->width, p->height, "cub3d");
-	p->img = mlx_new_image(p->mlx, p->width, p->height);
+}
+
+
+void	init_buf(t_param *p)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < p->height)
+	{
+		j = 0;
+		while (j <p->width)
+		{
+			p->buf[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+}
+
+int		init_texture(t_param *p, int i, int j, int k)
+{
+	p->texture = (int **)malloc(sizeof(int *) * 8);
+	if (p->texture == NULL)
+		return (-1);
+	while (++i < 8)
+	{
+		p->texture[i] = (int *)malloc(sizeof(int) * (texheight* texwidth));
+		if (p->texture[i] == NULL)
+		{
+			while (k < i)
+			{
+				free(p->texture[k]);
+				k++;
+			}
+			return (-1);
+		}
+	}
+	i = 0;
+	while (i < 8)
+	{
+		j = -1;
+		while (++j < texheight * texwidth)
+			p->texture[i][j] = 0;
+		i++;
+	}
+	return (0);
 }
 
 int		my_pixel_put(t_param *p, int x, int y, int color)
@@ -79,7 +126,7 @@ int		image_clean(t_param *p)
 	while (i < p->height)
 	{
 		j = 0;
-		while (j < p-> width)
+		while (j < p->width)
 		{
 			p->data[i * p->width + j] = 0x000000;
 			j++;
@@ -172,6 +219,91 @@ int		move_player(t_param *p)
 	}
 	return (0);
 }
+void	draw(t_param *p)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < p->height)
+	{
+		x = 0;
+		while (x < p->width)
+		{
+			p->data[y * p->width +x] = p->buf[y][x];
+			x++;
+		}
+		y++;
+	}
+}
+
+void	load_image(t_param *p, int *texture, char *path)
+{
+	int	x;
+	int	y;
+
+	p->img = mlx_xpm_file_to_image(p->mlx, path, &p->img_w, &p->img_h);
+	p->data = (int *)mlx_get_data_addr(p->img, &p->bpp, &p->size_l, &p->endian);
+	y = 0;
+	while (y < p->img_h)
+	{
+		x = 0;
+		while (x < p->img_w)
+		{
+			texture[p->img_w * y + x] = p->data[p->img_w * y + x];
+			x++;
+		}
+		y++;
+	}
+	mlx_destroy_image(p->mlx, p->img);
+}
+
+void	load_texture(t_param *p)
+{
+	load_image(p, p->texture[0], "textures/eagle.xpm");
+	load_image(p, p->texture[1], "textures/redbrick.xpm");
+	load_image(p, p->texture[2], "textures/purplestone.xpm");
+	load_image(p, p->texture[3], "textures/greystone.xpm");
+	load_image(p, p->texture[4], "textures/bluestone.xpm");
+	load_image(p, p->texture[5], "textures/mossy.xpm");
+	load_image(p, p->texture[6], "textures/wood.xpm");
+	load_image(p, p->texture[7], "textures/colorstone.xpm");
+}
+void	tex_param_two(t_param *p, int len, int start, int end)
+{
+	int	i;
+
+	i = start;
+	while (i < end)
+	{
+		p->texy = (int)p->texpos & (texheight - 1);
+		p->texpos += p->step;
+		p->color = p->texture[p->texnum][texheight * p->texy + p->texx];
+		if (p->side == 1)
+			p->color = (p->color >> 1) & 8355711;
+		p->buf[i][p->index] = p->color;
+		i++;
+	}
+}
+
+void	tex_param(t_param *p, int len, int start, int end)
+{
+	p->texnum = 1;
+//	p->texnum = map[p->mapx][p->mapy];
+	if (p->side == 0)
+		p->wallx = p->posy + p->walld * p->rdiry;
+	else
+		p->wallx = p->posx + p->walld * p->rdirx;
+	p->wallx -= floor(p->wallx);
+	p->texx = (int)(p->wallx * (double)texwidth);
+	if (p->side == 0 && p->rdirx > 0)
+		p->texx = texwidth - p->texx - 1;
+	if (p->side == 1 && p->rdiry < 0)
+		p->texx = texwidth - p->texx - 1;
+	p->step = 1.0 * texheight / len;
+	p->texpos = (start - p->height / 2 + len / 2) * p->step;
+	tex_param_two(p, len, start, end);
+}
 
 void	wall_param(t_param *p)
 {
@@ -186,6 +318,7 @@ void	wall_param(t_param *p)
 	end = p->height / 2 + len / 2;
 	if (end >= p->height)
 		end = p->height - 1;
+	tex_param(p, len, start, end);
 	while (start < end)
 	{
 		my_pixel_put(p, p->index, start, 0x0000FF);
@@ -268,6 +401,7 @@ int		main_loop(t_param *p)
 
 	image_clean(p);
 	DDA(p);
+	draw(p);
 	move_player(p);
 	i = 0;
 	while (i < 5)
@@ -289,11 +423,13 @@ int		main(void)
 	t_param p;
 
 	init_param(&p);
+	init_buf(&p);
+	init_texture(&p, -1, -1, 0);
+	load_texture(&p);
+	p.img = mlx_new_image(p.mlx, p.width, p.height);
 	p.data = (int *)mlx_get_data_addr(p.img, &p.bpp, &p.size_l, &p.endian);
 	mlx_loop_hook(p.mlx, main_loop, &p);
 	mlx_hook(p.win, 2, 0, &key_press, &p);
 	mlx_hook(p.win, 3, 0, &key_release, &p);
 	mlx_loop(p.mlx);
-
-
 }
