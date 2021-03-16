@@ -18,7 +18,7 @@ int		map[mapheight][mapwidth] =
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -76,6 +76,27 @@ void	init_buf(t_param *p)
 		while (j <p->width)
 		{
 			p->buf[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	ceiling_floor(t_param *p)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < p->height)
+	{
+		j = 0;
+		while (j <p->width)
+		{
+			if ( i < p->height / 2)
+				p->buf[i][j] = 0x0000FF;
+			else
+				p->buf[i][j] = 0x00FF00;
 			j++;
 		}
 		i++;
@@ -230,7 +251,8 @@ void	draw(t_param *p)
 		x = 0;
 		while (x < p->width)
 		{
-			p->data[y * p->width +x] = p->buf[y][x];
+			if (p->buf[y][x])
+				p->data[y * p->width +x] = p->buf[y][x];
 			x++;
 		}
 		y++;
@@ -279,8 +301,6 @@ void	tex_param_two(t_param *p, int len, int start, int end)
 		p->texy = (int)p->texpos & (texheight - 1);
 		p->texpos += p->step;
 		p->color = p->texture[p->texnum][texheight * p->texy + p->texx];
-		if (p->side == 1)
-			p->color = (p->color >> 1) & 8355711;
 		p->buf[i][p->index] = p->color;
 		i++;
 	}
@@ -294,6 +314,7 @@ void	tex_param(t_param *p, int len, int start, int end)
 		p->wallx = p->posy + p->walld * p->rdiry;
 	else
 		p->wallx = p->posx + p->walld * p->rdirx;
+	printf("%f\n", p->wallx);
 	p->wallx -= floor(p->wallx);
 	p->texx = (int)(p->wallx * (double)texwidth);
 	if (p->side == 0 && p->rdirx > 0)
@@ -317,13 +338,13 @@ void	wall_param(t_param *p)
 		start = 0;
 	end = p->height / 2 + len / 2;
 	if (end >= p->height)
-		end = p->height - 1;
+		end = p->height;
 	tex_param(p, len, start, end);
-	while (start < end)
-	{
-		my_pixel_put(p, p->index, start, 0x0000FF);
-		start++;
-	}
+//	while (start < end)
+//	{
+//		my_pixel_put(p, p->index, start, 0x0000FF);
+//		start++;
+//	}
 }
 
 void	DDA_param_two(t_param *p)
@@ -400,6 +421,8 @@ int		main_loop(t_param *p)
 	int	j;
 
 	image_clean(p);
+//	mlx_clear_window(p->mlx, p->win);
+	ceiling_floor(p);
 	DDA(p);
 	draw(p);
 	move_player(p);
