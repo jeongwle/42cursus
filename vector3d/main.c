@@ -308,13 +308,17 @@ void	tex_param_two(t_param *p, int len, int start, int end)
 
 void	tex_param(t_param *p, int len, int start, int end)
 {
-	p->texnum = 1;
-//	p->texnum = map[p->mapx][p->mapy];
+	p->texnum = map[p->mapx][p->mapy] - 1;
 	if (p->side == 0)
+	{
 		p->wallx = p->posy + p->walld * p->rdiry;
+		printf("wallx = %f, p->posy = %f, p->rdiry = %f\n:", p->wallx, p->posy, p->rdiry);
+	}
 	else
+	{
 		p->wallx = p->posx + p->walld * p->rdirx;
-	printf("%f\n", p->wallx);
+		printf("wallx = %f, p->posx = %f, p->rdirx = %f\n", p->wallx, p->posx, p->rdirx);
+	}
 	p->wallx -= floor(p->wallx);
 	p->texx = (int)(p->wallx * (double)texwidth);
 	if (p->side == 0 && p->rdirx > 0)
