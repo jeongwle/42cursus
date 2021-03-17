@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/15 20:44:48 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/17 20:23:11 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int		map[mapheight][mapwidth] =
 
 void	init_param(t_param *p)
 {
-	p->posx = 3;
-	p->posy = 3;
+	p->posx = 3.5;
+	p->posy = 3.5;
 	p->key_w = 0;
 	p->key_s = 0;
 	p->key_a = 0;
@@ -282,6 +282,15 @@ void	load_image(t_param *p, int *texture, char *path)
 
 void	load_texture(t_param *p)
 {
+	load_image(p, p->texture[0], "textures/no.xpm");
+	load_image(p, p->texture[1], "textures/so.xpm");
+	load_image(p, p->texture[2], "textures/ea.xpm");
+	load_image(p, p->texture[3], "textures/we.xpm");
+}
+
+/*
+void	load_texture(t_param *p)
+{
 	load_image(p, p->texture[0], "textures/eagle.xpm");
 	load_image(p, p->texture[1], "textures/redbrick.xpm");
 	load_image(p, p->texture[2], "textures/purplestone.xpm");
@@ -290,7 +299,8 @@ void	load_texture(t_param *p)
 	load_image(p, p->texture[5], "textures/mossy.xpm");
 	load_image(p, p->texture[6], "textures/wood.xpm");
 	load_image(p, p->texture[7], "textures/colorstone.xpm");
-}
+}*/
+
 void	tex_param_two(t_param *p, int len, int start, int end)
 {
 	int	i;
@@ -300,7 +310,15 @@ void	tex_param_two(t_param *p, int len, int start, int end)
 	{
 		p->texy = (int)p->texpos & (texheight - 1);
 		p->texpos += p->step;
-		p->color = p->texture[p->texnum][texheight * p->texy + p->texx];
+//		p->color = p->texture[p->texnum][texheight * p->texy + p->texx];
+		if (p->side == 0 && p->rdirx < 0)
+			p->color = p->texture[0][texheight * p->texy + p->texx];
+		else if (p->side == 0 && p->rdirx > 0)
+			p->color = p->texture[1][texheight * p->texy + p->texx];
+		else if (p->side == 1 && p->rdiry > 0)
+			p->color = p->texture[2][texheight * p->texy + p->texx];
+		else if (p->side == 1 && p->rdiry < 0)
+			p->color = p->texture[3][texheight * p->texy + p->texx];
 		p->buf[i][p->index] = p->color;
 		i++;
 	}
@@ -310,15 +328,9 @@ void	tex_param(t_param *p, int len, int start, int end)
 {
 	p->texnum = map[p->mapx][p->mapy] - 1;
 	if (p->side == 0)
-	{
 		p->wallx = p->posy + p->walld * p->rdiry;
-		printf("wallx = %f, p->posy = %f, p->rdiry = %f\n:", p->wallx, p->posy, p->rdiry);
-	}
 	else
-	{
 		p->wallx = p->posx + p->walld * p->rdirx;
-		printf("wallx = %f, p->posx = %f, p->rdirx = %f\n", p->wallx, p->posx, p->rdirx);
-	}
 	p->wallx -= floor(p->wallx);
 	p->texx = (int)(p->wallx * (double)texwidth);
 	if (p->side == 0 && p->rdirx > 0)
@@ -441,6 +453,7 @@ int		main_loop(t_param *p)
 		}
 		i++;
 	}
+	printf("%f %f \n", p->dirx, p->diry);
 	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
 	return (0);
 }
