@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/17 20:23:11 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/18 19:08:06 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,90 @@ int		init_texture(t_param *p, int i, int j, int k)
 		i++;
 	}
 	return (0);
+}
+
+int		find_sprite(t_param *p)
+{
+	int	x;
+	int	y;
+
+	p->spr_count = 0;
+	y = 0;
+	while (y < mapheight)
+	{
+		x = 0;
+		while (x < mapwidth)
+		{
+			if (map[x][y] == 2)
+				p->spr_count++;
+			x++;
+		}
+		y++;
+	}
+	return (p->spr_count);
+}
+
+int		sprite_coordinate(t_param *p)
+{
+	int		x;
+	int		y;
+	int		i;
+
+	i = -1;
+	p->spr = (t_sprite *)malloc(sizeof(t_sprite) * (find_sprite(p) + 1));
+	if (p->spr == NULL)
+		return (-1);
+	y = 0;
+	while (y < mapheight)
+	{
+		x = 0;
+		while (x < mapwidth)
+		{
+			if (map[x][y] == 2)
+			{
+				p->spr[++i].spritex = x;
+				p->spr[i].spritey = y;
+				p->spr[i].sprited = pow((p->posx - x), 2) + pow((p->posy - y), 2);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+void	change_param(t_param *p, int j)
+{
+	double	temp;
+
+	temp = p->spr[j].spritex;
+	p->spr[j].spritex = p->spr[j + 1].spritex;
+	p->spr[j + 1].spritex = temp;
+	temp = p->spr[j].spritey;
+	p->spr[j].spritey = p->spr[j + 1].spritey;
+	p->spr[j + 1].spritey = temp;
+	temp = p->spr[j].sprited;
+	p->spr[j].sprited = p->spr[j + 1].sprited;
+	p->spr[j + 1].sprited = temp;
+}
+
+void	sprite_sort(t_param *p)
+{
+	int		i;
+	int 	j;
+
+	i = 0;
+	while (i < p->spr_count - 1)
+	{
+		j = 0;
+		while (j < p->spr_count - i - 1)
+		{
+			if (p->spr[j].sprited < p->spr[j + 1].sprited)
+				change_param(p, j);
+			j++;
+		}
+		i++;
+	}
 }
 
 int		my_pixel_put(t_param *p, int x, int y, int color)

@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:53:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/15 20:12:15 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/18 19:11:19 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB_H
@@ -29,6 +29,13 @@
 # define texheight 64
 # define bufwidth 640
 # define bufheight 480
+
+typedef struct	s_sprite
+{
+	double	spritex;
+	double	spritey;
+	double	sprited;
+}				t_sprite;
 
 typedef struct s_param
 {
@@ -80,5 +87,8 @@ typedef struct s_param
 	double	step;
 	double	texpos;
 	int		color;
+	t_sprite	*spr;
+	int		spr_count;
 }				t_param;
+
 #endif
