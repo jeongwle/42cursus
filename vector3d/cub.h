@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:53:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/18 19:11:19 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:04:21 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB_H
@@ -32,9 +32,9 @@
 
 typedef struct	s_sprite
 {
-	double	spritex;
-	double	spritey;
-	double	sprited;
+	double	x;
+	double	y;
+	double	d;
 }				t_sprite;
 
 typedef struct s_param
@@ -89,6 +89,22 @@ typedef struct s_param
 	int		color;
 	t_sprite	*spr;
 	int		spr_count;
+	double	zbuffer[bufwidth];
+	double	spritex;
+	double	spritey;
+	double	inverse;
+	double	transx;
+	double	transy;
+	int		spr_screenx;
+	int		spr_width;
+	int		spr_height;
+	int		spr_startx;
+	int		spr_starty;
+	int		spr_endx;
+	int		spr_endy;
+	int		spr_texx;
+	int		spr_texy;
+	int		spr_color;
 }				t_param;
 
 #endif

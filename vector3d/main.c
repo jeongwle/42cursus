@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/18 19:08:06 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:49:50 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int		map[mapheight][mapwidth] =
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -93,7 +93,7 @@ void	ceiling_floor(t_param *p)
 		j = 0;
 		while (j <p->width)
 		{
-			if ( i < p->height / 2)
+			if (i < p->height / 2)
 				p->buf[i][j] = 0x0000FF;
 			else
 				p->buf[i][j] = 0x00FF00;
@@ -171,9 +171,9 @@ int		sprite_coordinate(t_param *p)
 		{
 			if (map[x][y] == 2)
 			{
-				p->spr[++i].spritex = x;
-				p->spr[i].spritey = y;
-				p->spr[i].sprited = pow((p->posx - x), 2) + pow((p->posy - y), 2);
+				p->spr[++i].x = x + 0.5;
+				p->spr[i].y = y + 0.5;
+				p->spr[i].d = pow((p->posx - x), 2) + pow((p->posy - y), 2);
 			}
 			x++;
 		}
@@ -186,33 +186,95 @@ void	change_param(t_param *p, int j)
 {
 	double	temp;
 
-	temp = p->spr[j].spritex;
-	p->spr[j].spritex = p->spr[j + 1].spritex;
-	p->spr[j + 1].spritex = temp;
-	temp = p->spr[j].spritey;
-	p->spr[j].spritey = p->spr[j + 1].spritey;
-	p->spr[j + 1].spritey = temp;
-	temp = p->spr[j].sprited;
-	p->spr[j].sprited = p->spr[j + 1].sprited;
-	p->spr[j + 1].sprited = temp;
+	temp = p->spr[j].x;
+	p->spr[j].x = p->spr[j + 1].x;
+	p->spr[j + 1].x = temp;
+	temp = p->spr[j].y;
+	p->spr[j].y = p->spr[j + 1].y;
+	p->spr[j + 1].y = temp;
+	temp = p->spr[j].d;
+	p->spr[j].d = p->spr[j + 1].d;
+	p->spr[j + 1].d = temp;
 }
 
-void	sprite_sort(t_param *p)
+int		sprite_sort(t_param *p)
 {
 	int		i;
 	int 	j;
+	int		res;
 
+
+	res = sprite_coordinate(p);
+	if (res == -1)
+		return (-1);
 	i = 0;
 	while (i < p->spr_count - 1)
 	{
 		j = 0;
 		while (j < p->spr_count - i - 1)
 		{
-			if (p->spr[j].sprited < p->spr[j + 1].sprited)
+			if (p->spr[j].d < p->spr[j + 1].d)
 				change_param(p, j);
 			j++;
 		}
 		i++;
+	}
+	return (0);
+}
+
+void	sprite_param_two(t_param *p, int i)
+{
+	p->spritex = p->spr[i].x - p->posx;
+	p->spritey = p->spr[i].y - p->posy;
+	p->inverse = 1.0 / (p->planex * p->diry - p->dirx * p->planey);
+	p->transx = p->inverse * (p->diry * p->spritex - p->dirx * p->spritey);
+	p->transy = p->inverse * (-p->planey * p->spritex + p->planex * p->spritey);
+	p->spr_screenx = (int)(p->width / 2) * (1 + p->transx / p->transy);
+	p->spr_height = (int)fabs((p->height / p->transy));
+	p->spr_starty = p->height / 2 - p->spr_height / 2;
+	if (p->spr_starty < 0)
+		p->spr_starty = 0;
+	p->spr_endy = p->height / 2 + p->spr_height / 2;
+	if (p->spr_endy > p->height)
+		p->spr_endy = p->height - 1;
+	p->spr_width = (int)fabs((p->height / p->transy));
+	p->spr_startx = p->spr_screenx - p->spr_width / 2;
+	if (p->spr_startx < 0)
+		p->spr_startx = 0;
+	p->spr_endx = p->spr_screenx + p->spr_width / 2;
+	if (p->spr_endx > p->width)
+		p->spr_endx = p->width - 1;
+}
+
+void	sprite_param(t_param *p)
+{
+	int	i;
+	int	stripe;
+	int	y;
+	int d;
+
+	i = -1;
+	sprite_sort(p);
+	while (++i < p->spr_count)
+	{
+		sprite_param_two(p, i);
+		stripe = p->spr_startx - 1;
+		while (++stripe < p->spr_endx)
+		{
+			p->spr_texx = (int)((256 * (stripe - (p->spr_screenx - p->spr_width / 2)) * texwidth / p->spr_width) / 256);
+			if (p->transy > 0 && stripe > 0 && stripe < p->width && p->transy < p->zbuffer[stripe])
+			{
+				y = p->spr_starty - 1;
+				while (++y < p->spr_endy)
+				{
+					d = y * 256 + p->spr_height * 128 - p->height * 128;
+					p->spr_texy = ((d * texheight) / p->spr_height) / 256;
+					p->spr_color = p->texture[4][texwidth * p->spr_texy + p->spr_texx];
+					if ((p->spr_color & 0x00FFFFFF) != 0)
+						p->buf[y][stripe] = p->spr_color;
+				}
+			}
+		}
 	}
 }
 
@@ -370,6 +432,7 @@ void	load_texture(t_param *p)
 	load_image(p, p->texture[1], "textures/so.xpm");
 	load_image(p, p->texture[2], "textures/ea.xpm");
 	load_image(p, p->texture[3], "textures/we.xpm");
+	load_image(p, p->texture[4], "textures/s.xpm");
 }
 
 /*
@@ -395,15 +458,18 @@ void	tex_param_two(t_param *p, int len, int start, int end)
 		p->texy = (int)p->texpos & (texheight - 1);
 		p->texpos += p->step;
 //		p->color = p->texture[p->texnum][texheight * p->texy + p->texx];
-		if (p->side == 0 && p->rdirx < 0)
-			p->color = p->texture[0][texheight * p->texy + p->texx];
-		else if (p->side == 0 && p->rdirx > 0)
-			p->color = p->texture[1][texheight * p->texy + p->texx];
-		else if (p->side == 1 && p->rdiry > 0)
-			p->color = p->texture[2][texheight * p->texy + p->texx];
-		else if (p->side == 1 && p->rdiry < 0)
-			p->color = p->texture[3][texheight * p->texy + p->texx];
-		p->buf[i][p->index] = p->color;
+		if (map[p->mapx][p->mapy] == 1)
+		{
+			if (p->side == 0 && p->rdirx < 0)
+				p->color = p->texture[0][texheight * p->texy + p->texx];
+			else if (p->side == 0 && p->rdirx > 0)
+				p->color = p->texture[1][texheight * p->texy + p->texx];
+			else if (p->side == 1 && p->rdiry > 0)
+				p->color = p->texture[2][texheight * p->texy + p->texx];
+			else if (p->side == 1 && p->rdiry < 0)
+				p->color = p->texture[3][texheight * p->texy + p->texx];
+			p->buf[i][p->index] = p->color;
+		}
 		i++;
 	}
 }
@@ -432,6 +498,11 @@ void	wall_param(t_param *p)
 	int	start;
 	int	end;
 
+	if (p->side == 0)
+		p->walld = (p->mapx - p->posx + (1 - p->stepx) / 2) / p->rdirx;
+	else
+		p->walld = (p->mapy - p->posy + (1 - p->stepy) / 2) / p->rdiry;
+	p->zbuffer[p->index] = p->walld;
 	len = (int)(p->height / p->walld);
 	start = p->height / 2 - len / 2;
 	if (start < 0)
@@ -504,13 +575,9 @@ void	DDA(t_param *p)
 				p->mapy += p->stepy;
 				p->side = 1;
 			}
-			if (map[p->mapx][p->mapy] > 0)
+			if (map[p->mapx][p->mapy] == 1)
 				p->hit = 1;
 		}
-		if (p->side == 0)
-			p->walld = (p->mapx - p->posx + (1 - p->stepx) / 2) / p->rdirx;
-		else
-			p->walld = (p->mapy - p->posy + (1 - p->stepy) / 2) / p->rdiry;
 		wall_param(p);
 	}
 }
@@ -524,6 +591,7 @@ int		main_loop(t_param *p)
 //	mlx_clear_window(p->mlx, p->win);
 	ceiling_floor(p);
 	DDA(p);
+	sprite_param(p);
 	draw(p);
 	move_player(p);
 	i = 0;
@@ -537,7 +605,7 @@ int		main_loop(t_param *p)
 		}
 		i++;
 	}
-	printf("%f %f \n", p->dirx, p->diry);
+//	printf("%f %f \n", p->dirx, p->diry);
 	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
 	return (0);
 }
