@@ -6,13 +6,13 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:22:08 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/25 12:57:51 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/27 15:45:35 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-extern int map[mapheight][mapwidth];
+extern int map[MAPHEIGHT][MAPWIDTH];
 
 void	wall_param(t_param *p)
 {

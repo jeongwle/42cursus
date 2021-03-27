@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:16:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/25 12:56:30 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:07:39 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		init_texture(t_param *p, int i, int j, int k)
 		return (-1);
 	while (++i < 8)
 	{
-		p->texture[i] = (int *)malloc(sizeof(int) * (texheight* texwidth));
+		p->texture[i] = (int *)malloc(sizeof(int) * (TEXHEIGHT* TEXWIDTH));
 		if (p->texture[i] == NULL)
 		{
 			while (k < i)
@@ -75,7 +75,7 @@ int		init_texture(t_param *p, int i, int j, int k)
 	while (i < 8)
 	{
 		j = -1;
-		while (++j < texheight * texwidth)
+		while (++j < TEXHEIGHT * TEXWIDTH)
 			p->texture[i][j] = 0;
 		i++;
 	}

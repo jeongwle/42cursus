@@ -6,13 +6,13 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:20:12 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/25 12:57:30 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/27 15:48:33 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-extern int map[mapheight][mapwidth];
+extern int map[MAPHEIGHT][MAPWIDTH];
 
 void	load_image(t_param *p, int *texture, char *path)
 {
@@ -64,19 +64,19 @@ void	tex_param_two(t_param *p, int len, int start, int end)
 	i = start;
 	while (i < end)
 	{
-		p->texy = (int)p->texpos & (texheight - 1);
+		p->texy = (int)p->texpos & (TEXHEIGHT - 1);
 		p->texpos += p->step;
-//		p->color = p->texture[p->texnum][texheight * p->texy + p->texx];
+//		p->color = p->texture[p->texnum][TEXHEIGHT * p->texy + p->texx];
 		if (map[p->mapx][p->mapy] == 1)
 		{
 			if (p->side == 0 && p->rdirx < 0)
-				p->color = p->texture[0][texheight * p->texy + p->texx];
+				p->color = p->texture[0][TEXHEIGHT * p->texy + p->texx];
 			else if (p->side == 0 && p->rdirx > 0)
-				p->color = p->texture[1][texheight * p->texy + p->texx];
+				p->color = p->texture[1][TEXHEIGHT * p->texy + p->texx];
 			else if (p->side == 1 && p->rdiry > 0)
-				p->color = p->texture[2][texheight * p->texy + p->texx];
+				p->color = p->texture[2][TEXHEIGHT * p->texy + p->texx];
 			else if (p->side == 1 && p->rdiry < 0)
-				p->color = p->texture[3][texheight * p->texy + p->texx];
+				p->color = p->texture[3][TEXHEIGHT * p->texy + p->texx];
 			p->buf[i][p->index] = p->color;
 		}
 		i++;
@@ -91,12 +91,12 @@ void	tex_param(t_param *p, int len, int start, int end)
 	else
 		p->wallx = p->posx + p->walld * p->rdirx;
 	p->wallx -= floor(p->wallx);
-	p->texx = (int)(p->wallx * (double)texwidth);
+	p->texx = (int)(p->wallx * (double)TEXWIDTH);
 	if (p->side == 0 && p->rdirx > 0)
-		p->texx = texwidth - p->texx - 1;
+		p->texx = TEXWIDTH - p->texx - 1;
 	if (p->side == 1 && p->rdiry < 0)
-		p->texx = texwidth - p->texx - 1;
-	p->step = 1.0 * texheight / len;
+		p->texx = TEXWIDTH - p->texx - 1;
+	p->step = 1.0 * TEXHEIGHT / len;
 	p->texpos = (start - p->height / 2 + len / 2) * p->step;
 	tex_param_two(p, len, start, end);
 }

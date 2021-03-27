@@ -6,30 +6,36 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:53:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/25 12:39:00 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:07:29 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 4096
+# endif
+
 # include "mlx.h"
 # include <stdlib.h>
 # include <string.h>
 # include <math.h>
 # include <stdio.h>
+# include <fcntl.h>
+# include <unistd.h>
 
 # define KEY_W 13
 # define KEY_S 1
 # define KEY_A 0
 # define KEY_D 2
 # define KEY_ESC 53
-# define mapwidth 24
-# define mapheight 24
-# define texwidth 64
-# define texheight 64
-# define bufwidth 640
-# define bufheight 480
+# define MAPWIDTH 24
+# define MAPHEIGHT 24
+# define TEXWIDTH 64
+# define TEXHEIGHT 64
+# define BUFWIDTH 640
+# define BUFHEIGHT 480
 
 typedef struct		s_sprite
 {
@@ -79,7 +85,7 @@ typedef struct		s_param
 	int			side;
 	int			img_w;
 	int			img_h;
-	int			buf[bufheight][bufwidth];
+	int			buf[BUFHEIGHT][BUFWIDTH];
 	int			**texture;
 	double		wallx;
 	int			texx;
@@ -90,7 +96,7 @@ typedef struct		s_param
 	int			color;
 	t_sprite	*spr;
 	int			spr_count;
-	double		zbuffer[bufwidth];
+	double		zbuffer[BUFWIDTH];
 	double		spritex;
 	double		spritey;
 	double		inverse;

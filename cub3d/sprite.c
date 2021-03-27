@@ -6,13 +6,13 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 12:48:19 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/25 12:56:59 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/27 15:47:36 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-extern int map[mapheight][mapwidth];
+extern int map[MAPHEIGHT][MAPWIDTH];
 
 int		find_sprite(t_param *p)
 {
@@ -21,10 +21,10 @@ int		find_sprite(t_param *p)
 
 	p->spr_count = 0;
 	y = 0;
-	while (y < mapheight)
+	while (y < MAPHEIGHT)
 	{
 		x = 0;
-		while (x < mapwidth)
+		while (x < MAPWIDTH)
 		{
 			if (map[x][y] == 2)
 				p->spr_count++;
@@ -46,10 +46,10 @@ int		sprite_coordinate(t_param *p)
 	if (p->spr == NULL)
 		return (-1);
 	y = 0;
-	while (y < mapheight)
+	while (y < MAPHEIGHT)
 	{
 		x = 0;
-		while (x < mapwidth)
+		while (x < MAPWIDTH)
 		{
 			if (map[x][y] == 2)
 			{
@@ -143,15 +143,15 @@ void	sprite_param(t_param *p)
 		stripe = p->spr_startx - 1;
 		while (++stripe < p->spr_endx)
 		{
-			p->spr_texx = (int)((256 * (stripe - (p->spr_screenx - p->spr_width / 2)) * texwidth / p->spr_width) / 256);
+			p->spr_texx = (int)((256 * (stripe - (p->spr_screenx - p->spr_width / 2)) * TEXWIDTH / p->spr_width) / 256);
 			if (p->transy > 0 && stripe > 0 && stripe < p->width && p->transy < p->zbuffer[stripe])
 			{
 				y = p->spr_starty - 1;
 				while (++y < p->spr_endy)
 				{
 					d = y * 256 + p->spr_height * 128 - p->height * 128;
-					p->spr_texy = ((d * texheight) / p->spr_height) / 256;
-					p->spr_color = p->texture[4][texwidth * p->spr_texy + p->spr_texx];
+					p->spr_texy = ((d * TEXHEIGHT) / p->spr_height) / 256;
+					p->spr_color = p->texture[4][TEXWIDTH * p->spr_texy + p->spr_texx];
 					if ((p->spr_color & 0x00FFFFFF) != 0)
 						p->buf[y][stripe] = p->spr_color;
 				}

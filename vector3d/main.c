@@ -6,13 +6,13 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/24 16:42:43 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:04:47 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		map[mapheight][mapwidth] =
+int		map[MAPHEIGHT][MAPWIDTH] =
 {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -39,7 +39,7 @@ int		map[mapheight][mapwidth] =
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
-
+/*
 void	init_param(t_param *p)
 {
 	p->posx = 3.5;
@@ -81,7 +81,7 @@ void	init_buf(t_param *p)
 		i++;
 	}
 }
-
+*/
 void	ceiling_floor(t_param *p)
 {
 	int	i;
@@ -102,7 +102,7 @@ void	ceiling_floor(t_param *p)
 		i++;
 	}
 }
-
+/*
 int		init_texture(t_param *p, int i, int j, int k)
 {
 	p->texture = (int **)malloc(sizeof(int *) * 8);
@@ -110,7 +110,7 @@ int		init_texture(t_param *p, int i, int j, int k)
 		return (-1);
 	while (++i < 8)
 	{
-		p->texture[i] = (int *)malloc(sizeof(int) * (texheight* texwidth));
+		p->texture[i] = (int *)malloc(sizeof(int) * (TEXHEIGHT* TEXWIDTH));
 		if (p->texture[i] == NULL)
 		{
 			while (k < i)
@@ -125,7 +125,7 @@ int		init_texture(t_param *p, int i, int j, int k)
 	while (i < 8)
 	{
 		j = -1;
-		while (++j < texheight * texwidth)
+		while (++j < TEXHEIGHT * TEXWIDTH)
 			p->texture[i][j] = 0;
 		i++;
 	}
@@ -139,10 +139,10 @@ int		find_sprite(t_param *p)
 
 	p->spr_count = 0;
 	y = 0;
-	while (y < mapheight)
+	while (y < MAPHEIGHT)
 	{
 		x = 0;
-		while (x < mapwidth)
+		while (x < MAPWIDTH)
 		{
 			if (map[x][y] == 2)
 				p->spr_count++;
@@ -164,10 +164,10 @@ int		sprite_coordinate(t_param *p)
 	if (p->spr == NULL)
 		return (-1);
 	y = 0;
-	while (y < mapheight)
+	while (y < MAPHEIGHT)
 	{
 		x = 0;
-		while (x < mapwidth)
+		while (x < MAPWIDTH)
 		{
 			if (map[x][y] == 2)
 			{
@@ -261,15 +261,15 @@ void	sprite_param(t_param *p)
 		stripe = p->spr_startx - 1;
 		while (++stripe < p->spr_endx)
 		{
-			p->spr_texx = (int)((256 * (stripe - (p->spr_screenx - p->spr_width / 2)) * texwidth / p->spr_width) / 256);
+			p->spr_texx = (int)((256 * (stripe - (p->spr_screenx - p->spr_width / 2)) * TEXWIDTH / p->spr_width) / 256);
 			if (p->transy > 0 && stripe > 0 && stripe < p->width && p->transy < p->zbuffer[stripe])
 			{
 				y = p->spr_starty - 1;
 				while (++y < p->spr_endy)
 				{
 					d = y * 256 + p->spr_height * 128 - p->height * 128;
-					p->spr_texy = ((d * texheight) / p->spr_height) / 256;
-					p->spr_color = p->texture[4][texwidth * p->spr_texy + p->spr_texx];
+					p->spr_texy = ((d * TEXHEIGHT) / p->spr_height) / 256;
+					p->spr_color = p->texture[4][TEXWIDTH * p->spr_texy + p->spr_texx];
 					if ((p->spr_color & 0x00FFFFFF) != 0)
 						p->buf[y][stripe] = p->spr_color;
 				}
@@ -277,7 +277,7 @@ void	sprite_param(t_param *p)
 		}
 	}
 }
-
+*/
 int		my_pixel_put(t_param *p, int x, int y, int color)
 {
 	p->data[y * p->width + x] = color;
@@ -302,7 +302,7 @@ int		image_clean(t_param *p)
 	}
 	return (0);
 }
-
+/*
 int		key_press(int key, t_param *p)
 {
 	if (key == KEY_W)
@@ -385,7 +385,8 @@ int		move_player(t_param *p)
 			p->posy = p->height;
 	}
 	return (0);
-}
+}*/
+
 void	draw(t_param *p)
 {
 	int	y;
@@ -404,7 +405,7 @@ void	draw(t_param *p)
 		y++;
 	}
 }
-
+/*
 void	load_image(t_param *p, int *texture, char *path)
 {
 	int	x;
@@ -433,7 +434,7 @@ void	load_texture(t_param *p)
 	load_image(p, p->texture[2], "textures/ea.xpm");
 	load_image(p, p->texture[3], "textures/we.xpm");
 	load_image(p, p->texture[4], "textures/s.xpm");
-}
+}*/
 
 /*
 void	load_texture(t_param *p)
@@ -447,7 +448,7 @@ void	load_texture(t_param *p)
 	load_image(p, p->texture[6], "textures/wood.xpm");
 	load_image(p, p->texture[7], "textures/colorstone.xpm");
 }*/
-
+/*
 void	tex_param_two(t_param *p, int len, int start, int end)
 {
 	int	i;
@@ -455,19 +456,19 @@ void	tex_param_two(t_param *p, int len, int start, int end)
 	i = start;
 	while (i < end)
 	{
-		p->texy = (int)p->texpos & (texheight - 1);
+		p->texy = (int)p->texpos & (TEXHEIGHT - 1);
 		p->texpos += p->step;
-//		p->color = p->texture[p->texnum][texheight * p->texy + p->texx];
+//		p->color = p->texture[p->texnum][TEXHEIGHT * p->texy + p->texx];
 		if (map[p->mapx][p->mapy] == 1)
 		{
 			if (p->side == 0 && p->rdirx < 0)
-				p->color = p->texture[0][texheight * p->texy + p->texx];
+				p->color = p->texture[0][TEXHEIGHT * p->texy + p->texx];
 			else if (p->side == 0 && p->rdirx > 0)
-				p->color = p->texture[1][texheight * p->texy + p->texx];
+				p->color = p->texture[1][TEXHEIGHT * p->texy + p->texx];
 			else if (p->side == 1 && p->rdiry > 0)
-				p->color = p->texture[2][texheight * p->texy + p->texx];
+				p->color = p->texture[2][TEXHEIGHT * p->texy + p->texx];
 			else if (p->side == 1 && p->rdiry < 0)
-				p->color = p->texture[3][texheight * p->texy + p->texx];
+				p->color = p->texture[3][TEXHEIGHT * p->texy + p->texx];
 			p->buf[i][p->index] = p->color;
 		}
 		i++;
@@ -482,12 +483,12 @@ void	tex_param(t_param *p, int len, int start, int end)
 	else
 		p->wallx = p->posx + p->walld * p->rdirx;
 	p->wallx -= floor(p->wallx);
-	p->texx = (int)(p->wallx * (double)texwidth);
+	p->texx = (int)(p->wallx * (double)TEXWIDTH);
 	if (p->side == 0 && p->rdirx > 0)
-		p->texx = texwidth - p->texx - 1;
+		p->texx = TEXWIDTH - p->texx - 1;
 	if (p->side == 1 && p->rdiry < 0)
-		p->texx = texwidth - p->texx - 1;
-	p->step = 1.0 * texheight / len;
+		p->texx = TEXWIDTH - p->texx - 1;
+	p->step = 1.0 * TEXHEIGHT / len;
 	p->texpos = (start - p->height / 2 + len / 2) * p->step;
 	tex_param_two(p, len, start, end);
 }
@@ -580,7 +581,7 @@ void	DDA(t_param *p)
 		}
 		wall_param(p);
 	}
-}
+}*/
 
 int		main_loop(t_param *p)
 {
@@ -590,12 +591,12 @@ int		main_loop(t_param *p)
 	image_clean(p);
 //	mlx_clear_window(p->mlx, p->win);
 	ceiling_floor(p);
-	DDA(p);
+	dda(p);
 	sprite_param(p);
 	draw(p);
 	move_player(p);
 	i = 0;
-	while (i < 5)
+/*	while (i < 5)
 	{
 		j = 0;
 		while (j < 5)
@@ -604,7 +605,7 @@ int		main_loop(t_param *p)
 			j++;
 		}
 		i++;
-	}
+	}*/
 //	printf("%f %f \n", p->dirx, p->diry);
 	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
 	return (0);

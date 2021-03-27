@@ -6,11 +6,11 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 01:28:12 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/29 16:21:56 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/27 14:42:57 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "cub.h"
 
 static int	put_line(char **reposit, char **line, char *new_line)
 {

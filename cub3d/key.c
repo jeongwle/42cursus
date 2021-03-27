@@ -6,13 +6,13 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:22:58 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/25 12:55:50 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/27 15:46:34 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-extern int	map[mapheight][mapwidth];
+extern int	map[MAPHEIGHT][MAPWIDTH];
 
 int		key_press(int key, t_param *p)
 {
