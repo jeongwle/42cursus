@@ -2,7 +2,12 @@ CC		= gcc
 
 TARGET	= cub3D
 
-SRCS	= ./main.c
+SRCS	= ./main.c \
+		  ./init.c \
+		  ./key.c \
+		  ./sprite.c \
+		  ./texture.c \
+		  ./dda.c
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f

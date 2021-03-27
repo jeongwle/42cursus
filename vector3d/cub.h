@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:53:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/25 12:39:00 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/25 12:39:55 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct		s_param
 	int			spr_texy;
 	int			spr_color;
 }					t_param;
-
+/*
 char				**ft_split(char const *s, char c);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strdup(const char *s1);
@@ -134,5 +134,5 @@ void				wall_param(t_param *p);
 void				dda_param_two(t_param *p);
 void				dda_param(t_param *p);
 void				dda(t_param *p);
-
+*/
 #endif

@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/25 12:49:18 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/24 16:42:43 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		map[mapheight][mapwidth] =
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
-/*
+
 void	init_param(t_param *p)
 {
 	p->posx = 3.5;
@@ -81,7 +81,7 @@ void	init_buf(t_param *p)
 		i++;
 	}
 }
-*/
+
 void	ceiling_floor(t_param *p)
 {
 	int	i;
@@ -102,7 +102,7 @@ void	ceiling_floor(t_param *p)
 		i++;
 	}
 }
-/*
+
 int		init_texture(t_param *p, int i, int j, int k)
 {
 	p->texture = (int **)malloc(sizeof(int *) * 8);
@@ -277,7 +277,7 @@ void	sprite_param(t_param *p)
 		}
 	}
 }
-*/
+
 int		my_pixel_put(t_param *p, int x, int y, int color)
 {
 	p->data[y * p->width + x] = color;
@@ -302,7 +302,7 @@ int		image_clean(t_param *p)
 	}
 	return (0);
 }
-/*
+
 int		key_press(int key, t_param *p)
 {
 	if (key == KEY_W)
@@ -385,8 +385,7 @@ int		move_player(t_param *p)
 			p->posy = p->height;
 	}
 	return (0);
-}*/
-
+}
 void	draw(t_param *p)
 {
 	int	y;
@@ -405,7 +404,7 @@ void	draw(t_param *p)
 		y++;
 	}
 }
-/*
+
 void	load_image(t_param *p, int *texture, char *path)
 {
 	int	x;
@@ -434,7 +433,7 @@ void	load_texture(t_param *p)
 	load_image(p, p->texture[2], "textures/ea.xpm");
 	load_image(p, p->texture[3], "textures/we.xpm");
 	load_image(p, p->texture[4], "textures/s.xpm");
-}*/
+}
 
 /*
 void	load_texture(t_param *p)
@@ -448,7 +447,7 @@ void	load_texture(t_param *p)
 	load_image(p, p->texture[6], "textures/wood.xpm");
 	load_image(p, p->texture[7], "textures/colorstone.xpm");
 }*/
-/*
+
 void	tex_param_two(t_param *p, int len, int start, int end)
 {
 	int	i;
@@ -581,7 +580,7 @@ void	DDA(t_param *p)
 		}
 		wall_param(p);
 	}
-}*/
+}
 
 int		main_loop(t_param *p)
 {
@@ -591,7 +590,7 @@ int		main_loop(t_param *p)
 	image_clean(p);
 //	mlx_clear_window(p->mlx, p->win);
 	ceiling_floor(p);
-	dda(p);
+	DDA(p);
 	sprite_param(p);
 	draw(p);
 	move_player(p);
