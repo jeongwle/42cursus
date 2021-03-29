@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/27 16:12:56 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:25:02 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,12 @@ int		main(void)
 {
 	t_param p;
 
-	init_param(&p);
-	init_buf(&p);
 	init_texture(&p, -1, -1, 0);
+	get_info(&p, 0);
+	init_buf(&p, -1, 0, -1);
+	init_zbuffer(&p);
+	init_param(&p);
+//	init_buf(&p);
 	load_texture(&p);
 	p.img = mlx_new_image(p.mlx, p.width, p.height);
 	p.data = (int *)mlx_get_data_addr(p.img, &p.bpp, &p.size_l, &p.endian);

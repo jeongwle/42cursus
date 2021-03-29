@@ -7,7 +7,13 @@ SRCS	= ./main.c \
 		  ./key.c \
 		  ./sprite.c \
 		  ./texture.c \
-		  ./dda.c
+		  ./dda.c \
+		  ./parsing.c \
+		  ./get_next_line.c \
+		  ./get_next_line_utils.c \
+		  ./ft_atoi.c \
+		  ./ft_isdigit.c\
+		  ./parsing_func.c
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f

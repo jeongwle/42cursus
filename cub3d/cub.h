@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:53:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/27 16:07:29 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/29 20:05:02 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@
 # define MAPHEIGHT 24
 # define TEXWIDTH 64
 # define TEXHEIGHT 64
-# define BUFWIDTH 640
-# define BUFHEIGHT 480
 
 typedef struct		s_sprite
 {
@@ -85,7 +83,7 @@ typedef struct		s_param
 	int			side;
 	int			img_w;
 	int			img_h;
-	int			buf[BUFHEIGHT][BUFWIDTH];
+	int			**buf;
 	int			**texture;
 	double		wallx;
 	int			texx;
@@ -96,7 +94,7 @@ typedef struct		s_param
 	int			color;
 	t_sprite	*spr;
 	int			spr_count;
-	double		zbuffer[BUFWIDTH];
+	double		*zbuffer;
 	double		spritex;
 	double		spritey;
 	double		inverse;
@@ -112,7 +110,9 @@ typedef struct		s_param
 	int			spr_texx;
 	int			spr_texy;
 	int			spr_color;
+	char		*texpath[5];
 }					t_param;
+
 
 char				**ft_split(char const *s, char c);
 char				*ft_strjoin(char const *s1, char const *s2);
@@ -120,8 +120,20 @@ char				*ft_strdup(const char *s1);
 char				*ft_strchr(const char *s, int c);
 size_t				ft_strlen(const char *s);
 int					get_next_line(int fd, char **line);
+int					ft_atoi(const char *str);
+int					ft_isdigit(int c);
+int					get_info(t_param *p, int i);
+void				resolution(t_param *p, char *line, int fd, int i);
+int					ft_spacelen(char *str);
+char				is_space(char c);
+void				if_so(t_param *p, char *line, int i);
+void				if_s(t_param *p, char *line, int i);
+void				if_w(t_param *p, char *line, int i);
+void				if_e(t_param *p, char *line, int i);
+void				if_n(t_param *p, char *line, int i);
 void				init_param(t_param *p);
-void				init_buf(t_param *p);
+int					init_buf(t_param *p, int i, int j, int k);
+int					init_zbuffer(t_param *p);
 int					init_texture(t_param *p, int i, int j, int k);
 int					find_sprite(t_param *p);
 int					sprite_coordinate(t_param *p);

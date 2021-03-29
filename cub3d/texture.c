@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:20:12 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/27 15:48:33 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/29 20:05:15 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	load_image(t_param *p, int *texture, char *path)
 
 void	load_texture(t_param *p)
 {
-	load_image(p, p->texture[0], "textures/no.xpm");
-	load_image(p, p->texture[1], "textures/so.xpm");
-	load_image(p, p->texture[2], "textures/ea.xpm");
-	load_image(p, p->texture[3], "textures/we.xpm");
-	load_image(p, p->texture[4], "textures/s.xpm");
+	load_image(p, p->texture[0], p->texpath[0]);
+	load_image(p, p->texture[1], p->texpath[1]);
+	load_image(p, p->texture[2], p->texpath[2]);
+	load_image(p, p->texture[3], p->texpath[3]);
+	load_image(p, p->texture[4], p->texpath[4]);
 }
 
 /*
