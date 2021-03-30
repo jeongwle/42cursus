@@ -13,7 +13,8 @@ SRCS	= ./main.c \
 		  ./get_next_line_utils.c \
 		  ./ft_atoi.c \
 		  ./ft_isdigit.c\
-		  ./parsing_func.c
+		  ./parsing_func.c\
+		  ./rgb.c
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f

@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 16:17:32 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/29 20:07:40 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/30 17:55:35 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ char	is_space(char c)
 	return (c == ' ' || (9 <= c && c <= 13));
 }
 
-void		resolution(t_param *p, char *line, int fd, int i)
+void		resolution(t_param *p, char *line, int i)
 {
-	if (line[i] == 'R')
-	{
 		i++;
 		while (is_space(line[i]))
 			i++;
@@ -46,7 +44,12 @@ void		resolution(t_param *p, char *line, int fd, int i)
 			i++;
 		if (ft_isdigit(line[i]))
 			p->height = ft_atoi(&line[i]);
-	}
+}
+
+void		parsing(t_param *p, char *line, int i)
+{
+	if (line[i] == 'R')
+		resolution(p, line, i);
 	else if (line[i] == 'S')
 	{
 		if (line[i + 1] == 'O')
@@ -60,6 +63,16 @@ void		resolution(t_param *p, char *line, int fd, int i)
 		if_n(p, line, i);
 	else if (line[i] == 'E')
 		if_e(p, line, i);
+	else if (line[i] == 'F')
+	{
+		rgb_param(p, line, i);
+		p->f_color = rgb_calc(p->r, p->g, p->b);
+	}
+	else if (line[i] == 'C')
+	{
+		rgb_param(p, line, i);
+		p->c_color = rgb_calc(p->r, p->g, p->b);
+	}
 }
 
 int			get_info(t_param *p, int i)
@@ -77,7 +90,7 @@ int			get_info(t_param *p, int i)
 		i = 0;
 		while (is_space(line[i]))
 			i++;
-		resolution(p, line, fd, i);
+		parsing(p, line, i);
 	}
 	return (0);
 }
@@ -86,7 +99,7 @@ int	main(void)
 {
 	t_param p;
 
-	get_info(&p);
+	get_info(&p, 0);
 	printf("width = %d\n", p.width);
 	printf("height = %d\n", p.height);
 }*/

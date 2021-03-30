@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:53:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/29 20:05:02 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/30 17:55:41 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,11 @@ typedef struct		s_param
 	int			spr_texy;
 	int			spr_color;
 	char		*texpath[5];
+	int			c_color;
+	int			f_color;
+	int			r;
+	int			g;
+	int			b;
 }					t_param;
 
 
@@ -123,9 +128,12 @@ int					get_next_line(int fd, char **line);
 int					ft_atoi(const char *str);
 int					ft_isdigit(int c);
 int					get_info(t_param *p, int i);
-void				resolution(t_param *p, char *line, int fd, int i);
+void				resolution(t_param *p, char *line, int i);
+void				parsing(t_param *p, char *line, int i);
 int					ft_spacelen(char *str);
 char				is_space(char c);
+void				rgb_param(t_param *p, char *line, int i);
+int					rgb_calc(int r, int g, int b);
 void				if_so(t_param *p, char *line, int i);
 void				if_s(t_param *p, char *line, int i);
 void				if_w(t_param *p, char *line, int i);

@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/29 19:25:02 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/30 16:27:45 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	ceiling_floor(t_param *p)
 		while (j <p->width)
 		{
 			if (i < p->height / 2)
-				p->buf[i][j] = 0x0000FF;
+				p->buf[i][j] = p->c_color;
 			else
-				p->buf[i][j] = 0x00FF00;
+				p->buf[i][j] = p->f_color;
 			j++;
 		}
 		i++;
