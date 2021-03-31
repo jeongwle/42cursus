@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/30 16:27:45 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/31 16:05:05 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int		map[MAPHEIGHT][MAPWIDTH] =
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
+
 void	ceiling_floor(t_param *p)
 {
 	int	i;
@@ -122,6 +123,7 @@ int		main(void)
 {
 	t_param p;
 
+	mlx_get_screen_size(p.mlx, &p.max_width, &p.max_height);
 	init_texture(&p, -1, -1, 0);
 	get_info(&p, 0);
 	init_buf(&p, -1, 0, -1);

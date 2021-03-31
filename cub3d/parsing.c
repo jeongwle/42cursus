@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 16:17:32 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/30 17:55:35 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/31 19:39:51 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,42 @@ char	is_space(char c)
 {
 	return (c == ' ' || (9 <= c && c <= 13));
 }
-
-void		resolution(t_param *p, char *line, int i)
+void		resolution(t_param *p, char *line, int i, int flag)
 {
+	int	temp;
+
+	i++;
+	temp = i;
+	do_check(line, i, flag);
+/*	while (line[i])
+	{
+		if (error_check(line[i]))
+			i++;
+		else
+			this_is_error(flag);
+	}*/
+	i = temp;
+	while (is_space(line[i]))
 		i++;
-		while (is_space(line[i]))
-			i++;
-		if (ft_isdigit(line[i]))
-			p->width = ft_atoi(&line[i]);
-		i += ft_spacelen(&line[i]);
-		while (is_space(line[i]))
-			i++;
-		if (ft_isdigit(line[i]))
-			p->height = ft_atoi(&line[i]);
+	if (ft_isdigit(line[i]))
+	{
+		if ((p->width = ft_atoi(&line[i])) > p->max_width)
+			p->width = p->max_width;
+	}
+	i += ft_spacelen(&line[i]);
+	while (is_space(line[i]))
+		i++;
+	if (ft_isdigit(line[i]))
+	{
+		if ((p->height = ft_atoi(&line[i]))> p->max_height)
+			p->height = p->max_height;
+	}
 }
 
 void		parsing(t_param *p, char *line, int i)
 {
 	if (line[i] == 'R')
-		resolution(p, line, i);
+		resolution(p, line, i, 1);
 	else if (line[i] == 'S')
 	{
 		if (line[i + 1] == 'O')

@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:53:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/30 17:55:41 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/31 16:54:43 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,11 @@ typedef struct		s_param
 	int			r;
 	int			g;
 	int			b;
+	int			max_width;
+	int			max_height;
 }					t_param;
 
-
+int mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);
 char				**ft_split(char const *s, char c);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strdup(const char *s1);
@@ -128,12 +130,15 @@ int					get_next_line(int fd, char **line);
 int					ft_atoi(const char *str);
 int					ft_isdigit(int c);
 int					get_info(t_param *p, int i);
-void				resolution(t_param *p, char *line, int i);
+void				resolution(t_param *p, char *line, int i, int flag);
 void				parsing(t_param *p, char *line, int i);
 int					ft_spacelen(char *str);
 char				is_space(char c);
 void				rgb_param(t_param *p, char *line, int i);
 int					rgb_calc(int r, int g, int b);
+void				do_check(char *line, int i, int flag);
+int					error_check(int c);
+void				this_is_error(int flag);
 void				if_so(t_param *p, char *line, int i);
 void				if_s(t_param *p, char *line, int i);
 void				if_w(t_param *p, char *line, int i);

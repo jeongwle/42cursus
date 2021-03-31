@@ -1,11 +1,11 @@
-R 1920 1080
+R 9999 9999
 SO ./textures/so.xpm
 WE ./textures/we.xpm
 NO ./textures/no.xpm
 EA ./textures/ea.xpm
 S ./textures/s.xpm
-F 150,80,200
-C 100,0,255
+F 0, 0, 0
+C 255, 255, 255
 111111
 100101
 102001

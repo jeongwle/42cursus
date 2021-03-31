@@ -12,9 +12,10 @@ SRCS	= ./main.c \
 		  ./get_next_line.c \
 		  ./get_next_line_utils.c \
 		  ./ft_atoi.c \
-		  ./ft_isdigit.c\
-		  ./parsing_func.c\
-		  ./rgb.c
+		  ./ft_isdigit.c \
+		  ./parsing_func.c \
+		  ./rgb.c \
+		  ./error_check.c
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f
@@ -25,7 +26,7 @@ CFLAGS	= -lmlx -framework OpenGL -framework AppKit
 	$(CC) -c $< -o $@
 
 $(TARGET) : $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ ./libmlx.dylib
 
 all : $(TARGET)
 
