@@ -6,11 +6,24 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:16:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/29 16:26:11 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/31 20:06:19 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+void	init_flag(t_param *p)
+{
+	p->identifier_count = 0;
+	p->r_flag = 0;
+	p->so_flag = 0;
+	p->s_flag = 0;
+	p->w_flag = 0;
+	p->n_flag = 0;
+	p->e_flag = 0;
+	p->f_flag = 0;
+	p->c_flag = 0;
+}
 
 void	init_param(t_param *p)
 {

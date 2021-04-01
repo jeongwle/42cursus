@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/*************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:53:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/31 16:54:43 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/01 19:15:27 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,18 @@ typedef struct		s_param
 	int			b;
 	int			max_width;
 	int			max_height;
+	int			identifier_count;
+	int			r_flag;
+	int			so_flag;
+	int			s_flag;
+	int			w_flag;
+	int			n_flag;
+	int			e_flag;
+	int			f_flag;
+	int			c_flag;
 }					t_param;
 
-int mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);
+int					 mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);
 char				**ft_split(char const *s, char c);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strdup(const char *s1);
@@ -129,21 +138,27 @@ size_t				ft_strlen(const char *s);
 int					get_next_line(int fd, char **line);
 int					ft_atoi(const char *str);
 int					ft_isdigit(int c);
+int					ft_isalpha(int c);
 int					get_info(t_param *p, int i);
 void				resolution(t_param *p, char *line, int i, int flag);
 void				parsing(t_param *p, char *line, int i);
-int					ft_spacelen(char *str);
 char				is_space(char c);
-void				rgb_param(t_param *p, char *line, int i);
-int					rgb_calc(int r, int g, int b);
+void				rgb_param(t_param *p, char *line, int i, int flag);
+void				rgb_param_two(t_param *p, char *line, int i, int flag);
+int					rgb_calc(t_param *p, int r, int g, int b);
 void				do_check(char *line, int i, int flag);
+void				do_check_texture(char *line, int i, int flag);
 int					error_check(int c);
+int					error_check_texture(int c);
+void				rgb_check(t_param *p, char *line, int i, int flag);
+void				rgb_check_param(t_param *p, char *line, int i, int flag);
 void				this_is_error(int flag);
 void				if_so(t_param *p, char *line, int i);
 void				if_s(t_param *p, char *line, int i);
 void				if_w(t_param *p, char *line, int i);
 void				if_e(t_param *p, char *line, int i);
 void				if_n(t_param *p, char *line, int i);
+void				init_flag(t_param *p);
 void				init_param(t_param *p);
 int					init_buf(t_param *p, int i, int j, int k);
 int					init_zbuffer(t_param *p);

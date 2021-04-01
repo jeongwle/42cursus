@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/31 16:05:05 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/03/31 20:06:48 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int		main(void)
 	t_param p;
 
 	mlx_get_screen_size(p.mlx, &p.max_width, &p.max_height);
+	init_flag(&p);
 	init_texture(&p, -1, -1, 0);
 	get_info(&p, 0);
 	init_buf(&p, -1, 0, -1);
