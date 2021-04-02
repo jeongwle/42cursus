@@ -6,13 +6,13 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:51:51 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/15 19:37:57 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:55:47 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub.h"
 
-static int		word_count(char const *s, char c)
+int			word_count(char const *s, char c)
 {
 	int	i;
 	int	count;
@@ -32,10 +32,11 @@ static int		word_count(char const *s, char c)
 		}
 		i++;
 	}
+//	printf("count = %d\n", count);
 	return (count);
 }
 
-static size_t	word_len(char const *s, char c)
+size_t	word_len(char const *s, char c)
 {
 	size_t	len;
 
@@ -44,6 +45,7 @@ static size_t	word_len(char const *s, char c)
 	{
 		len++;
 	}
+//	printf("len =%d\n", len);
 	return (len);
 }
 
@@ -60,7 +62,13 @@ static void		*ft_free(char **str)
 	return (NULL);
 }
 
-char			**ft_split(char const *s, char c)
+void		get_mapwidth(t_param *p, size_t size)
+{
+	if (p->map_width < size)
+		p->map_width = size;
+}
+
+char			**ft_split(t_param *p, char const *s, char c)
 {
 	char	**res;
 	size_t	size;

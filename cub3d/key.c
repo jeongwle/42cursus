@@ -6,13 +6,11 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:22:58 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/27 15:46:34 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/02 17:57:47 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-extern int	map[MAPHEIGHT][MAPWIDTH];
 
 int		key_press(int key, t_param *p)
 {
@@ -54,16 +52,16 @@ int		move_player(t_param *p)
 	{
 		if (p->key_w)
 		{
-			if (!map[(int)(p->posx + p->dirx * p->movespeed)][(int)p->posy])
+			if (!p->map[(int)(p->posx + p->dirx * p->movespeed)][(int)p->posy])
 				p->posx += p->dirx * p->movespeed;
-			if (!map[(int)p->posx][(int)(p->posy + p->diry * p->movespeed)])
+			if (!p->map[(int)p->posx][(int)(p->posy + p->diry * p->movespeed)])
 				p->posy += p->diry * p->movespeed;
 		}
 		if (p->key_s)
 		{
-			if (!map[(int)(p->posx - p->dirx * p->movespeed)][(int)p->posy])
+			if (!p->map[(int)(p->posx - p->dirx * p->movespeed)][(int)p->posy])
 				p->posx -= p->dirx * p->movespeed;
-			if (!map[(int)p->posx][(int)(p->posy - p->diry * p->movespeed)])
+			if (!p->map[(int)p->posx][(int)(p->posy - p->diry * p->movespeed)])
 				p->posy -= p->diry * p->movespeed;
 		}
 		if (p->key_a)

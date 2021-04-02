@@ -6,13 +6,11 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:22:08 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/27 15:45:35 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/02 17:58:48 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-extern int map[MAPHEIGHT][MAPWIDTH];
 
 void	wall_param(t_param *p)
 {
@@ -97,7 +95,7 @@ void	dda(t_param *p)
 				p->mapy += p->stepy;
 				p->side = 1;
 			}
-			if (map[p->mapx][p->mapy] == 1)
+			if (p->map[p->mapx][p->mapy] == 1)
 				p->hit = 1;
 		}
 		wall_param(p);

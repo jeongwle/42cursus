@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:53:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/01 19:15:27 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:44:15 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,13 @@ typedef struct		s_param
 	int			e_flag;
 	int			f_flag;
 	int			c_flag;
+	int			map_flag;
+	int			**map;
+	int			map_width;
+	int			map_height;
 }					t_param;
 
 int					 mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);
-char				**ft_split(char const *s, char c);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strdup(const char *s1);
 char				*ft_strchr(const char *s, int c);
@@ -139,10 +142,15 @@ int					get_next_line(int fd, char **line);
 int					ft_atoi(const char *str);
 int					ft_isdigit(int c);
 int					ft_isalpha(int c);
+char				is_space(char c);
+char				**ft_split(t_param *p, char const *s, char c);
+int					word_count(char const *s, char c);
+size_t				word_len(char const *s, char c);
+void				get_mapwidth(t_param *p, size_t size);
+void				*ft_calloc(size_t count, size_t size);
 int					get_info(t_param *p, int i);
 void				resolution(t_param *p, char *line, int i, int flag);
-void				parsing(t_param *p, char *line, int i);
-char				is_space(char c);
+void				parsing(t_param *p, char *line, int i, int fd);
 void				rgb_param(t_param *p, char *line, int i, int flag);
 void				rgb_param_two(t_param *p, char *line, int i, int flag);
 int					rgb_calc(t_param *p, int r, int g, int b);
@@ -152,6 +160,10 @@ int					error_check(int c);
 int					error_check_texture(int c);
 void				rgb_check(t_param *p, char *line, int i, int flag);
 void				rgb_check_param(t_param *p, char *line, int i, int flag);
+void				map_check(char *line, int i);
+void				map_init(t_param *p);
+int					get_map_size(t_param *p, char *fname, int i);
+void				get_map(t_param *p, char *line, int i, int fd);
 void				this_is_error(int flag);
 void				if_so(t_param *p, char *line, int i);
 void				if_s(t_param *p, char *line, int i);

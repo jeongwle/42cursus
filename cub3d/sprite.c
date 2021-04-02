@@ -6,13 +6,11 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 12:48:19 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/27 15:47:36 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:08:12 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-extern int map[MAPHEIGHT][MAPWIDTH];
 
 int		find_sprite(t_param *p)
 {
@@ -21,12 +19,12 @@ int		find_sprite(t_param *p)
 
 	p->spr_count = 0;
 	y = 0;
-	while (y < MAPHEIGHT)
+	while (y < p->map_width)
 	{
 		x = 0;
-		while (x < MAPWIDTH)
+		while (x < p->map_height)
 		{
-			if (map[x][y] == 2)
+			if (p->map[x][y] == 2)
 				p->spr_count++;
 			x++;
 		}
@@ -46,12 +44,12 @@ int		sprite_coordinate(t_param *p)
 	if (p->spr == NULL)
 		return (-1);
 	y = 0;
-	while (y < MAPHEIGHT)
+	while (y < p->map_width)
 	{
 		x = 0;
-		while (x < MAPWIDTH)
+		while (x < p->map_height)
 		{
-			if (map[x][y] == 2)
+			if (p->map[x][y] == 2)
 			{
 				p->spr[++i].x = x + 0.5;
 				p->spr[i].y = y + 0.5;

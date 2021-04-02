@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 14:55:33 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/01 17:02:13 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/02 13:55:50 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	this_is_error(int flag)
 	else if (flag == 8)
 		write(1, "C error", 8);
 	else if (flag == 9)
+		write(1, "map error", 9);
+	else if (flag == 10)
 		write(1, "argu error", 10);
 	exit(0);
 }

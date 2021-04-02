@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 17:23:52 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/01 19:16:09 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/02 09:44:11 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,13 @@ int		rgb_calc(t_param *p, int r, int g, int b)
 {
 	int result;
 
-	printf("%d %d %d \n", r, g, b);
+//	printf("%d %d %d \n", r, g, b);
 	r = r << 16;
 	g = g << 8;
 	b = b << 0;
-	printf("%d %d %d \n", r, g, b);
+//	printf("%d %d %d \n", r, g, b);
 	result = (r + g + b);
-	printf("%d \n", result);
+//	printf("%d \n", result);
 	p->identifier_count++;
 	return (result);
 }

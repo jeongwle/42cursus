@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:16:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/31 20:06:19 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/02 17:56:32 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ void	init_flag(t_param *p)
 	p->e_flag = 0;
 	p->f_flag = 0;
 	p->c_flag = 0;
+	p->map_flag = 0;
+	p->map_width = 0;
+	p->map_height = 0;
 }
 
 void	init_param(t_param *p)
 {
-	p->posx = 3.5;
-	p->posy = 3.5;
 	p->key_w = 0;
 	p->key_s = 0;
 	p->key_a = 0;

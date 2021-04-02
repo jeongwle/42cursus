@@ -11,12 +11,13 @@ SRCS	= ./main.c \
 		  ./parsing.c \
 		  ./get_next_line.c \
 		  ./get_next_line_utils.c \
-		  ./ft_atoi.c \
-		  ./ft_isdigit.c \
-		  ./ft_isalpha.c \
+		  ./utils.c \
 		  ./parsing_func.c \
 		  ./rgb.c \
-		  ./error_check.c
+		  ./error_check.c \
+		  ./ft_split.c \
+		  ./ft_calloc.c \
+		  ./get_map.c
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f
@@ -27,7 +28,7 @@ CFLAGS	= -lmlx -framework OpenGL -framework AppKit
 	$(CC) -c $< -o $@
 
 $(TARGET) : $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^ ./libmlx.dylib
+	$(CC) $(CFLAGS) -fsanitize=address -o $@ $^ ./libmlx.dylib
 
 all : $(TARGET)
 

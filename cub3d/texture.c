@@ -6,13 +6,11 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:20:12 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/29 20:05:15 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/02 17:58:31 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-extern int map[MAPHEIGHT][MAPWIDTH];
 
 void	load_image(t_param *p, int *texture, char *path)
 {
@@ -67,7 +65,7 @@ void	tex_param_two(t_param *p, int len, int start, int end)
 		p->texy = (int)p->texpos & (TEXHEIGHT - 1);
 		p->texpos += p->step;
 //		p->color = p->texture[p->texnum][TEXHEIGHT * p->texy + p->texx];
-		if (map[p->mapx][p->mapy] == 1)
+		if (p->map[p->mapx][p->mapy] == 1)
 		{
 			if (p->side == 0 && p->rdirx < 0)
 				p->color = p->texture[0][TEXHEIGHT * p->texy + p->texx];
@@ -85,7 +83,7 @@ void	tex_param_two(t_param *p, int len, int start, int end)
 
 void	tex_param(t_param *p, int len, int start, int end)
 {
-	p->texnum = map[p->mapx][p->mapy] - 1;
+	p->texnum = p->map[p->mapx][p->mapy] - 1;
 	if (p->side == 0)
 		p->wallx = p->posy + p->walld * p->rdiry;
 	else

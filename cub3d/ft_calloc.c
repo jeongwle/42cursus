@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/05 20:18:13 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/03/29 15:02:20 by jeongwle         ###   ########.fr       */
+/*   Created: 2020/10/08 02:54:40 by jeongwle          #+#    #+#             */
+/*   Updated: 2021/04/02 11:43:47 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	ft_isdigit(int c)
+void	*ft_calloc(size_t count, size_t size)
 {
-	if ('0' <= c && c <= '9')
-		return (1);
-	return (0);
+	int		i;
+	void	*res;
+
+	i = 0;
+	res = malloc(size * count);
+	if (!res)
+		return (NULL);
+	count *= size;
+	while (count--)
+	{
+		*((unsigned char *)res + i) = 0;
+		i++;
+	}
+	return (res);
 }

@@ -6,11 +6,11 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 21:36:07 by jeongwle          #+#    #+#             */
-/*   Updated: 2020/10/24 02:24:57 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/02 09:09:13 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "cub.h"
 
 size_t	ft_strlen(const char *s)
 {
