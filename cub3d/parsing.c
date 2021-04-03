@@ -6,18 +6,16 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 16:17:32 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/02 17:57:56 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/03 16:22:01 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-char	is_space(char c)
-{
-	return (c == ' ' || (9 <= c && c <= 13));
-}
 void		resolution(t_param *p, char *line, int i, int flag)
 {
+	if (p->r_flag)
+		this_is_error(1);
 	i++;
 	do_check(line, i, flag);
 	while (is_space(line[i]))
@@ -44,32 +42,32 @@ void		resolution(t_param *p, char *line, int i, int flag)
 
 void		parsing(t_param *p, char *line, int i, int fd)
 {
-	if (line[i] == 'R' && !p->r_flag)
+	if (line[i] == 'R')
 		resolution(p, line, i, 1);
 	else if (line[i] == 'S')
 	{
-		if (line[i + 1] == 'O' && !p->so_flag)
+		if (line[i + 1] == 'O')
 			if_so(p, line, i);
-		else if (is_space(line[i + 1]) && !p->s_flag)
+		else if (is_space(line[i + 1]))
 			if_s(p, line, i);
 	}
-	else if (line[i] == 'W' && !p->w_flag)
+	else if (line[i] == 'W')
 		if_w(p, line, i);
-	else if (line[i] == 'N' && !p->n_flag)
+	else if (line[i] == 'N')
 		if_n(p, line, i);
-	else if (line[i] == 'E' && !p->e_flag)
+	else if (line[i] == 'E')
 		if_e(p, line, i);
-	else if (line[i] == 'F' && !p->f_flag)
+	else if (line[i] == 'F')
 	{
 		rgb_param(p, line, i, 7);
 		p->f_color = rgb_calc(p, p->r, p->g, p->b);
 	}
-	else if (line[i] == 'C' && !p->c_flag)
+	else if (line[i] == 'C')
 	{
 		rgb_param(p, line, i, 8);
 		p->c_color = rgb_calc(p, p->r, p->g, p->b);
 	}
-	else if (ft_isdigit(line[i]) && !p->map_flag)
+	else if (ft_isdigit(line[i]))
 		get_map(p, line, i, fd);
 }
 
@@ -79,8 +77,6 @@ int			get_info(t_param *p, int i)
 	int		fd;
 	int		gnl;
 	char	*line;
-	char	**a;
-	int j = 0;
 
 	fname = "map.cub";
 	get_map_size(p, fname, 0);
@@ -94,21 +90,8 @@ int			get_info(t_param *p, int i)
 		if (line[0])
 			parsing(p, line, i, fd);
 	}
-/*	while (get_next_line(fd, &line) > 0)
-	{
-		if (word_count(line, '\n'))
-		{
-			get_mapwidth(p, word_len(line, '\n'));
-			p->map_height++;
-		}
-	}*/
-	/*
-	if ((fdd = open(fname, O_RDONLY)) < 0)
-		return (-1);
-	while (get_next_line(fdd, &line) > 0)
-	{
-	}*/
-//	printf("%d\n %d\n", p->map_width, p->map_height);
+	if (p->identifier_count == 9 && (get_next_line(fd, &line))> 0)
+			this_is_error(10);
 	if (p->identifier_count != 9)
 		this_is_error(10);
 	return (0);

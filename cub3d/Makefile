@@ -15,9 +15,9 @@ SRCS	= ./main.c \
 		  ./parsing_func.c \
 		  ./rgb.c \
 		  ./error_check.c \
-		  ./ft_split.c \
-		  ./ft_calloc.c \
-		  ./get_map.c
+		  ./get_map.c \
+		  ./get_map_two.c \
+		  ./check_map.c
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f

@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:51:51 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/02 15:55:47 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/03 11:17:54 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,6 @@ static void		*ft_free(char **str)
 	}
 	free(str);
 	return (NULL);
-}
-
-void		get_mapwidth(t_param *p, size_t size)
-{
-	if (p->map_width < size)
-		p->map_width = size;
 }
 
 char			**ft_split(t_param *p, char const *s, char c)

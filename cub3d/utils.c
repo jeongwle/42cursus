@@ -6,11 +6,39 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 09:06:09 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/02 09:11:23 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/03 11:40:51 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+int			word_count(char const *s, char c)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	if (*(s + i) != c && *(s + i) != 0)
+		count++;
+	while (*(s + i))
+	{
+		if (*(s + i) == c)
+		{
+			if (*(s + i + 1) == '\0')
+				break ;
+			if (*(s + i + 1) != c)
+				count++;
+		}
+		i++;
+	}
+	return (count);
+}
+
+char		is_space(char c)
+{
+	return (c == ' ' || (9 <= c && c <= 13));
+}
 
 int			ft_atoi(const char *str)
 {

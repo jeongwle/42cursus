@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 17:23:52 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/02 09:44:11 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/03 16:33:36 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	rgb_check_param(t_param *p, char *line, int i, int flag)
 	while (line[i])
 	{
 		if (ft_isdigit(line[i]))
-			break;
+			break ;
 		i++;
 	}
 	if (!line[i])
@@ -38,9 +38,19 @@ void	rgb_check_param(t_param *p, char *line, int i, int flag)
 void	rgb_param_two(t_param *p, char *line, int i, int flag)
 {
 	if (flag == 7)
+	{
+		if (p->f_flag)
+			this_is_error(10);
 		p->f_flag = 1;
+	}
 	else if (flag == 8)
+	{
+		if(p->c_flag)
+			this_is_error(10);
 		p->c_flag = 1;
+	}
+	if (!(0 <= p->b && p->b <= 255))
+		this_is_error(flag);
 	if (line[i])
 	{
 		while (line[i])
@@ -75,6 +85,10 @@ void	rgb_param(t_param *p, char *line, int i, int flag)
 	p->b = ft_atoi(&line[i]);
 	while (ft_isdigit(line[i]))
 		i++;
+	if (!(0 <= p->r && p->r <= 255))
+		this_is_error(flag);
+	if (!(0 <= p->g && p->g <= 255))
+		this_is_error(flag);
 	rgb_param_two(p, line, i, flag);
 }
 

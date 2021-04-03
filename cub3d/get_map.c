@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 13:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/02 18:38:29 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/03 19:12:53 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,66 +16,66 @@ void	map_check(char *line, int i)
 {
 	while (line[i])
 	{
-		if (line[i] == '\0' || ft_isdigit(line[i]) || line[i] == 'N'|| is_space(line[i]))
-		{
-
-		//	printf("%s\n", line);
+		if (line[i] == '\0' || ft_isdigit(line[i]) || is_space(line[i]))
 			i++;
-		}
+		else if (is_news(line[i]))
+			i++;
 		else
-		{
-		//	printf("line =%c\n", line[i]);
-		//	printf("i =%d\n", i);
 			this_is_error(9);
-		}
 	}
 }
 
-void	map_init(t_param *p)
+int		map_init(t_param *p, int i, int j)
 {
-	int i;
-	int j;
-
-	i = 0;
-	while (p->map[i])
+	p->map = (int **)malloc(sizeof(int *) * p->map_height);
+	if (!p->map)
+		return (-1);
+	while (++i < p->map_height)
 	{
-		j = 0;
-		while (p->map[i][j])
+		p->map[i] = (int *)malloc(sizeof(int) * p->map_width);
+		if (!p->map[i])
 		{
-			p->map[i][j] = 1;
-			j++;
+			while (++j < i)
+				free(p->map[j]);
+			free(p->map);
+			return (-1);
 		}
-		i++;
 	}
+	i = -1;
+	while (++i < p->map_height)
+	{
+		j = -1;
+		while (++j < p->map_width)
+			p->map[i][j] = ' ';
+	}
+	return (0);
 }
 
 int		get_map_size(t_param *p, char *fname, int i)
 {
 	int		fd;
 	char	*line;
+	int		flag;
 
+	flag = 0;
 	if ((fd = open(fname, O_RDONLY)) < 0)
 		return (-1);
 	while (get_next_line(fd, &line) > 0)
 	{
+		i = 0;
 		while (is_space(line[i]))
 			i++;
+		if (ft_isdigit(line[i]))
+			flag = 1;
+		if (flag && !ft_isdigit(line[i]))
+			break ;
 		if (ft_isdigit(line[i]))
 		{
 			map_check(line, i);
 			p->map_height++;
+			if (p->map_width < word_len(line, '\n'))
+				p->map_width = word_len(line, '\n');
 		}
-		get_mapwidth(p, word_len(line, '\n'));
-	}
-	p->map = (int **)malloc(sizeof(int *) * p->map_height);
-	if (!p->map)
-		return (-1);
-	i = -1;
-	while (++i < p->map_height)
-	{
-		p->map[i] = (int *)malloc(sizeof(int) * p->map_width);
-		if (!p->map[i])
-			return (-1);
 	}
 	return (0);
 }
@@ -89,7 +89,7 @@ void	get_map(t_param *p, char *line, int i, int fd)
 	if (p->identifier_count != 8)
 		this_is_error(10);
 	map_check(line, i);
-	map_init(p);
+	map_init(p, -1, -1);
 	j = 0;
 	k = 0;
 	l = 0;
@@ -97,42 +97,48 @@ void	get_map(t_param *p, char *line, int i, int fd)
 	{
 		if (ft_isdigit(line[l]))
 			p->map[j][k] = line[l] - '0';
-		else if (line[l] == 'N')
+		else if (is_news(line[l]))
 		{
-			p->map[j][k] = 0;
-			p->posx = j + 0.5;
-			p->posy = k + 0.5;
+			if (p->player_flag)
+				this_is_error(9);
+			player_dir(p, line[l], j, k);
+			p->player_flag = 1;
 		}
-		else if (is_space(line[i]))
-			;
 		k++;
 		l++;
 	}
 	j++;
-	while (get_next_line(fd, &line) > 0)
+	get_map_two(p, line, fd, j);
+}
+
+void	get_map_two(t_param *p, char *line, int fd, int j)
+{
+	int k;
+	int l;
+
+	while (get_next_line(fd, &line) > 0 && *line)
 	{
 		k = 0;
-		l = 0;
-		while (l < word_len(line, '\n'))
+		l = -1;
+		while (++l < word_len(line, '\n'))
 		{
 			if (ft_isdigit(line[l]))
 				p->map[j][k] = line[l] - '0';
-			else if (line[l] == 'N')
+			else if (is_news(line[l]))
 			{
-				p->map[j][k] = 0;
-				p->posx = j + 0.5;
-				p->posy = k + 0.5;
+				if (p->player_flag)
+					this_is_error(9);
+				player_dir(p, line[l], j, k);
+				p->player_flag = 1;
 			}
-			else if (is_space(line[i]))
-				;
 			k++;
-			l++;
 		}
 		j++;
 	}
 	p->map_flag = 1;
 	p->identifier_count++;
-	
+	check_map(p);
+/*	
 	j = 0;
 	while (j < p->map_height)
 	{
@@ -144,5 +150,5 @@ void	get_map(t_param *p, char *line, int i, int fd)
 		}
 		printf("\n");
 		j++;
-	}
+	}*/
 }

@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:16:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/02 17:56:32 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/03 19:09:34 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_flag(t_param *p)
 	p->f_flag = 0;
 	p->c_flag = 0;
 	p->map_flag = 0;
+	p->player_flag = 0;
 	p->map_width = 0;
 	p->map_height = 0;
 }
@@ -35,10 +36,8 @@ void	init_param(t_param *p)
 	p->key_a = 0;
 	p->key_d = 0;
 	p->key_esc = 0;
-	p->dirx = -1.0;
-	p->diry = 0.0;
-	p->planex = 0.0;
-	p->planey = 0.66;
+//	p->planex = 0.0;
+//	p->planey = 0.66;
 	p->movespeed = 0.1;
 	p->rotspeed = 0.05;
 	p->mapx = (int)p->posx;
