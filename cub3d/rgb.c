@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 17:23:52 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/03 16:33:36 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/04 15:31:43 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	rgb_check(t_param *p, char *line, int i, int flag)
 {
 	while (line[i])
 	{
-		if (!(ft_isdigit(line[i]) || line[i] == ',' || is_space(line[i])))
+		if (!(ft_isdigit(line[i]) || line[i] == ','))
 			this_is_error(flag);
 		i++;
 	}
@@ -65,7 +65,7 @@ void	rgb_param_two(t_param *p, char *line, int i, int flag)
 
 void	rgb_param(t_param *p, char *line, int i, int flag)
 {
-	i++;
+	i += 2;
 	rgb_check(p, line, i, flag);
 	rgb_check_param(p, line, i , flag);
 	while (!ft_isdigit(line[i]))

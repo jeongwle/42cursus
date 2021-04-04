@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/03 12:27:24 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/04 18:05:26 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ int		main_loop(t_param *p)
 	draw(p);
 	move_player(p);
 	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
+/*	bitmap(p);
+	exit(0);*/
 	return (0);
 }
 

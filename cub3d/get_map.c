@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 13:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/03 19:12:53 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/04 16:53:54 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		get_map_size(t_param *p, char *fname, int i)
 
 	flag = 0;
 	if ((fd = open(fname, O_RDONLY)) < 0)
-		return (-1);
+		this_is_error(11);
 	while (get_next_line(fd, &line) > 0)
 	{
 		i = 0;

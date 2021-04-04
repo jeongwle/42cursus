@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 17:19:17 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/03 19:01:01 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/04 15:35:02 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	check_right(t_param *p, int i , int j)
 {
 	while (j < p->map_width)
 	{
+		if (p->map[i][j] == ' ')
+			this_is_error(9);
 		if (p->map[i][j] == 1)
 			return ;
 		j++;
@@ -52,6 +54,8 @@ void	check_left(t_param *p, int i, int j)
 {
 	while (0 < j)
 	{
+		if (p->map[i][j] == ' ')
+			this_is_error(9);
 		if (p->map[i][j] == 1)
 			return ;
 		j--;
@@ -64,6 +68,8 @@ void	check_up(t_param *p, int i, int j)
 {
 	while (0 < i)
 	{
+		if (p->map[i][j] == ' ')
+			this_is_error(9);
 		if (p->map[i][j] == 1)
 			return ;
 		i--;
@@ -76,6 +82,8 @@ void	check_down(t_param *p, int i, int j)
 {
 	while (i < p->map_height)
 	{
+		if (p->map[i][j] == ' ')
+			this_is_error(9);
 		if (p->map[i][j] == 1)
 			return ;
 		i++;

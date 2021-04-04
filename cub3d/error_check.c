@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 14:55:33 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/02 13:55:50 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/04 16:53:05 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,27 @@ int		error_check_texture(int c)
 void	this_is_error(int flag)
 {
 	if (flag == 1)
-		write(1, "resolution error", 16);
+		write(1, "error\nresolution", 16);
 	else if (flag == 2)
-		write(1, "SO error", 8);
+		write(1, "error\nSO", 8);
 	else if (flag == 3)
-		write(1, "S error", 7);
+		write(1, "error\nS", 7);
 	else if (flag == 4)
-		write(1, "WE error", 8);
+		write(1, "error\nWE", 8);
 	else if (flag == 5)
-		write(1, "NO error", 8);
+		write(1, "error\nNO", 8);
 	else if (flag == 6)
-		write(1, "EA error", 8);
+		write(1, "error\nEA", 8);
 	else if (flag == 7)
-		write(1, "F error", 8);
+		write(1, "error\nF", 8);
 	else if (flag == 8)
-		write(1, "C error", 8);
+		write(1, "error\nC", 8);
 	else if (flag == 9)
-		write(1, "map error", 9);
+		write(1, "error\nmap", 9);
 	else if (flag == 10)
-		write(1, "argu error", 10);
+		write(1, "error\nargu", 10);
+	else if (flag == 11)
+		write(1, "error\nopen", 10);
 	exit(0);
 }
 

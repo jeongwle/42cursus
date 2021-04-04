@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:38:30 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/03 16:21:36 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/04 14:51:53 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	if_so(t_param *p, char *line, int i)
 {
-	if(p->so_flag)
+	if (p->so_flag)
 		this_is_error(2);
+	if (!is_space(line[i + 2]))
+		this_is_error(10);
 	i += 2;
 	do_check_texture(line, i, 2);
 	while (is_space(line[i]))
@@ -29,8 +31,10 @@ void	if_so(t_param *p, char *line, int i)
 
 void	if_s(t_param *p, char *line, int i)
 {
-	if(p->s_flag)
+	if (p->s_flag)
 		this_is_error(3);
+	if (!is_space(line[i + 1]))
+		this_is_error(10);
 	i++;
 	do_check_texture(line, i, 3);
 	while (is_space(line[i]))
@@ -44,8 +48,10 @@ void	if_s(t_param *p, char *line, int i)
 
 void	if_w(t_param *p, char *line, int i)
 {
-	if(p->w_flag)
+	if (p->w_flag)
 		this_is_error(4);
+	if (!is_space(line[i + 2]))
+		this_is_error(10);
 	i += 2;
 	do_check_texture(line, i , 4);
 	while (is_space(line[i]))
@@ -59,8 +65,10 @@ void	if_w(t_param *p, char *line, int i)
 
 void	if_n(t_param *p, char *line, int i)
 {
-	if(p->n_flag)
+	if (p->n_flag)
 		this_is_error(5);
+	if (!is_space(line[i + 2]))
+		this_is_error(10);
 	i += 2;
 	do_check_texture(line, i, 5);
 	while (is_space(line[i]))
@@ -74,8 +82,10 @@ void	if_n(t_param *p, char *line, int i)
 
 void	if_e(t_param *p, char *line, int i)
 {
-	if(p->e_flag)
+	if (p->e_flag)
 		this_is_error(6);
+	if (!is_space(line[i + 2]))
+		this_is_error(10);
 	i += 2;
 	do_check_texture(line, i, 6);
 	while (is_space(line[i]))

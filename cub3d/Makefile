@@ -17,7 +17,8 @@ SRCS	= ./main.c \
 		  ./error_check.c \
 		  ./get_map.c \
 		  ./get_map_two.c \
-		  ./check_map.c
+		  ./check_map.c \
+		  ./bmp.c
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f

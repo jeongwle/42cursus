@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:53:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/03 19:09:21 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/04 17:57:26 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int					is_news(int c);
 int					word_count(char const *s, char c);
 size_t				word_len(char const *s, char c);
 void				player_dir(t_param *p, char c, int j, int k);
-int					get_info(t_param *p, int i);
+void				get_info(t_param *p, int i);
 void				resolution(t_param *p, char *line, int i, int flag);
 void				parsing(t_param *p, char *line, int i, int fd);
 void				rgb_param(t_param *p, char *line, int i, int flag);
@@ -198,5 +198,8 @@ void				wall_param(t_param *p);
 void				dda_param_two(t_param *p);
 void				dda_param(t_param *p);
 void				dda(t_param *p);
+void				calc_something(int something, int i, unsigned char *bmp_h);
+void				write_bmp_header(t_param *p, int sizeimage, int size);
+void				bitmap(t_param *p);
 
 #endif
