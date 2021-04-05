@@ -6,13 +6,13 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 09:06:09 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/03 11:40:51 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/05 20:15:34 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int			word_count(char const *s, char c)
+int		word_count(char const *s, char c)
 {
 	int	i;
 	int	count;
@@ -35,12 +35,12 @@ int			word_count(char const *s, char c)
 	return (count);
 }
 
-char		is_space(char c)
+char	is_space(char c)
 {
 	return (c == ' ' || (9 <= c && c <= 13));
 }
 
-int			ft_atoi(const char *str)
+int		ft_atoi(const char *str)
 {
 	int				sign;
 	long long int	res;
@@ -67,14 +67,14 @@ int			ft_atoi(const char *str)
 	return (sign * res);
 }
 
-int	ft_isdigit(int c)
+int		ft_isdigit(int c)
 {
 	if ('0' <= c && c <= '9')
 		return (1);
 	return (0);
 }
 
-int	ft_isalpha(int c)
+int		ft_isalpha(int c)
 {
 	if (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z'))
 		return (1);

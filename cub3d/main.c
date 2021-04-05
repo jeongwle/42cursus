@@ -6,39 +6,11 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/04 18:05:26 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/05 19:15:36 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-/*
-int		map[MAPHEIGHT][MAPWIDTH] =
-{
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-};*/
 
 void	ceiling_floor(t_param *p)
 {
@@ -49,7 +21,7 @@ void	ceiling_floor(t_param *p)
 	while (i < p->height)
 	{
 		j = 0;
-		while (j <p->width)
+		while (j < p->width)
 		{
 			if (i < p->height / 2)
 				p->buf[i][j] = p->c_color;
@@ -59,11 +31,6 @@ void	ceiling_floor(t_param *p)
 		}
 		i++;
 	}
-}
-int		my_pixel_put(t_param *p, int x, int y, int color)
-{
-	p->data[y * p->width + x] = color;
-	return (0);
 }
 
 int		image_clean(t_param *p)
@@ -97,7 +64,7 @@ void	draw(t_param *p)
 		while (x < p->width)
 		{
 			if (p->buf[y][x])
-				p->data[y * p->width +x] = p->buf[y][x];
+				p->data[y * p->width + x] = p->buf[y][x];
 			x++;
 		}
 		y++;
@@ -116,28 +83,34 @@ int		main_loop(t_param *p)
 	draw(p);
 	move_player(p);
 	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
-/*	bitmap(p);
-	exit(0);*/
 	return (0);
 }
 
-int		main(void)
+int		main(int argc, char *argv[])
 {
 	t_param p;
 
-	mlx_get_screen_size(p.mlx, &p.max_width, &p.max_height);
-	init_flag(&p);
-	init_texture(&p, -1, -1, 0);
-	get_info(&p, 0);
-	init_buf(&p, -1, 0, -1);
-	init_zbuffer(&p);
-	init_param(&p);
-//	init_buf(&p);
-	load_texture(&p);
-	p.img = mlx_new_image(p.mlx, p.width, p.height);
-	p.data = (int *)mlx_get_data_addr(p.img, &p.bpp, &p.size_l, &p.endian);
-	mlx_loop_hook(p.mlx, main_loop, &p);
-	mlx_hook(p.win, 2, 0, &key_press, &p);
-	mlx_hook(p.win, 3, 0, &key_release, &p);
-	mlx_loop(p.mlx);
+	if (argc == 2 || argc == 3)
+	{
+		check_argv_one(argv[1]);
+		mlx_get_screen_size(p.mlx, &p.max_width, &p.max_height);
+		init_flag(&p);
+		init_texture(&p, -1, -1, 0);
+		get_info(&p, 0, argv[1]);
+		init_buf(&p, -1, 0, -1);
+		init_zbuffer(&p);
+		init_param(&p);
+		load_texture(&p);
+		p.img = mlx_new_image(p.mlx, p.width, p.height);
+		p.data = (int *)mlx_get_data_addr(p.img, &p.bpp, &p.size_l, &p.endian);
+		if (argc == 3)
+			check_argv_two(&p, argv[2]);
+		mlx_loop_hook(p.mlx, main_loop, &p);
+		mlx_hook(p.win, 2, 0, &key_press, &p);
+		mlx_hook(p.win, 3, 0, &key_release, &p);
+		mlx_hook(p.win, 17, 0, &red_button, &p);
+		mlx_loop(p.mlx);
+	}
+	else
+		this_is_error(10);
 }

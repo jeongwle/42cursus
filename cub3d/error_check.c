@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 14:55:33 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/04 16:53:05 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/05 19:32:52 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	do_check(char *line, int i, int flag)
 	}
 }
 
-
 void	do_check_texture(char *line, int i, int flag)
 {
 	while (line[i])
@@ -33,7 +32,6 @@ void	do_check_texture(char *line, int i, int flag)
 		else
 			this_is_error(flag);
 	}
-
 }
 
 int		error_check(int c)
@@ -74,6 +72,7 @@ void	this_is_error(int flag)
 		write(1, "error\nargu", 10);
 	else if (flag == 11)
 		write(1, "error\nopen", 10);
-	exit(0);
+	else if (flag == 12)
+		write(1, "error\nmalloc", 12);
+	exit(1);
 }
-

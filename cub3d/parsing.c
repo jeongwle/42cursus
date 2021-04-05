@@ -6,11 +6,28 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 16:17:32 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/04 16:59:10 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/05 20:44:13 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+void		resolution_two(t_param *p, char *line, int i, int flag)
+{
+	if (ft_isdigit(line[i]))
+	{
+		if (ft_atoi(&line[i]) == 0)
+			this_is_error(flag);
+		if ((p->height = ft_atoi(&line[i])) > p->max_height ||
+		ft_atoi(&line[i]) == -1)
+			p->height = p->max_height;
+	}
+	else
+		this_is_error(flag);
+	free(line);
+	p->identifier_count++;
+	p->r_flag = 1;
+}
 
 void		resolution(t_param *p, char *line, int i, int flag)
 {
@@ -26,24 +43,24 @@ void		resolution(t_param *p, char *line, int i, int flag)
 	{
 		if (ft_atoi(&line[i]) == 0)
 			this_is_error(flag);
-		if ((p->width = ft_atoi(&line[i])) > p->max_width || ft_atoi(&line[i]) == -1)
+		if ((p->width = ft_atoi(&line[i])) > p->max_width ||
+		ft_atoi(&line[i]) == -1)
 			p->width = p->max_width;
 	}
 	while (ft_isdigit(line[i]))
 		i++;
 	while (is_space(line[i]))
 		i++;
-	if (ft_isdigit(line[i]))
-	{
-		if (ft_atoi(&line[i]) == 0)
-			this_is_error(flag);
-		if ((p->height = ft_atoi(&line[i])) > p->max_height || ft_atoi(&line[i]) == -1)
-			p->height = p->max_height;
-	}
-	else
-		this_is_error(flag);
-	p->identifier_count++;
-	p->r_flag = 1;
+	resolution_two(p, line, i, flag);
+}
+
+void		parsing_two(t_param *p, char *line, int i, int flag)
+{
+	rgb_param(p, line, i, flag);
+	if (flag == 7)
+		p->f_color = rgb_calc(p, p->r, p->g, p->b);
+	if (flag == 8)
+		p->c_color = rgb_calc(p, p->r, p->g, p->b);
 }
 
 void		parsing(t_param *p, char *line, int i, int fd)
@@ -64,51 +81,40 @@ void		parsing(t_param *p, char *line, int i, int fd)
 	else if (line[i] == 'E')
 		if_e(p, line, i);
 	else if (line[i] == 'F' && is_space(line[i + 1]))
-	{
-		rgb_param(p, line, i, 7);
-		p->f_color = rgb_calc(p, p->r, p->g, p->b);
-	}
+		parsing_two(p, line, i, 7);
 	else if (line[i] == 'C' && is_space(line[i + 1]))
-	{
-		rgb_param(p, line, i, 8);
-		p->c_color = rgb_calc(p, p->r, p->g, p->b);
-	}
+		parsing_two(p, line, i, 8);
 	else if (ft_isdigit(line[i]))
 		get_map(p, line, i, fd);
 	else
 		this_is_error(10);
 }
 
-void		get_info(t_param *p, int i)
+void		get_info(t_param *p, int i, char *fname)
 {
-	char	*fname;
 	int		fd;
-	int		gnl;
 	char	*line;
 
-	fname = "map.cub";
-	get_map_size(p, fname, 0);
+	get_map_size(p, fname, 0, 0);
 	if ((fd = open(fname, O_RDONLY)) < 0)
 		this_is_error(11);
-	while (p->identifier_count != 9 && (gnl = get_next_line(fd, &line)) > 0)
+	while (p->identifier_count != 9 && get_next_line(fd, &line) > 0)
 	{
 		i = 0;
 		while (is_space(line[i]))
 			i++;
 		if (line[0])
 			parsing(p, line, i, fd);
+		else
+			free(line);
 	}
-	if (p->identifier_count == 9 && (get_next_line(fd, &line))> 0)
-			this_is_error(10);
+	if (p->identifier_count == 9 && (get_next_line(fd, &line)) > 0)
+	{
+		free(line);
+		this_is_error(10);
+	}
+	if (line)
+		free(line);
 	if (p->identifier_count != 9)
 		this_is_error(10);
 }
-/*
-int	main(void)
-{
-	t_param p;
-
-	get_info(&p, 0);
-	printf("width = %d\n", p.width);
-	printf("height = %d\n", p.height);
-}*/

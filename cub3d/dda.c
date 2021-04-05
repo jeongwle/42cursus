@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:22:08 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/02 17:58:48 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/05 19:18:59 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ void	wall_param(t_param *p)
 	if (end >= p->height)
 		end = p->height;
 	tex_param(p, len, start, end);
-//	while (start < end)
-//	{
-//		my_pixel_put(p, p->index, start, 0x0000FF);
-//		start++;
-//	}
 }
 
 void	dda_param_two(t_param *p)
@@ -64,15 +59,15 @@ void	dda_param_two(t_param *p)
 
 void	dda_param(t_param *p)
 {
-		p->camerax = 2 * p->index / (double)p->width - 1;
-		p->rdirx = p->dirx + p->planex * p->camerax;
-		p->rdiry = p->diry + p->planey * p->camerax;
-		p->mapx = (int)p->posx;
-		p->mapy = (int)p->posy;
-		p->deldx = fabs(1 / p->rdirx);
-		p->deldy = fabs(1 / p->rdiry);
-		p->hit = 0;
-		dda_param_two(p);
+	p->camerax = 2 * p->index / (double)p->width - 1;
+	p->rdirx = p->dirx + p->planex * p->camerax;
+	p->rdiry = p->diry + p->planey * p->camerax;
+	p->mapx = (int)p->posx;
+	p->mapy = (int)p->posy;
+	p->deldx = fabs(1 / p->rdirx);
+	p->deldy = fabs(1 / p->rdiry);
+	p->hit = 0;
+	dda_param_two(p);
 }
 
 void	dda(t_param *p)

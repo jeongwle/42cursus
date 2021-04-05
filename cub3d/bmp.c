@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 12:21:53 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/04 18:03:59 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/05 19:34:48 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,21 @@ void	write_bmp_header(t_param *p, int sizeimage, int size)
 	bmpfileheader[0] = (unsigned char)'B';
 	bmpfileheader[1] = (unsigned char)'M';
 	calc_something(size, 2, bmpfileheader);
-	bmpfileheader[10] = (unsigned char)54; 
+	bmpfileheader[10] = (unsigned char)54;
 	bmpfileheader[14] = (unsigned char)40;
 	calc_something(p->width, 18, bmpfileheader);
 	calc_something(-p->height, 22, bmpfileheader);
 	bmpfileheader[26] = (unsigned char)1;
 	bmpfileheader[28] = (unsigned char)32;
 	calc_something(sizeimage, 34, bmpfileheader);
-	if ((i = open("screenshot.bmp", O_CREAT | O_TRUNC | O_WRONLY | O_APPEND, 0666)) < 0)
+	if ((i = open("screenshot.bmp", O_CREAT | O_TRUNC | O_WRONLY |
+	O_APPEND, 0666)) < 0)
 		this_is_error(11);
 	write(i, bmpfileheader, 54);
 	write(i, p->data, sizeimage);
 	close(i);
 }
+
 void	bitmap(t_param *p)
 {
 	int	sizeimage;
@@ -53,5 +55,5 @@ void	bitmap(t_param *p)
 	sizeimage = p->width * 4 * p->height;
 	size = sizeimage + 54;
 	write_bmp_header(p, sizeimage, size);
+	exit(0);
 }
-

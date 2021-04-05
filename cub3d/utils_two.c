@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   utils_two.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 21:36:07 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/02 09:09:13 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/05 20:53:06 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,22 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		res[i++] = s2[j];
 	res[i] = 0;
 	return (res);
+}
+
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (i < n && s1[i] != '\0')
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	if (i == n)
+		i -= 1;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

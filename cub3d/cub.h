@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:53:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/04 17:57:26 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/05 20:43:41 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # define KEY_A 0
 # define KEY_D 2
 # define KEY_ESC 53
-# define MAPWIDTH 24
-# define MAPHEIGHT 24
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
 # define TEXWIDTH 64
 # define TEXHEIGHT 64
 
@@ -58,6 +58,8 @@ typedef struct		s_param
 	int			key_a;
 	int			key_d;
 	int			key_esc;
+	int			key_left;
+	int			key_right;
 	double		posx;
 	double		posy;
 	double		dirx;
@@ -139,6 +141,7 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strdup(const char *s1);
 char				*ft_strchr(const char *s, int c);
 size_t				ft_strlen(const char *s);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					get_next_line(int fd, char **line);
 int					ft_atoi(const char *str);
 int					ft_isdigit(int c);
@@ -148,7 +151,7 @@ int					is_news(int c);
 int					word_count(char const *s, char c);
 size_t				word_len(char const *s, char c);
 void				player_dir(t_param *p, char c, int j, int k);
-void				get_info(t_param *p, int i);
+void				get_info(t_param *p, int i, char *fname);
 void				resolution(t_param *p, char *line, int i, int flag);
 void				parsing(t_param *p, char *line, int i, int fd);
 void				rgb_param(t_param *p, char *line, int i, int flag);
@@ -162,7 +165,7 @@ void				rgb_check(t_param *p, char *line, int i, int flag);
 void				rgb_check_param(t_param *p, char *line, int i, int flag);
 void				map_check(char *line, int i);
 int					map_init(t_param *p, int i, int j);
-int					get_map_size(t_param *p, char *fname, int i);
+void				get_map_size(t_param *p, char *fname, int i, int flag);
 void				get_map(t_param *p, char *line, int i, int fd);
 void				get_map_two(t_param *p, char *line, int fd, int j);
 void				check_map(t_param *p);
@@ -178,11 +181,11 @@ void				if_e(t_param *p, char *line, int i);
 void				if_n(t_param *p, char *line, int i);
 void				init_flag(t_param *p);
 void				init_param(t_param *p);
-int					init_buf(t_param *p, int i, int j, int k);
-int					init_zbuffer(t_param *p);
-int					init_texture(t_param *p, int i, int j, int k);
+void				init_buf(t_param *p, int i, int j, int k);
+void				init_zbuffer(t_param *p);
+void				init_texture(t_param *p, int i, int j, int k);
 int					find_sprite(t_param *p);
-int					sprite_coordinate(t_param *p);
+void				sprite_coordinate(t_param *p);
 void				change_param(t_param *p, int j);
 int					sprite_sort(t_param *p);
 void				sprite_param_two(t_param *p, int i);
@@ -201,5 +204,11 @@ void				dda(t_param *p);
 void				calc_something(int something, int i, unsigned char *bmp_h);
 void				write_bmp_header(t_param *p, int sizeimage, int size);
 void				bitmap(t_param *p);
+int					red_button(void	*param);
+void				check_argv_one(char *str);
+void				check_argv_two(t_param *p, char *str);
+int					main_loop(t_param *p);
+void				move_player_sub(t_param *p);
+void				move_player_sub_two(t_param *p);
 
 #endif

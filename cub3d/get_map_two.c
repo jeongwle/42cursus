@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 11:59:06 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/03 17:38:56 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/05 20:54:53 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	word_len(char const *s, char c)
 	return (len);
 }
 
-void	player_dir(t_param *p, char c, int j, int k)
+void	player_dir_param_init(t_param *p, int j, int k)
 {
 	p->dirx = 0.0;
 	p->diry = 0.0;
@@ -36,7 +36,13 @@ void	player_dir(t_param *p, char c, int j, int k)
 	p->map[j][k] = 0;
 	p->posx = j + 0.5;
 	p->posy = k + 0.5;
-	
+}
+
+void	player_dir(t_param *p, char c, int j, int k)
+{
+	if (p->player_flag)
+		this_is_error(9);
+	player_dir_param_init(p, j, k);
 	if (c == 'N')
 		p->dirx = -1.0;
 	else if (c == 'S')
@@ -48,7 +54,7 @@ void	player_dir(t_param *p, char c, int j, int k)
 	{
 		p->diry = -1.0;
 		p->planex = -0.66;
-		p->planey = 0;
+		p->planey = 0.0;
 	}
 	else if (c == 'E')
 	{
@@ -56,4 +62,5 @@ void	player_dir(t_param *p, char c, int j, int k)
 		p->planex = 0.66;
 		p->planey = 0.0;
 	}
+	p->player_flag = 1;
 }

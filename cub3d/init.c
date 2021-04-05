@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:16:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/03 19:09:34 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/05 21:10:08 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,25 @@ void	init_param(t_param *p)
 	p->key_s = 0;
 	p->key_a = 0;
 	p->key_d = 0;
+	p->key_left = 0;
+	p->key_right = 0;
 	p->key_esc = 0;
-//	p->planex = 0.0;
-//	p->planey = 0.66;
-	p->movespeed = 0.1;
+	p->movespeed = 0.08;
 	p->rotspeed = 0.05;
 	p->mapx = (int)p->posx;
 	p->mapy = (int)p->posy;
+	p->spr = (t_sprite *)malloc(sizeof(t_sprite) * (find_sprite(p) + 1));
+	if (!p->spr)
+		this_is_error(12);
 	p->mlx = mlx_init();
 	p->win = mlx_new_window(p->mlx, p->width, p->height, "cub3d");
 }
 
-int		init_buf(t_param *p, int i, int j, int k)
+void	init_buf(t_param *p, int i, int j, int k)
 {
 	p->buf = (int **)malloc(sizeof(int *) * p->height);
 	if (p->buf == NULL)
-		return (-1);
+		this_is_error(12);
 	while (++i < p->height)
 	{
 		p->buf[i] = (int *)malloc(sizeof(int) * p->width);
@@ -58,40 +61,39 @@ int		init_buf(t_param *p, int i, int j, int k)
 		{
 			while (++k < i)
 				free(p->buf[k]);
-			return (-1);
+			free(p->buf);
+			this_is_error(12);
 		}
 	}
 	i = -1;
 	while (++i < p->height)
 	{
 		j = -1;
-		while (++j <p->width)
+		while (++j < p->width)
 			p->buf[i][j] = 0;
 	}
-	return (0);
 }
 
-int		init_zbuffer(t_param *p)
+void	init_zbuffer(t_param *p)
 {
 	int i;
 
 	i = -1;
 	p->zbuffer = (double *)malloc(sizeof(double) * p->width);
 	if (p->zbuffer == NULL)
-		return (-1);
+		this_is_error(12);
 	while (++i < p->width)
 		p->zbuffer[i] = 0;
-	return (0);
 }
 
-int		init_texture(t_param *p, int i, int j, int k)
+void	init_texture(t_param *p, int i, int j, int k)
 {
-	p->texture = (int **)malloc(sizeof(int *) * 8);
+	p->texture = (int **)malloc(sizeof(int *) * 5);
 	if (p->texture == NULL)
-		return (-1);
-	while (++i < 8)
+		this_is_error(12);
+	while (++i < 5)
 	{
-		p->texture[i] = (int *)malloc(sizeof(int) * (TEXHEIGHT* TEXWIDTH));
+		p->texture[i] = (int *)malloc(sizeof(int) * (TEXHEIGHT * TEXWIDTH));
 		if (p->texture[i] == NULL)
 		{
 			while (k < i)
@@ -99,16 +101,16 @@ int		init_texture(t_param *p, int i, int j, int k)
 				free(p->texture[k]);
 				k++;
 			}
-			return (-1);
+			free(p->texture);
+			this_is_error(12);
 		}
 	}
 	i = 0;
-	while (i < 8)
+	while (i < 5)
 	{
 		j = -1;
 		while (++j < TEXHEIGHT * TEXWIDTH)
 			p->texture[i][j] = 0;
 		i++;
 	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 13:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/04 16:53:54 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/05 20:51:41 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,11 @@ int		map_init(t_param *p, int i, int j)
 	return (0);
 }
 
-int		get_map_size(t_param *p, char *fname, int i)
+void	get_map_size(t_param *p, char *fname, int i, int flag)
 {
 	int		fd;
 	char	*line;
-	int		flag;
 
-	flag = 0;
 	if ((fd = open(fname, O_RDONLY)) < 0)
 		this_is_error(11);
 	while (get_next_line(fd, &line) > 0)
@@ -76,15 +74,17 @@ int		get_map_size(t_param *p, char *fname, int i)
 			if (p->map_width < word_len(line, '\n'))
 				p->map_width = word_len(line, '\n');
 		}
+		free(line);
 	}
-	return (0);
+	if (line)
+		free(line);
 }
 
 void	get_map(t_param *p, char *line, int i, int fd)
 {
 	int	j;
 	int	k;
-	int l;
+	int	l;
 
 	if (p->identifier_count != 8)
 		this_is_error(10);
@@ -98,16 +98,12 @@ void	get_map(t_param *p, char *line, int i, int fd)
 		if (ft_isdigit(line[l]))
 			p->map[j][k] = line[l] - '0';
 		else if (is_news(line[l]))
-		{
-			if (p->player_flag)
-				this_is_error(9);
 			player_dir(p, line[l], j, k);
-			p->player_flag = 1;
-		}
 		k++;
 		l++;
 	}
 	j++;
+	free(line);
 	get_map_two(p, line, fd, j);
 }
 
@@ -125,30 +121,16 @@ void	get_map_two(t_param *p, char *line, int fd, int j)
 			if (ft_isdigit(line[l]))
 				p->map[j][k] = line[l] - '0';
 			else if (is_news(line[l]))
-			{
-				if (p->player_flag)
-					this_is_error(9);
 				player_dir(p, line[l], j, k);
-				p->player_flag = 1;
-			}
+			else if (!is_space(line[l]))
+				this_is_error(10);
 			k++;
 		}
 		j++;
+		free(line);
 	}
+	free(line);
 	p->map_flag = 1;
 	p->identifier_count++;
 	check_map(p);
-/*	
-	j = 0;
-	while (j < p->map_height)
-	{
-		k = 0;
-		while (k < p->map_width)
-		{
-			printf("%d", p->map[j][k]);
-			k++;
-		}
-		printf("\n");
-		j++;
-	}*/
 }

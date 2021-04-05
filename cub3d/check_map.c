@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 17:19:17 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/04 15:35:02 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/05 21:09:42 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	check_map(t_param *p)
 	}
 }
 
-void	check_right(t_param *p, int i , int j)
+void	check_right(t_param *p, int i, int j)
 {
 	while (j < p->map_width)
 	{

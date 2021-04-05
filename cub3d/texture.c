@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:20:12 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/02 17:58:31 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/05 21:08:53 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,6 @@ void	load_texture(t_param *p)
 	load_image(p, p->texture[4], p->texpath[4]);
 }
 
-/*
-void	load_texture(t_param *p)
-{
-	load_image(p, p->texture[0], "textures/eagle.xpm");
-	load_image(p, p->texture[1], "textures/redbrick.xpm");
-	load_image(p, p->texture[2], "textures/purplestone.xpm");
-	load_image(p, p->texture[3], "textures/greystone.xpm");
-	load_image(p, p->texture[4], "textures/bluestone.xpm");
-	load_image(p, p->texture[5], "textures/mossy.xpm");
-	load_image(p, p->texture[6], "textures/wood.xpm");
-	load_image(p, p->texture[7], "textures/colorstone.xpm");
-}*/
-
 void	tex_param_two(t_param *p, int len, int start, int end)
 {
 	int	i;
@@ -64,7 +51,6 @@ void	tex_param_two(t_param *p, int len, int start, int end)
 	{
 		p->texy = (int)p->texpos & (TEXHEIGHT - 1);
 		p->texpos += p->step;
-//		p->color = p->texture[p->texnum][TEXHEIGHT * p->texy + p->texx];
 		if (p->map[p->mapx][p->mapy] == 1)
 		{
 			if (p->side == 0 && p->rdirx < 0)
