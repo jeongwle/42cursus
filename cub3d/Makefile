@@ -1,6 +1,4 @@
-CC		= gcc
-
-TARGET	= cub3D
+NAME	= cub3D
 
 SRCS	= ./main.c \
 		  ./init.c \
@@ -25,22 +23,29 @@ SRCS	= ./main.c \
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f
-CC		= gcc
+CC		= gcc -Wall -Wextra -Werror
+C		= clang
 CFLAGS	= -lmlx -framework OpenGL -framework AppKit
 
 .c.o :
 	$(CC) -c $< -o $@
 
-$(TARGET) : $(OBJS)
+$(NAME) : $(OBJS)
+	make -C ./mlx_mms
+	make -C ./mlx
+	cp ./mlx_mms/libmlx.dylib ./
 	$(CC) $(CFLAGS) -o $@ $^ ./libmlx.dylib
 
-all : $(TARGET)
+all : $(NAME)
 
 fclean : clean
-	$(RM) $(TARGET)
+	$(RM) $(NAME)
 
 clean :
 	$(RM) $(OBJS)
+	$(RM) ./libmlx.dylib
+	make clean -C ./mlx_mms
+	make clean -C ./mlx
 
 re : fclean all
 

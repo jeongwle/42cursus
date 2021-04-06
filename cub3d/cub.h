@@ -1,12 +1,12 @@
-/*************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
+/*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/12 15:53:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/05 20:43:41 by jeongwle         ###   ########.fr       */
+/*   Created: 2021/04/06 09:57:55 by jeongwle          #+#    #+#             */
+/*   Updated: 2021/04/06 13:50:16 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #  define BUFFER_SIZE 4096
 # endif
 
-# include "mlx.h"
+# include "./mlx/mlx.h"
 # include <stdlib.h>
 # include <string.h>
 # include <math.h>
@@ -161,8 +161,8 @@ void				do_check(char *line, int i, int flag);
 void				do_check_texture(char *line, int i, int flag);
 int					error_check(int c);
 int					error_check_texture(int c);
-void				rgb_check(t_param *p, char *line, int i, int flag);
-void				rgb_check_param(t_param *p, char *line, int i, int flag);
+void				rgb_check(char *line, int i, int flag);
+void				rgb_check_param(char *line, int i, int flag);
 void				map_check(char *line, int i);
 int					map_init(t_param *p, int i, int j);
 void				get_map_size(t_param *p, char *fname, int i, int flag);
@@ -195,7 +195,7 @@ int					key_release(int key, t_param *p);
 int					move_player(t_param *p);
 void				load_image(t_param *p, int *texture, char *path);
 void				load_texture(t_param *p);
-void				tex_param_two(t_param *p, int len, int start, int end);
+void				tex_param_two(t_param *p, int start, int end);
 void				tex_param(t_param *p, int len, int start, int end);
 void				wall_param(t_param *p);
 void				dda_param_two(t_param *p);

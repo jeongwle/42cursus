@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 13:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/05 20:51:41 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/06 09:57:20 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	get_map_size(t_param *p, char *fname, int i, int flag)
 		{
 			map_check(line, i);
 			p->map_height++;
-			if (p->map_width < word_len(line, '\n'))
+			if (p->map_width < (int)word_len(line, '\n'))
 				p->map_width = word_len(line, '\n');
 		}
 		free(line);
@@ -93,7 +93,7 @@ void	get_map(t_param *p, char *line, int i, int fd)
 	j = 0;
 	k = 0;
 	l = 0;
-	while (l < word_len(line, '\n'))
+	while (l < (int)word_len(line, '\n'))
 	{
 		if (ft_isdigit(line[l]))
 			p->map[j][k] = line[l] - '0';
@@ -116,7 +116,7 @@ void	get_map_two(t_param *p, char *line, int fd, int j)
 	{
 		k = 0;
 		l = -1;
-		while (++l < word_len(line, '\n'))
+		while (++l < (int)word_len(line, '\n'))
 		{
 			if (ft_isdigit(line[l]))
 				p->map[j][k] = line[l] - '0';

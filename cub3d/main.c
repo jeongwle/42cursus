@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/05 19:15:36 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/06 09:49:46 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,6 @@ void	draw(t_param *p)
 
 int		main_loop(t_param *p)
 {
-	int	i;
-	int	j;
-
 	image_clean(p);
 	ceiling_floor(p);
 	dda(p);

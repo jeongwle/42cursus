@@ -6,13 +6,13 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 17:23:52 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/05 21:26:08 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/06 09:55:11 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	rgb_check(t_param *p, char *line, int i, int flag)
+void	rgb_check(char *line, int i, int flag)
 {
 	int	comma_count;
 
@@ -29,7 +29,7 @@ void	rgb_check(t_param *p, char *line, int i, int flag)
 		this_is_error(flag);
 }
 
-void	rgb_check_param(t_param *p, char *line, int i, int flag)
+void	rgb_check_param(char *line, int i, int flag)
 {
 	while (line[i])
 	{
@@ -73,20 +73,20 @@ void	rgb_param_two(t_param *p, char *line, int i, int flag)
 void	rgb_param(t_param *p, char *line, int i, int flag)
 {
 	i += 2;
-	rgb_check(p, line, i, flag);
-	rgb_check_param(p, line, i, flag);
+	rgb_check(line, i, flag);
+	rgb_check_param(line, i, flag);
 	while (!ft_isdigit(line[i]))
 		i++;
 	p->r = ft_atoi(&line[i]);
 	while (ft_isdigit(line[i]))
 		i++;
-	rgb_check_param(p, line, i, flag);
+	rgb_check_param(line, i, flag);
 	while (!ft_isdigit(line[i]))
 		i++;
 	p->g = ft_atoi(&line[i]);
 	while (ft_isdigit(line[i]))
 		i++;
-	rgb_check_param(p, line, i, flag);
+	rgb_check_param(line, i, flag);
 	while (!ft_isdigit(line[i]))
 		i++;
 	p->b = ft_atoi(&line[i]);

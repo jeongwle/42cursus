@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:20:12 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/05 21:08:53 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/06 09:52:40 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	load_texture(t_param *p)
 	load_image(p, p->texture[4], p->texpath[4]);
 }
 
-void	tex_param_two(t_param *p, int len, int start, int end)
+void	tex_param_two(t_param *p, int start, int end)
 {
 	int	i;
 
@@ -82,5 +82,5 @@ void	tex_param(t_param *p, int len, int start, int end)
 		p->texx = TEXWIDTH - p->texx - 1;
 	p->step = 1.0 * TEXHEIGHT / len;
 	p->texpos = (start - p->height / 2 + len / 2) * p->step;
-	tex_param_two(p, len, start, end);
+	tex_param_two(p, start, end);
 }

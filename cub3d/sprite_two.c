@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 21:00:33 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/05 21:05:25 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/06 09:50:34 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	sprite_param(t_param *p)
 	int	y;
 
 	i = -1;
+	y = 0;
 	sprite_sort(p);
 	while (++i < p->spr_count)
 	{

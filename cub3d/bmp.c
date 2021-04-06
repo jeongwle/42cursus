@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 12:21:53 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/05 19:34:48 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/06 09:56:36 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	bitmap(t_param *p)
 {
 	int	sizeimage;
 	int	size;
-	int	error;
 
 	sizeimage = p->width * 4 * p->height;
 	size = sizeimage + 54;

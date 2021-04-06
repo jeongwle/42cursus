@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 16:17:32 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/05 20:44:13 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/06 16:54:34 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void		parsing(t_param *p, char *line, int i, int fd)
 			if_so(p, line, i);
 		else if (is_space(line[i + 1]) || !line[i + 1])
 			if_s(p, line, i);
+		else
+			this_is_error(10);
 	}
 	else if (line[i] == 'W')
 		if_w(p, line, i);
