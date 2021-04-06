@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 09:57:55 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/06 13:50:16 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:19:45 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ typedef struct		s_param
 	int			**map;
 	int			map_width;
 	int			map_height;
+	int			eof;
 }					t_param;
 
 int					mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);

@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 16:17:32 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/06 16:54:34 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/06 23:52:51 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void		get_info(t_param *p, int i, char *fname)
 	get_map_size(p, fname, 0, 0);
 	if ((fd = open(fname, O_RDONLY)) < 0)
 		this_is_error(11);
-	while (p->identifier_count != 9 && get_next_line(fd, &line) > 0)
+	while (get_next_line(fd, &line) > 0)
 	{
 		i = 0;
 		while (is_space(line[i]))
@@ -109,11 +109,6 @@ void		get_info(t_param *p, int i, char *fname)
 			parsing(p, line, i, fd);
 		else
 			free(line);
-	}
-	if (p->identifier_count == 9 && (get_next_line(fd, &line)) > 0)
-	{
-		free(line);
-		this_is_error(10);
 	}
 	if (line)
 		free(line);
