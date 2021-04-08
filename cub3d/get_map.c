@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 13:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/06 23:35:04 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/07 10:20:40 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,10 @@ void	get_map_size(t_param *p, char *fname, int i, int flag)
 		if (flag && !ft_isdigit(line[i]))
 			this_is_error(9);
 		if (ft_isdigit(line[i]))
-		{
-			map_check(line, i);
-			p->map_height++;
-			if (p->map_width < (int)word_len(line, '\n'))
-				p->map_width = word_len(line, '\n');
-		}
+			map_size_sub(p, line, i, '\n');
 		free(line);
 	}
-	i = 0;
-	map_check(line, i);
-	p->map_height++;
-	if (p->map_width < (int)word_len(line, '\0'))
-		p->map_width = word_len(line, '\0');
+	map_size_sub(p, line, 0, '\0');
 	free(line);
 }
 
@@ -138,16 +129,7 @@ void	get_map_two(t_param *p, char *line, int fd, int j)
 		j++;
 		free(line);
 	}
-	l = -1;
-	k = 0;
-	while (++l < (int)word_len(line, '\0'))
-	{
-		if (ft_isdigit(line[l]))
-			p->map[j][k] = line[l] - '0';
-		else if (is_news(line[l]))
-			player_dir(p, line[l], j, k);
-		k++;
-	}
+	getmap_two_sub(p, line, j);
 	free(line);
 	p->map_flag = 1;
 	p->identifier_count++;

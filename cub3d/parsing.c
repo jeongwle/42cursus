@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 16:17:32 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/06 23:52:51 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:14:25 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ void		resolution_two(t_param *p, char *line, int i, int flag)
 	}
 	else
 		this_is_error(flag);
+	while (ft_isdigit(line[i]))
+		i++;
+	while (line[i])
+	{
+		if (ft_isdigit(line[i]))
+			this_is_error(flag);
+		i++;
+	}
 	free(line);
 	p->identifier_count++;
 	p->r_flag = 1;

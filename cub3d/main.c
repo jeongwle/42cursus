@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:52:10 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/06 09:49:46 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/08 11:43:37 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		main_loop(t_param *p)
 	image_clean(p);
 	ceiling_floor(p);
 	dda(p);
-	sprite_param(p);
+//	sprite_param(p);
 	draw(p);
 	move_player(p);
 	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);

@@ -17,6 +17,7 @@ SRCS	= ./main.c \
 		  ./error_check.c \
 		  ./get_map.c \
 		  ./get_map_two.c \
+		  ./get_map_three.c \
 		  ./check_map.c \
 		  ./bmp.c \
 		  ./check_argv.c

@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 09:57:55 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/06 22:19:45 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/07 10:21:28 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,5 +211,7 @@ void				check_argv_two(t_param *p, char *str);
 int					main_loop(t_param *p);
 void				move_player_sub(t_param *p);
 void				move_player_sub_two(t_param *p);
+void				map_size_sub(t_param *p, char *line, int i, char param);
+void				getmap_two_sub(t_param *p, char *line, int j);
 
 #endif
