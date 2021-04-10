@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 16:17:32 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/07 13:14:25 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/09 14:46:36 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ void		get_info(t_param *p, int i, char *fname)
 	}
 	if (line)
 		free(line);
+	if (!p->player_flag)
+		this_is_error(9);
 	if (p->identifier_count != 9)
 		this_is_error(10);
 }

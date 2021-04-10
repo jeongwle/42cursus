@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 17:19:17 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/04/05 21:09:42 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/04/09 16:46:21 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	check_down(t_param *p, int i, int j)
 			this_is_error(9);
 		if (p->map[i][j] == 1)
 			return ;
+		if (p->map[i][j] != 1 && i == p->map_height - 1)
+			this_is_error(9);
 		i++;
 	}
 	if (p->map[i][j] != 1 && i == p->map_height)
