@@ -15,11 +15,13 @@ RUN		tar	-xvf phpMyAdmin-5.0.2-all-languages.tar.gz
 RUN		wget https://wordpress.org/latest.tar.gz
 RUN		tar -xvf latest.tar.gz
 
-COPY	./srcs/default etc/nginx/sites-available/
+COPY	./srcs/default_non_autoindex /etc/nginx/sites-available/
+COPY    ./srcs/default /etc/nginx/sites-available/
 COPY	./srcs/config.inc.php phpMyAdmin-5.0.2-all-languages
 COPY	./srcs/wp-config.php wordpress
 COPY	./srcs/run.sh .
 
 EXPOSE	80 443
+ENV AUTOINDEX 1
 
 CMD		sh run.sh
