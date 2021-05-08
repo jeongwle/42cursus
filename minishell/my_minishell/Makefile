@@ -1,7 +1,8 @@
 NAME	=  minishell
 
 SRCS	= ./main.c \
-		  ./term_set.c
+		  ./term_set.c \
+		  ./delete.c
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f
@@ -14,7 +15,7 @@ C		= clang
 $(NAME) : $(OBJS)
 	make -C ./libft
 	cp ./libft/libft.a ./
-	$(CC) -o $@ $^ ./libft.a
+	$(CC) -lncurses -o $@ $^ ./libft.a
 
 all : $(NAME)
 

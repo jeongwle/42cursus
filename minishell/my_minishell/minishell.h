@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/07 15:05:06 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/08 17:39:46 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 #include <sys/types.h>
 #include <signal.h>
 #include <termios.h>
+#include <termcap.h>
 
 void	term_set(void);
+void	delete_end(void);
 
 #endif

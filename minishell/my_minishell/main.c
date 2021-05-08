@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/07 16:23:05 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/08 17:39:02 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		if (compare == BACKSPACE)
 		{
-
+			delete_end();
 		}
 		else if (compare == ARROWUP || compare == ARROWDOWN)
 		{
 		}
 		else
 		{
+			write(1, &compare, 1);
 		}
 		buf[idx] = compare;
-		printf("%d\n", compare);
 		idx++;
 		compare = 0;
 	}
