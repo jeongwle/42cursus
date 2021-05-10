@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:08:03 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/08 17:42:01 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/10 15:28:00 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,16 @@ int		putchar_tc(int tc)
 	return (0);
 }
 
-void	delete_end(void)
+void	delete_end(int *idx, char *buf)
 {
 	int		row;
 	int		col;
 	char	*cm;
 	char	*ce;
 
+	if (*idx > 0)
+		(*idx)--;
+	buf[*idx] = 0;
 	row = 0;
 	col = 0;
 	tgetent(NULL, "xterm");

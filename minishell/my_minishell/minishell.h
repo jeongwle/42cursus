@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/08 17:39:46 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/10 18:11:22 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,15 @@
 #include <termios.h>
 #include <termcap.h>
 
+typedef struct	s_lst
+{
+	char			*history;
+	struct s_lst	*next;
+	struct s_lst	*prev;
+}				t_lst;
+
 void	term_set(void);
-void	delete_end(void);
+void	delete_end(int *idx, char *buf);
+void	signal_handler(int signum);
 
 #endif

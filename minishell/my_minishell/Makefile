@@ -2,7 +2,8 @@ NAME	=  minishell
 
 SRCS	= ./main.c \
 		  ./term_set.c \
-		  ./delete.c
+		  ./delete.c \
+		  ./signal_handler.c
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f
