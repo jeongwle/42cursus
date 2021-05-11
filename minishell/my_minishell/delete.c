@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:08:03 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/10 15:28:00 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/11 17:46:05 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,16 @@ int		putchar_tc(int tc)
 	return (0);
 }
 
-void	delete_end(int *idx, char *buf)
+void	delete_end(t_mini *mini)
 {
 	int		row;
 	int		col;
 	char	*cm;
 	char	*ce;
 
-	if (*idx > 0)
-		(*idx)--;
-	buf[*idx] = 0;
+	if (mini->idx > 0)
+		(mini->idx)--;
+	mini->buf[mini->idx] = 0;
 	row = 0;
 	col = 0;
 	tgetent(NULL, "xterm");
@@ -77,6 +77,25 @@ void	delete_end(int *idx, char *buf)
 	ce = tgetstr("ce", NULL);
 	get_cursor_position(&col, &row);
 	if (col != 0)
+		--(col);
+	tputs(tgoto(cm, col, row), 1, putchar_tc);
+	tputs(ce, 1, putchar_tc);
+}
+
+void	delete_prev(void)
+{
+	int		row;
+	int		col;
+	char	*cm;
+	char	*ce;
+
+	row = 0;
+	col = 0;
+	tgetent(NULL, "xterm");
+	cm = tgetstr("cm", NULL);
+	ce = tgetstr("ce", NULL);
+	get_cursor_position(&col, &row);
+	while (col)
 		--(col);
 	tputs(tgoto(cm, col, row), 1, putchar_tc);
 	tputs(ce, 1, putchar_tc);
