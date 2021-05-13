@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/11 19:50:54 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/13 18:48:30 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct	s_mini
 	t_lst	*curr;
 	int		idx;
 	char	buf[4096];
+	char	*temp;
 }				t_mini;
 
 void	term_set(void);
@@ -51,5 +52,7 @@ t_lst	*mini_lstnew(char *buf);
 void	arrow_up_down(t_mini *mini, long long int compare);
 void	clear_buf(t_mini *mini);
 void	delete_prev(void);
+char	*ft_strndup(const char *s, int n);
+void	ft_free(char **s);
 
 #endif

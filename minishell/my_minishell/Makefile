@@ -5,8 +5,9 @@ SRCS	= ./main.c \
 		  ./delete.c \
 		  ./signal_handler.c \
 		  ./history.c \
-		  ./malloc_error.c\
-		  ./arrow_up_down.c
+		  ./malloc_error.c \
+		  ./arrow_up_down.c \
+		  ./utils.c
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f

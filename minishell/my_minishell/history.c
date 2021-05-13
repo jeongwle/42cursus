@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 13:20:45 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/11 19:46:50 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/13 18:45:47 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_lst	*mini_lstnew(char *buf)
 		return (NULL);
 	new->history = ft_strdup(buf);
 	new->flag = 0;
-	new->temp = 0;
+	new->temp = NULL;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
@@ -33,7 +33,6 @@ void	mini_lstadd_middle(t_mini *mini, t_lst *new)
 	new->next = mini->head->next;
 	new->prev = mini->head;
 	mini->head->next = new;
-	mini->curr = mini->head;
 }
 
 void	init_history_param(t_mini *mini)
@@ -44,20 +43,15 @@ void	init_history_param(t_mini *mini)
 	mini->tail = (t_lst *)malloc(sizeof(t_lst) * 1);
 	if (!mini->tail)
 		malloc_error();
-	mini->curr = (t_lst *)malloc(sizeof(t_lst) * 1);
-	if (!mini->curr)
-		malloc_error();
 	mini->head->next = mini->tail;
 	mini->head->prev = NULL;
 	mini->tail->next = NULL;
 	mini->tail->prev = mini->head;
-	mini->head->history = 0;
-	mini->tail->history = 0;
-	mini->curr->history = 0;
-	mini->curr->flag = 0;
+	mini->head->history = NULL;
+	mini->tail->history = NULL;
 	mini->head->flag = 0;
 	mini->tail->flag = 0;
-	mini->curr->temp = 0;
-	mini->head->temp = 0;
-	mini->tail->temp = 0;
+	mini->head->temp = NULL;
+	mini->tail->temp = NULL;
+	mini->curr = mini->head;
 }
