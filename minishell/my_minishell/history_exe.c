@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:03:47 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/14 12:06:20 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/20 09:22:00 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,23 @@ void	make_history_lst(t_mini *mini)
 		mini_lstadd_middle(mini, mini_lstnew(mini->curr->history));
 	clear_buf(mini);
 	head_clear(mini);
+}
+
+void	if_history_modified(t_mini *mini)
+{
+	mini->curr->flag = 1;
+	if (!mini->curr->temp)
+		mini->curr->temp = mini->curr->history;
+	else
+		mini->temp = mini->curr->history;
+	if (ft_strlen(mini->curr->history) != 0)
+		mini->curr->history = ft_strndup(mini->curr->history,
+				ft_strlen(mini->curr->history) - 1);
+	if (mini->temp)
+	{
+		if (ft_strlen(mini->temp) == 0 && ft_strlen(mini->curr->history) == 0)
+			mini->curr->history = ft_strdup("");
+		free(mini->temp);
+		mini->temp = NULL;
+	}
 }

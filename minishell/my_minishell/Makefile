@@ -8,6 +8,9 @@ SRCS	= ./main.c \
 		  ./history_exe.c \
 		  ./malloc_error.c \
 		  ./arrow_up_down.c \
+		  ./exit.c \
+		  ./pwd.c \
+		  ./cd.c \
 		  ./utils.c
 
 OBJS	= $(SRCS:.c=.o)

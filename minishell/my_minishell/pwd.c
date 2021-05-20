@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:29:18 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/20 09:22:17 by jeongwle         ###   ########.fr       */
+/*   Created: 2021/05/20 15:05:03 by jeongwle          #+#    #+#             */
+/*   Updated: 2021/05/20 15:21:16 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signal_handler(int signum)
+void	pwd(void)
 {
+	char	*res;
+
+	res = getcwd(NULL, 0);
+	write(1, res, ft_strlen(res));
 	write(1, "\n", 1);
+	free(res);
 }

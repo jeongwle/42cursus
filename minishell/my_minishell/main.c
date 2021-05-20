@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/15 21:07:48 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/20 15:42:36 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char *argv[], char *envp[])
 	argv = 0;
 	mini.idx = 0;
 	mini.temp = NULL;
+	mini.atoi_flag = 0;
 	compare = 0;
 	term_set();
 	init_history_param(&mini);
@@ -35,7 +36,13 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			write(1, &compare, 1);
 			if (compare == '\n')
+			{
 				make_history_lst(&mini);
+				if (!ft_strncmp("pwd", mini.curr->next->history, 3))
+					pwd();
+				else if (!ft_strncmp("cd", mini.curr->next->history, 2))
+					cd(mini.curr->next->history);
+			}
 			else
 			{
 				mini.buf[mini.idx] = compare;

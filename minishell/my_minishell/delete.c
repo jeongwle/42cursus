@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:08:03 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/13 19:46:20 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/20 09:20:40 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,22 +81,7 @@ void	delete_end(t_mini *mini)
 	tputs(tgoto(cm, col, row), 1, putchar_tc);
 	tputs(ce, 1, putchar_tc);
 	if (mini->curr->history)
-	{
-		mini->curr->flag = 1;
-		if (!mini->curr->temp)
-			mini->curr->temp = mini->curr->history;
-		else
-			mini->temp = mini->curr->history;
-		if (ft_strlen(mini->curr->history) != 0)
-			mini->curr->history = ft_strndup(mini->curr->history, ft_strlen(mini->curr->history) - 1);
-		if (mini->temp)
-		{
-			if (ft_strlen(mini->temp) == 0 && ft_strlen(mini->curr->history) == 0)
-				mini->curr->history = ft_strdup("");
-			free(mini->temp);
-			mini->temp = NULL;
-		}
-	}
+		if_history_modified(mini);
 }
 
 void	delete_prev(void)
