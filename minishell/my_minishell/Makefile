@@ -4,7 +4,8 @@ SRCS	= ./main.c \
 		  ./term_set.c \
 		  ./delete.c \
 		  ./signal_handler.c \
-		  ./history.c \
+		  ./history_set.c \
+		  ./history_exe.c \
 		  ./malloc_error.c \
 		  ./arrow_up_down.c \
 		  ./utils.c
