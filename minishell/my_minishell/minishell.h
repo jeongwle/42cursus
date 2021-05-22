@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/22 14:04:26 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/22 16:47:40 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define ARROWDOWN 4348699
 # define BACKSPACE 127
 #include "./libft/libft.h"
-#include "./lexical_analyzer/lexcical_analyzer.h"
+#include "./lexical_analyzer/lexical_analyzer.h"
 #include <stdio.h>
 #include <sys/types.h>
 #include <signal.h>
@@ -33,15 +33,23 @@ typedef struct	s_lst
 	char			*temp;
 }				t_lst;
 
+typedef struct	s_export
+{
+	char			*export_list;
+	struct s_export	*next;
+	struct s_export *prev;
+}				t_export;
+
 typedef struct	s_mini
 {
-	t_lst	*head;
-	t_lst	*tail;
-	t_lst	*curr;
-	int		idx;
-	char	buf[4096];
-	char	*temp;
-	int		atoi_flag;
+	t_lst			*head;
+	t_lst			*tail;
+	t_lst			*curr;
+	t_export		*exp;	
+	int				idx;
+	char			buf[4096];
+	char			*temp;
+	int				atoi_flag;
 }				t_mini;
 
 void	term_set(void);
@@ -66,9 +74,14 @@ void	clear_buf(t_mini *mini);
 void	head_clear(t_mini *mini);
 char	*ft_strndup(const char *s, int n);
 void	ft_free(char **s);
+int		ft_strcmp(char *s1, char *s2);
+
+int		mini_lstsize(t_export *lst);
 
 void	mini_exit(t_mini *mini, char *s1, char *s2);
 void	pwd(void);
 void	cd(char *path);
+
+void	make_export_list(t_mini *mini, char *envp[]);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/20 15:42:36 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/22 17:03:46 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ int	main(int argc, char *argv[], char *envp[])
 	compare = 0;
 	term_set();
 	init_history_param(&mini);
+	make_export_list(&mini, envp);
+
+	t_export	*temp;
+	temp = mini.exp;
+	while (temp)
+	{
+		printf("%s\n", temp->export_list);
+		temp = temp->next;
+	}
 	signal(SIGINT, (void *)signal_handler);
 	while (read(0, &compare, 4) > 0)
 	{

@@ -11,7 +11,9 @@ SRCS	= ./main.c \
 		  ./exit.c \
 		  ./pwd.c \
 		  ./cd.c \
-		  ./utils.c
+		  ./export.c \
+		  ./utils.c \
+		  ./utils_two.c
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f
