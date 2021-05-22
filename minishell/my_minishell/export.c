@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:54:20 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/22 17:25:53 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/22 20:56:31 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ static void	init_export_param(t_mini *mini, char *envp[], int *i)
 	if (!mini->exp)
 		malloc_error();
 	mini->exp->export_list = ft_strjoin(temp, envp[*i]);
+	if (ft_strchr(envp[*i], '='))
+		mini->exp->env_list = ft_strdup(envp[*i]);
+	else
+		mini->exp->env_list = NULL;
 	mini->exp->next = NULL;
 	mini->exp->prev = NULL;
 	(*i)++;
@@ -41,8 +45,8 @@ static void	mini_export_addback(t_mini *mini, t_export *new)
 
 static void	sort_export(t_mini *mini)
 {
-	int 		i;
-	int 		j;
+	int			i;
+	int			j;
 	int			count;
 	char		*temp;
 	t_export	*curr;
@@ -57,22 +61,44 @@ static void	sort_export(t_mini *mini)
 		{
 			if (ft_strcmp(curr->export_list, curr->next->export_list) > 0)
 			{
-		//		printf("%s\n%s\n", curr->export_list, curr->next->export_list);
-		//		printf("%d\n", ft_strcmp(curr->export_list, curr->next->export_list));
-				temp = ft_strdup(curr->export_list);
-				free(curr->export_list);
-				curr->export_list = ft_strdup(curr->next->export_list);
-				free(curr->next->export_list);
-				curr->next->export_list = ft_strdup(temp);
-				free(temp);
-		//		printf("%s\n%s\n", curr->export_list, curr->next->export_list);
-				curr = curr->next;
+				temp = curr->export_list;
+				curr->export_list = curr->next->export_list;
+				curr->next->export_list = temp;
 			}
+			curr = curr->next;
 			j++;
 		}
 		i++;
 	}
 }
+
+void		make_double_quotes(t_export *new)
+{
+	char	*temp;
+	char	*substr_temp;
+	char	*quote_temp;
+	size_t	new_len;
+	size_t	substr_len;
+
+	new_len = ft_strlen(new->export_list);
+	temp = ft_strchr(new->export_list, '=');
+	substr_len = ft_strlen(temp + 1);
+	substr_temp = ft_substr(new->export_list, new_len - substr_len, substr_len);
+	quote_temp = ft_strdup("\"");
+	*(temp + 1) = '\0';
+	temp = new->export_list;
+	new->export_list = ft_strjoin(temp, quote_temp);
+	free(temp);
+	temp = new->export_list;
+	new->export_list = ft_strjoin(temp, substr_temp);
+	free(temp);
+	temp = new->export_list;
+	new->export_list = ft_strjoin(temp, quote_temp);
+	free(temp);
+	free(substr_temp);
+	free(quote_temp);
+}
+
 t_export	*mini_export_new(char *str)
 {
 	t_export	*new;
@@ -83,6 +109,13 @@ t_export	*mini_export_new(char *str)
 		malloc_error();
 	temp = ft_strdup("declare -x ");
 	new->export_list = ft_strjoin(temp, str);
+	if (ft_strchr(new->export_list, '='))
+	{
+		make_double_quotes(new);
+		new->env_list = ft_strdup(str);
+	}
+	else
+		new->env_list = NULL;
 	new->next = NULL;
 	free(temp);
 	temp = NULL;
@@ -92,6 +125,7 @@ t_export	*mini_export_new(char *str)
 void		make_export_list(t_mini *mini, char *envp[])
 {
 	int			i;
+	t_export	*temp;
 
 	i = 0;
 	init_export_param(mini, envp, &i);
@@ -101,4 +135,10 @@ void		make_export_list(t_mini *mini, char *envp[])
 		i++;
 	}
 	sort_export(mini);
+	temp = mini->exp;
+	while (temp)
+	{
+		printf("%s\n", temp->export_list);
+		temp = temp->next;
+	}
 }
