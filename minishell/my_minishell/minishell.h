@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/20 15:43:00 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/22 14:04:26 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define ARROWDOWN 4348699
 # define BACKSPACE 127
 #include "./libft/libft.h"
+#include "./lexical_analyzer/lexcical_analyzer.h"
 #include <stdio.h>
 #include <sys/types.h>
 #include <signal.h>
