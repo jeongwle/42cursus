@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/22 14:54:20 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/22 20:56:31 by jeongwle         ###   ########.fr       */
+/*   Created: 2021/05/24 15:53:06 by jeongwle          #+#    #+#             */
+/*   Updated: 2021/05/24 16:09:26 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	init_export_param(t_mini *mini, char *envp[], int *i)
+void	init_export_param(t_mini *mini, char *envp[], int *i)
 {
 	char	*temp;
 
@@ -32,7 +32,7 @@ static void	init_export_param(t_mini *mini, char *envp[], int *i)
 	temp = NULL;
 }
 
-static void	mini_export_addback(t_mini *mini, t_export *new)
+void	mini_export_addback(t_mini *mini, t_export *new)
 {
 	t_export	*temp;
 
@@ -43,14 +43,14 @@ static void	mini_export_addback(t_mini *mini, t_export *new)
 	new->prev = temp;
 }
 
-static void	sort_export(t_mini *mini)
+void	sort_export(t_mini *mini)
 {
 	int			i;
 	int			j;
 	int			count;
 	char		*temp;
 	t_export	*curr;
-	
+
 	i = 0;
 	count = mini_lstsize(mini->exp);
 	while (i < count - 1)
@@ -72,7 +72,7 @@ static void	sort_export(t_mini *mini)
 	}
 }
 
-void		make_double_quotes(t_export *new)
+void	make_double_quotes(t_export *new)
 {
 	char	*temp;
 	char	*substr_temp;
@@ -97,48 +97,4 @@ void		make_double_quotes(t_export *new)
 	free(temp);
 	free(substr_temp);
 	free(quote_temp);
-}
-
-t_export	*mini_export_new(char *str)
-{
-	t_export	*new;
-	char		*temp;
-
-	new = (t_export *)malloc(sizeof(t_export) * 1);
-	if (!new)
-		malloc_error();
-	temp = ft_strdup("declare -x ");
-	new->export_list = ft_strjoin(temp, str);
-	if (ft_strchr(new->export_list, '='))
-	{
-		make_double_quotes(new);
-		new->env_list = ft_strdup(str);
-	}
-	else
-		new->env_list = NULL;
-	new->next = NULL;
-	free(temp);
-	temp = NULL;
-	return (new);
-}
-
-void		make_export_list(t_mini *mini, char *envp[])
-{
-	int			i;
-	t_export	*temp;
-
-	i = 0;
-	init_export_param(mini, envp, &i);
-	while (envp[i])
-	{
-		mini_export_addback(mini, mini_export_new(envp[i]));
-		i++;
-	}
-	sort_export(mini);
-	temp = mini->exp;
-	while (temp)
-	{
-		printf("%s\n", temp->export_list);
-		temp = temp->next;
-	}
 }

@@ -1,19 +1,20 @@
 NAME	=  minishell
 
-SRCS	= ./main.c \
-		  ./term_set.c \
-		  ./delete.c \
-		  ./signal_handler.c \
-		  ./history_set.c \
-		  ./history_exe.c \
-		  ./malloc_error.c \
-		  ./arrow_up_down.c \
-		  ./exit.c \
-		  ./pwd.c \
-		  ./cd.c \
-		  ./export.c \
-		  ./utils.c \
-		  ./utils_two.c
+SRCS	= ./srcs/main.c \
+		  ./srcs/term_set.c \
+		  ./srcs/signal_handler.c \
+		  ./srcs/if_arrow.c \
+		  ./srcs/if_delete.c \
+		  ./srcs/history_set.c \
+		  ./srcs/history_exe.c \
+		  ./srcs/malloc_error.c \
+		  ./srcs/builtin_exit.c \
+		  ./srcs/builtin_pwd.c \
+		  ./srcs/builtin_cd.c \
+		  ./srcs/builtin_export.c \
+		  ./srcs/builtin_export_utils.c \
+		  ./srcs/mini_utils.c \
+		  ./srcs/mini_utils_two.c
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f

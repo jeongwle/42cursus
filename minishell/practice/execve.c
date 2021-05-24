@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <stdlib.h>
 
 int	main(void)
 {
@@ -9,6 +10,4 @@ int	main(void)
 	str[2] = NULL;
 
 	execve(str[0], str, NULL);
-
-	exit(0);
 }

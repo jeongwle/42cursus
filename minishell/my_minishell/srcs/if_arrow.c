@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arrow_up_down.c                                    :+:      :+:    :+:   */
+/*   if_arrow.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:05:20 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/20 09:21:23 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/24 17:40:42 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	arrow_up(t_mini *mini)
 	{
 		delete_prev();
 		mini->curr = mini->curr->next;
+		write(1, "minishell > ", 12);
 		write(1, mini->curr->history, ft_strlen(mini->curr->history));
 	}
 }
@@ -28,12 +29,14 @@ void	arrow_down(t_mini *mini)
 	{
 		delete_prev();
 		mini->curr = mini->curr->prev;
+		write(1, "minishell > ", 12);
 		write(1, mini->curr->history, ft_strlen(mini->curr->history));
 	}
 	else if (mini->curr != mini->head)
 	{
 		mini->curr = mini->curr->prev;
 		delete_prev();
+		write(1, "minishell > ", 12);
 	}
 }
 

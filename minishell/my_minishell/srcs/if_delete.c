@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete.c                                           :+:      :+:    :+:   */
+/*   if_delete.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:08:03 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/20 09:20:40 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/24 17:46:48 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	delete_end(t_mini *mini)
 	cm = tgetstr("cm", NULL);
 	ce = tgetstr("ce", NULL);
 	get_cursor_position(&col, &row);
-	if (col != 0)
+	if (col != 0 && col != 12)
 		--(col);
 	tputs(tgoto(cm, col, row), 1, putchar_tc);
 	tputs(ce, 1, putchar_tc);

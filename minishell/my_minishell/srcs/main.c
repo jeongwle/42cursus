@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/22 20:53:39 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/24 17:44:05 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,7 @@ int	main(int argc, char *argv[], char *envp[])
 	init_history_param(&mini);
 	make_export_list(&mini, envp);
 	signal(SIGINT, (void *)signal_handler);
-	t_export	*temp;
-	temp = mini.exp;
-	while (temp)
-	{
-		printf("%s\n", temp->env_list);
-		temp = temp->next;
-	}
+	write(1, "minishell > ", 12);
 	while (read(0, &compare, 4) > 0)
 	{
 		if (compare == BACKSPACE)
@@ -46,6 +40,7 @@ int	main(int argc, char *argv[], char *envp[])
 			if (compare == '\n')
 			{
 				make_history_lst(&mini);
+				write(1, "minishell > ", 12);
 				if (!ft_strncmp("pwd", mini.curr->next->history, 3))
 					pwd();
 				else if (!ft_strncmp("cd", mini.curr->next->history, 2))

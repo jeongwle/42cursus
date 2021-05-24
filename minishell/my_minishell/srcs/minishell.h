@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/22 20:48:44 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:30:00 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define ARROWUP 4283163
 # define ARROWDOWN 4348699
 # define BACKSPACE 127
-#include "./libft/libft.h"
-#include "./lexical_analyzer/lexical_analyzer.h"
+#include "../libft/libft.h"
+#include "../lexical_analyzer/lexical_analyzer.h"
 #include <stdio.h>
 #include <sys/types.h>
 #include <signal.h>
@@ -82,6 +82,11 @@ int		mini_lstsize(t_export *lst);
 void	mini_exit(t_mini *mini, char *s1, char *s2);
 void	pwd(void);
 void	cd(char *path);
+
+void	init_export_param(t_mini *mini, char *envp[], int *i);
+void	mini_export_addback(t_mini *mini, t_export *new);
+void	sort_export(t_mini *mini);
+void	make_double_quotes(t_export *new);
 
 void	make_export_list(t_mini *mini, char *envp[]);
 
