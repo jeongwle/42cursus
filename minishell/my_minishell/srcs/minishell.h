@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/25 15:36:35 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/25 21:14:03 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		mini_lstsize(t_export *lst);
 
 void	mini_exit(t_mini *mini, char *s1, char *s2);
 void	pwd(void);
-void	cd(char *path);
+void	cd(t_mini *mini char *path);
 
 void	init_export_param(t_mini *mini, char *envp[], int *i);
 void	mini_export_addback(t_mini *mini, t_export *new);
@@ -92,5 +92,8 @@ void	sort_export(t_mini *mini);
 void	make_double_quotes(t_export *new);
 
 void	make_export_list(t_mini *mini, char *envp[]);
+void	check_export_param(t_mini *mini, char **str);
+void	add_export_list(t_mini *mini, char *str);
+void	print_env(t_mini *mini);
 
 #endif

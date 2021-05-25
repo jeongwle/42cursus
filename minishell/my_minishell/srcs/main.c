@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/25 15:47:42 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/25 21:10:59 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,17 @@ int	main(int argc, char *argv[], char *envp[])
 					mini.something = lexical_analyzer(mini.curr->next->history, 0, 0);
 					mini.lst = mini.something->content;
 					mini.make_history_flag = 0;
+					if (!ft_strncmp("pwd", ((char **)mini.lst->content)[0], 3))
+						pwd();
+					else if (!ft_strncmp("cd", ((char **)mini.lst->content)[0], 2))
+						cd(&mini, ((char **)mini.lst->content)[1]);
+					else if (!ft_strncmp("export", ((char **)mini.lst->content)[0], 6))
+						check_export_param(&mini, ((char **)mini.lst->content));
+					else if (!ft_strncmp("env", ((char **)mini.lst->content)[0], 3))
+						print_env(&mini);
+
 				}
 				write(1, "minishell > ", 12);
-				printf("%s\n", ((char **)mini.lst->content)[0]);
-				printf("%s\n", ((char **)mini.lst->content)[1]);
-				if (!ft_strncmp("pwd", mini.curr->next->history, 3))
-					pwd();
-				else if (!ft_strncmp("cd", mini.curr->next->history, 2))
-					cd(mini.curr->next->history);
 			}
 			else
 			{

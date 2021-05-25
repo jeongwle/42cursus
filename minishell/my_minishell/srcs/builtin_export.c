@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:54:20 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/24 16:30:27 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/25 20:42:09 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		make_export_list(t_mini *mini, char *envp[])
 	init_export_param(mini, envp, &i);
 	while (envp[i])
 	{
-		mini_export_addback(mini, mini_export_new(envp[i]));
+		add_export_list(mini, envp[i]);
 		i++;
 	}
 	sort_export(mini);
@@ -52,4 +52,43 @@ void		make_export_list(t_mini *mini, char *envp[])
 void		add_export_list(t_mini *mini, char *str)
 {
 	mini_export_addback(mini, mini_export_new(str));
+}
+
+void		check_export_param(t_mini *mini, char **str)
+{
+	int			i;
+	t_export	*curr;
+
+	i = 1;
+	if (str[i])
+	{
+		while (str[i])
+		{
+			add_export_list(mini, str[i]);
+			i++;
+		}
+	}
+	else
+	{
+		sort_export(mini);
+		curr = mini->exp;
+		while (curr)
+		{
+			printf("%s\n", curr->export_list);
+			curr = curr->next;
+		}
+	}
+}
+
+void		print_env(t_mini *mini)
+{
+	t_export	*curr;
+
+	curr = mini->exp;
+	while (curr)
+	{
+		if (curr->env_list)
+			printf("%s\n", curr->env_list);
+		curr = curr->next;
+	}
 }
