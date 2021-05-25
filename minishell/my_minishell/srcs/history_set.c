@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 13:20:45 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/20 09:22:12 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/25 15:37:04 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	mini_lstadd_middle(t_mini *mini, t_lst *new)
 	new->next = mini->head->next;
 	new->prev = mini->head;
 	mini->head->next = new;
+	mini->make_history_flag = 1;
 }
 
 void	init_history_param(t_mini *mini)

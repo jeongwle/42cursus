@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/24 17:44:05 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/25 15:47:42 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char *argv[], char *envp[])
 	mini.idx = 0;
 	mini.temp = NULL;
 	mini.atoi_flag = 0;
+	mini.make_history_flag = 0;
 	compare = 0;
 	term_set();
 	init_history_param(&mini);
@@ -40,7 +41,15 @@ int	main(int argc, char *argv[], char *envp[])
 			if (compare == '\n')
 			{
 				make_history_lst(&mini);
+				if (mini.make_history_flag)
+				{
+					mini.something = lexical_analyzer(mini.curr->next->history, 0, 0);
+					mini.lst = mini.something->content;
+					mini.make_history_flag = 0;
+				}
 				write(1, "minishell > ", 12);
+				printf("%s\n", ((char **)mini.lst->content)[0]);
+				printf("%s\n", ((char **)mini.lst->content)[1]);
 				if (!ft_strncmp("pwd", mini.curr->next->history, 3))
 					pwd();
 				else if (!ft_strncmp("cd", mini.curr->next->history, 2))

@@ -6,13 +6,14 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 16:31:42 by mki               #+#    #+#             */
-/*   Updated: 2021/05/24 21:24:11 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/25 14:02:36 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXICAL_ANALYZER_H
 # define LEXICAL_ANALYZER_H
 # include "../libft/libft.h"
+# include "../srcs/minishell.h"
 # include <stdio.h>
 
 # define	ERROR_BACKSLASH		0x01

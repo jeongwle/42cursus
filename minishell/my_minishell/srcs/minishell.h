@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/24 16:30:00 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/25 15:36:35 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct	s_export
 
 typedef struct	s_mini
 {
+	t_list			*something;
+	t_list			*lst;
 	t_lst			*head;
 	t_lst			*tail;
 	t_lst			*curr;
@@ -51,6 +53,7 @@ typedef struct	s_mini
 	char			buf[4096];
 	char			*temp;
 	int				atoi_flag;
+	int				make_history_flag;
 }				t_mini;
 
 void	term_set(void);

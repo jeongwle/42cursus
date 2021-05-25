@@ -26,8 +26,11 @@ C		= clang
 
 $(NAME) : $(OBJS)
 	make -C ./libft
+	make bonus -C ./libft
+	make -C ./lexical_analyzer
+	cp ./lexical_analyzer/lexical_analyzer.a ./
 	cp ./libft/libft.a ./
-	$(CC) -lncurses -o $@ $^ ./libft.a
+	$(CC) -lncurses -o $@ $^ ./libft.a ./lexical_analyzer.a
 
 all : $(NAME)
 
@@ -36,8 +39,10 @@ fclean : clean
 
 clean :
 	$(RM) $(OBJS)
-	$(RM) ./libft.a
+	$(RM) ./libft.a ./libft/libft.a
+	$(RM) ./lexical_analyzer.a ./lexical_analyzer/lexical_analyzer.a
 	make clean -C ./libft
+	make clean -C ./lexical_analyzer
 
 re : fclean all
 
