@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:54:20 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/26 16:08:49 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/26 22:13:47 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void		make_export_list(t_mini *mini, char *envp[])
 		i++;
 	}
 	delete_oldpwd(mini);
-	sort_export(mini);
 }
 
 void		add_export_list(t_mini *mini, char *str)
@@ -67,7 +66,7 @@ void		check_export_param(t_mini *mini, char **str)
 			add_export_list(mini, str[i]);
 		i++;
 	}
-	if (!str[i])
+	if (i == 1 && !str[i])
 	{
 		sort_export(mini);
 		curr = mini->exp;

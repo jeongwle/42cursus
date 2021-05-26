@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:53:06 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/26 16:28:50 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/26 22:37:17 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ void	mini_export_addback(t_mini *mini, t_export *new)
 	temp = mini->exp;
 	while (temp->next)
 		temp = temp->next;
+	if (!temp->export_list)
+	{
+		new->prev = temp->prev;
+		temp->prev = new;
+		new->next = temp;
+		temp = temp->prev->prev;
+	}
 	temp->next = new;
 	new->prev = temp;
 }
@@ -57,7 +64,7 @@ void	sort_export(t_mini *mini)
 	{
 		curr = mini->exp;
 		j = 0;
-		while (j < count - i - 1)
+		while (j < count - i - 1 && curr->next->export_list)
 		{
 			if (ft_strcmp(curr->export_list, curr->next->export_list) > 0)
 			{
@@ -102,15 +109,22 @@ void	make_double_quotes(t_export *new)
 int		check_already_exist(t_mini *mini, char *str)
 {
 	t_export	*curr;
+	char		*temp;
+	char		*new_str;
 
+	temp = ft_strdup("declare -x ");
+	new_str = ft_strjoin(temp, str);
 	curr = mini->exp;
 	while (curr)
 	{
 		if (curr->export_list &&
-			(!ft_strcmp(str, curr->export_list) ||
-			ft_strcmp(str, curr->export_list) == -61))
-			return (-1);
+			(!ft_strcmp(new_str, curr->export_list) ||
+			ft_strcmp(new_str, curr->export_list) == -61))
+			return (1);
 		curr = curr->next;
 	}
+	//중복인놈들 처리하는 방법 만들어라 그리고 +인거 처리하고 처음 숫자인거 제끼는것도 만들고 알았냐
+	free(temp);
+	free(new_str);
 	return (0);
 }
