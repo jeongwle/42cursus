@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/25 21:14:03 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/26 16:12:52 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,44 +56,53 @@ typedef struct	s_mini
 	int				make_history_flag;
 }				t_mini;
 
-void	term_set(void);
-void	delete_end(t_mini *mini);
-void	delete_prev(void);
-void	signal_handler(int signum);
-void	init_history_param(t_mini *mini);
-void	malloc_error(void);
-void	mini_lstadd_middle(t_mini *mini, t_lst *new);
-t_lst	*mini_lstnew(char *buf);
+void		term_set(void);
+void		delete_end(t_mini *mini);
+void		delete_prev(void);
+void		signal_handler(int signum);
+void		init_history_param(t_mini *mini);
+void		malloc_error(void);
+void		mini_lstadd_middle(t_mini *mini, t_lst *new);
+t_lst		*mini_lstnew(char *buf);
 
-void	ifn_head(t_mini *mini);
-void	if_head(t_mini *mini);
-void	make_history_lst(t_mini *mini);
-void	if_history_modified(t_mini *mini);
+void		ifn_head(t_mini *mini);
+void		if_head(t_mini *mini);
+void		make_history_lst(t_mini *mini);
+void		if_history_modified(t_mini *mini);
 
-void	arrow_up_down(t_mini *mini, long long int compare);
+void		arrow_up_down(t_mini *mini, long long int compare);
 
-void	history_lst_clear(t_mini *mini);
+void		history_lst_clear(t_mini *mini);
 
-void	clear_buf(t_mini *mini);
-void	head_clear(t_mini *mini);
-char	*ft_strndup(const char *s, int n);
-void	ft_free(char **s);
-int		ft_strcmp(char *s1, char *s2);
+void		clear_buf(t_mini *mini);
+void		head_clear(t_mini *mini);
+char		*ft_strndup(const char *s, int n);
+void		ft_free(char **s);
+int			ft_strcmp(char *s1, char *s2);
 
-int		mini_lstsize(t_export *lst);
+int			mini_lstsize(t_export *lst);
 
-void	mini_exit(t_mini *mini, char *s1, char *s2);
-void	pwd(void);
-void	cd(t_mini *mini char *path);
+void		mini_exit(t_mini *mini, char *s1, char *s2);
+void		pwd(void);
+void		cd(t_mini *mini, char *path);
 
-void	init_export_param(t_mini *mini, char *envp[], int *i);
-void	mini_export_addback(t_mini *mini, t_export *new);
-void	sort_export(t_mini *mini);
-void	make_double_quotes(t_export *new);
+void		init_export_param(t_mini *mini, char *envp[], int *i);
+void		mini_export_addback(t_mini *mini, t_export *new);
+void		sort_export(t_mini *mini);
+void		make_double_quotes(t_export *new);
+int			check_already_exist(t_mini *mini, char *str);
 
-void	make_export_list(t_mini *mini, char *envp[]);
-void	check_export_param(t_mini *mini, char **str);
-void	add_export_list(t_mini *mini, char *str);
-void	print_env(t_mini *mini);
+t_export	*mini_export_new(char *str);
+void		make_export_list(t_mini *mini, char *envp[]);
+void		check_export_param(t_mini *mini, char **str);
+void		add_export_list(t_mini *mini, char *str);
+void		print_env(t_mini *mini);
+
+
+void		add_env_list(t_mini *mini, char *str);
+void		change_oldpwd_export(t_mini *mini, char *buf);
+void		change_oldpwd_env(t_mini *mini, char *buf);
+void		change_pwd(t_mini *mini, char *buf);
+void		delete_oldpwd(t_mini *mini);
 
 #endif

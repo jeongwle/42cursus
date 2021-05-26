@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils.c                                     :+:      :+:    :+:   */
+/*   builtin_export_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:53:06 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/24 16:09:26 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/26 16:28:50 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,20 @@ void	make_double_quotes(t_export *new)
 	free(temp);
 	free(substr_temp);
 	free(quote_temp);
+}
+
+int		check_already_exist(t_mini *mini, char *str)
+{
+	t_export	*curr;
+
+	curr = mini->exp;
+	while (curr)
+	{
+		if (curr->export_list &&
+			(!ft_strcmp(str, curr->export_list) ||
+			ft_strcmp(str, curr->export_list) == -61))
+			return (-1);
+		curr = curr->next;
+	}
+	return (0);
 }

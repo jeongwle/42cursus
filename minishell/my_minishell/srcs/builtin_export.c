@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:54:20 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/25 20:42:09 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/26 16:08:49 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void		make_export_list(t_mini *mini, char *envp[])
 		add_export_list(mini, envp[i]);
 		i++;
 	}
+	delete_oldpwd(mini);
 	sort_export(mini);
 }
 
@@ -60,21 +61,20 @@ void		check_export_param(t_mini *mini, char **str)
 	t_export	*curr;
 
 	i = 1;
-	if (str[i])
+	while (str[i])
 	{
-		while (str[i])
-		{
+		if (!check_already_exist(mini, str[i]))
 			add_export_list(mini, str[i]);
-			i++;
-		}
+		i++;
 	}
-	else
+	if (!str[i])
 	{
 		sort_export(mini);
 		curr = mini->exp;
 		while (curr)
 		{
-			printf("%s\n", curr->export_list);
+			if (curr->export_list)
+				printf("%s\n", curr->export_list);
 			curr = curr->next;
 		}
 	}
