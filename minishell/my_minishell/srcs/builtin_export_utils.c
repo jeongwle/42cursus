@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:53:06 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/26 22:37:17 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/27 11:49:31 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,15 @@ int		check_already_exist(t_mini *mini, char *str)
 	{
 		if (curr->export_list &&
 			(!ft_strcmp(new_str, curr->export_list) ||
-			ft_strcmp(new_str, curr->export_list) == -61))
+			ft_strcmp(new_str, curr->export_list) == -61 ||
+			ft_strcmp(new_str, curr->export_list) == 61))
+		{
+			free(temp);
+			free(new_str);
 			return (1);
+		}
 		curr = curr->next;
 	}
-	//중복인놈들 처리하는 방법 만들어라 그리고 +인거 처리하고 처음 숫자인거 제끼는것도 만들고 알았냐
 	free(temp);
 	free(new_str);
 	return (0);

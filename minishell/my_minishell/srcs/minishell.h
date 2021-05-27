@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/26 16:12:52 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/27 13:52:42 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct	s_export
 	struct s_export	*next;
 	struct s_export *prev;
 	char			*env_list;
+	char			*value;
 }				t_export;
 
 typedef struct	s_mini

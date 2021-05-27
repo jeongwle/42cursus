@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:54:20 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/26 22:13:47 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/27 13:54:19 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_export	*mini_export_new(char *str)
 	{
 		make_double_quotes(new);
 		new->env_list = ft_strdup(str);
+		new->value = ft_strdup(ft_strchr(new->env_list, '=') + 1);
 	}
 	else
 		new->env_list = NULL;
@@ -62,6 +63,8 @@ void		check_export_param(t_mini *mini, char **str)
 	i = 1;
 	while (str[i])
 	{
+		if (ft_strchr(str[i], '='))
+			check_plus(mini, str[i]);
 		if (!check_already_exist(mini, str[i]))
 			add_export_list(mini, str[i]);
 		i++;

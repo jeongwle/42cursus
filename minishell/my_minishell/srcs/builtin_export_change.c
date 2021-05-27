@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 15:14:12 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/26 16:27:16 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/27 11:13:30 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,11 +126,7 @@ void	delete_oldpwd(t_mini *mini)
 	while (curr)
 	{
 		if (curr->env_list && ft_strcmp("OLDPWD", curr->env_list) == -61)
-		{
-			free(curr->env_list);
-			curr->env_list = NULL;
-			return ;
-		}
+			ft_free(&curr->env_list);
 		curr = curr->next;
 	}
 }
