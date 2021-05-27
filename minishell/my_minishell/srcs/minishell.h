@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/27 13:52:42 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/28 01:15:52 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct	s_export
 	struct s_export	*next;
 	struct s_export *prev;
 	char			*env_list;
+	char			*key;
 	char			*value;
 }				t_export;
 
@@ -54,6 +55,7 @@ typedef struct	s_mini
 	char			buf[4096];
 	char			*temp;
 	int				atoi_flag;
+	int				row_flag;
 	int				make_history_flag;
 }				t_mini;
 
@@ -87,23 +89,22 @@ void		mini_exit(t_mini *mini, char *s1, char *s2);
 void		pwd(void);
 void		cd(t_mini *mini, char *path);
 
-void		init_export_param(t_mini *mini, char *envp[], int *i);
 void		mini_export_addback(t_mini *mini, t_export *new);
 void		sort_export(t_mini *mini);
-void		make_double_quotes(t_export *new);
+void		put_export_list(t_mini *mini);
 int			check_already_exist(t_mini *mini, char *str);
 
 t_export	*mini_export_new(char *str);
 void		make_export_list(t_mini *mini, char *envp[]);
-void		check_export_param(t_mini *mini, char **str);
 void		add_export_list(t_mini *mini, char *str);
-void		print_env(t_mini *mini);
+void		check_export_param(t_mini *mini, char **str);
+void		init_export_param(t_mini *mini, char *envp[], int *i);
 
-
-void		add_env_list(t_mini *mini, char *str);
-void		change_oldpwd_export(t_mini *mini, char *buf);
-void		change_oldpwd_env(t_mini *mini, char *buf);
+void		change_oldpwd(t_mini *mini, char *buf);
 void		change_pwd(t_mini *mini, char *buf);
 void		delete_oldpwd(t_mini *mini);
+
+void		print_export(t_export *curr);
+void		print_env(t_mini *mini);
 
 #endif

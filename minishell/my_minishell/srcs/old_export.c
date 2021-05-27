@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
+/*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 19:46:45 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/28 01:15:19 by jeongwle         ###   ########.fr       */
+/*   Created: 2021/05/22 14:54:20 by jeongwle          #+#    #+#             */
+/*   Updated: 2021/05/27 14:49:47 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,20 @@ t_export	*mini_export_new(char *str)
 	new = (t_export *)malloc(sizeof(t_export) * 1);
 	if (!new)
 		malloc_error();
-	new->env_list = ft_strdup(str);
-	if (ft_strchr(str, '='))
+	temp = ft_strdup("declare -x ");
+	new->export_list = ft_strjoin(temp, str);
+	if (ft_strchr(new->export_list, '='))
 	{
-		temp = ft_strdup(str);
+		make_double_quotes(new);
+		new->env_list = ft_strdup(str);
 		if (*(ft_strchr(new->env_list, '=') + 1))
 			new->value = ft_strdup(ft_strchr(new->env_list, '=') + 1);
-		else
-			new->value = NULL;
-		*(ft_strchr(temp, '=')) = '\0';
-		new->key = ft_strdup(temp);
-		free(temp);
 	}
 	else
-	{
-		new->key = ft_strdup(str);
-		new->value = NULL;
-	}
+		new->env_list = NULL;
 	new->next = NULL;
+	free(temp);
+	temp = NULL;
 	return (new);
 }
 
@@ -64,62 +60,38 @@ void		check_export_param(t_mini *mini, char **str)
 {
 	int			i;
 	t_export	*curr;
-	char		*temp;
 
 	i = 1;
 	while (str[i])
 	{
+//		if (ft_strchr(str[i], '='))
+//			check_plus(mini, str[i]);
 		if (!check_already_exist(mini, str[i]))
 			add_export_list(mini, str[i]);
 		i++;
 	}
 	if (i == 1 && !str[i])
 	{
-		put_export_list(mini);
 		sort_export(mini);
 		curr = mini->exp;
 		while (curr)
 		{
-			print_export(curr);
-			/*
-			temp = ft_strchr(curr->export_list, '=');
-			if (temp && *(temp + 1))
-				printf("declare -x %s=\"%s\"\n", curr->key, curr->value);
-			else if (ft_strchr(curr->env_list, '='))
-				printf("declare -x %s=\"\"\n", curr->key);
-			else
-				printf("declare -x %s\n", curr->export_list);*/
-			ft_free(&curr->export_list);
+			if (curr->export_list)
+				printf("%s\n", curr->export_list);
 			curr = curr->next;
 		}
 	}
 }
 
-void	init_export_param(t_mini *mini, char *envp[], int *i)
+void		print_env(t_mini *mini)
 {
-	char	*temp;
+	t_export	*curr;
 
-	mini->exp = (t_export *)malloc(sizeof(t_export) * 1);
-	if (!mini->exp)
-		malloc_error();
-	mini->exp->env_list = ft_strdup(envp[*i]);
-	if (ft_strchr(mini->exp->env_list, '='))
+	curr = mini->exp;
+	while (curr)
 	{
-		temp = ft_strdup(envp[*i]);
-		if (*(ft_strchr(temp, '=') + 1))
-			mini->exp->value = ft_strdup(ft_strchr(temp, '=') + 1);
-		else
-			mini->exp->value = NULL;
-		*(ft_strchr(temp, '=')) = '\0';
-		mini->exp->key = ft_strdup(temp);
-		free(temp);
+		if (curr->env_list)
+			printf("%s\n", curr->env_list);
+		curr = curr->next;
 	}
-	else
-	{
-		mini->exp->key = ft_strdup(envp[*i]);
-		mini->exp->value = NULL;
-	}
-	mini->exp->next = NULL;
-	mini->exp->prev = NULL;
-	(*i)++;
 }

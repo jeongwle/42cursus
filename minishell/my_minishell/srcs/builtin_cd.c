@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:33:49 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/26 16:27:24 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/27 22:35:08 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	cd(t_mini *mini, char *path)
 	res = chdir(path);
 	if (!res)
 	{
-		change_oldpwd_export(mini, buf);
-		change_oldpwd_env(mini, buf);
+		change_oldpwd(mini, buf);
 		free(buf);
 		buf = getcwd(NULL, 0);
 		change_pwd(mini, buf);

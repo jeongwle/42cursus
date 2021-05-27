@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/24 15:53:06 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/27 11:49:31 by jeongwle         ###   ########.fr       */
+/*   Created: 2021/05/27 21:10:39 by jeongwle          #+#    #+#             */
+/*   Updated: 2021/05/28 01:48:20 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	init_export_param(t_mini *mini, char *envp[], int *i)
-{
-	char	*temp;
-
-	temp = ft_strdup("declare -x ");
-	mini->exp = (t_export *)malloc(sizeof(t_export) * 1);
-	if (!mini->exp)
-		malloc_error();
-	mini->exp->export_list = ft_strjoin(temp, envp[*i]);
-	if (ft_strchr(envp[*i], '='))
-		mini->exp->env_list = ft_strdup(envp[*i]);
-	else
-		mini->exp->env_list = NULL;
-	mini->exp->next = NULL;
-	mini->exp->prev = NULL;
-	(*i)++;
-	free(temp);
-	temp = NULL;
-}
 
 void	mini_export_addback(t_mini *mini, t_export *new)
 {
@@ -39,13 +19,6 @@ void	mini_export_addback(t_mini *mini, t_export *new)
 	temp = mini->exp;
 	while (temp->next)
 		temp = temp->next;
-	if (!temp->export_list)
-	{
-		new->prev = temp->prev;
-		temp->prev = new;
-		new->next = temp;
-		temp = temp->prev->prev;
-	}
 	temp->next = new;
 	new->prev = temp;
 }
@@ -64,7 +37,7 @@ void	sort_export(t_mini *mini)
 	{
 		curr = mini->exp;
 		j = 0;
-		while (j < count - i - 1 && curr->next->export_list)
+		while (j < count - i - 1)
 		{
 			if (ft_strcmp(curr->export_list, curr->next->export_list) > 0)
 			{
@@ -79,56 +52,73 @@ void	sort_export(t_mini *mini)
 	}
 }
 
-void	make_double_quotes(t_export *new)
+void	put_export_list(t_mini *mini)
 {
-	char	*temp;
-	char	*substr_temp;
-	char	*quote_temp;
-	size_t	new_len;
-	size_t	substr_len;
+	t_export	*curr;
 
-	new_len = ft_strlen(new->export_list);
-	temp = ft_strchr(new->export_list, '=');
-	substr_len = ft_strlen(temp + 1);
-	substr_temp = ft_substr(new->export_list, new_len - substr_len, substr_len);
-	quote_temp = ft_strdup("\"");
-	*(temp + 1) = '\0';
-	temp = new->export_list;
-	new->export_list = ft_strjoin(temp, quote_temp);
-	free(temp);
-	temp = new->export_list;
-	new->export_list = ft_strjoin(temp, substr_temp);
-	free(temp);
-	temp = new->export_list;
-	new->export_list = ft_strjoin(temp, quote_temp);
-	free(temp);
-	free(substr_temp);
-	free(quote_temp);
+	curr = mini->exp;
+	while (curr)
+	{
+		if (curr->env_list)
+			curr->export_list = ft_strdup(curr->env_list);
+		curr = curr->next;
+	}
+}
+
+int		check_already_sub(t_mini *mini, char **key_temp, t_export *curr, char *str)
+{
+	char	*value_temp;
+	char	*temp;
+
+	if (ft_strchr(str, '='))
+	{
+		temp = ft_strdup(str);
+		if(*(ft_strchr(temp, '=') + 1))
+			value_temp = ft_strdup(ft_strchr(temp, '=') + 1);
+		free(temp);
+	}
+	else
+		value_temp = NULL;
+	if (value_temp)
+	{
+		free(curr->value);
+		curr->value = ft_strdup(value_temp);
+		free(curr->env_list);
+		curr->env_list = ft_strjoin(curr->key, "=");
+		temp = curr->env_list;
+		curr->env_list = ft_strjoin(temp, value_temp);
+		free(temp);
+		free(value_temp);
+		free(*key_temp);
+		return (1);
+	}
+	else
+		free(*key_temp);
+	return (1);
 }
 
 int		check_already_exist(t_mini *mini, char *str)
 {
 	t_export	*curr;
+	char		*key_temp;
 	char		*temp;
-	char		*new_str;
 
-	temp = ft_strdup("declare -x ");
-	new_str = ft_strjoin(temp, str);
+	if (ft_strchr(str, '='))
+	{
+		temp = ft_strdup(str);
+		*(ft_strchr(temp, '=')) = '\0';
+		key_temp = ft_strdup(temp);
+		free(temp);
+	}
+	else
+		key_temp = ft_strdup(str);
 	curr = mini->exp;
 	while (curr)
 	{
-		if (curr->export_list &&
-			(!ft_strcmp(new_str, curr->export_list) ||
-			ft_strcmp(new_str, curr->export_list) == -61 ||
-			ft_strcmp(new_str, curr->export_list) == 61))
-		{
-			free(temp);
-			free(new_str);
-			return (1);
-		}
+		if (curr->key && !ft_strcmp(key_temp, curr->key))
+			return (check_already_sub(mini, &key_temp, curr, str));
 		curr = curr->next;
 	}
-	free(temp);
-	free(new_str);
+	free(key_temp);
 	return (0);
 }

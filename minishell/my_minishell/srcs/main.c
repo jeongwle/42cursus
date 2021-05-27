@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/25 21:10:59 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/27 19:44:44 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char *argv[], char *envp[])
 	argc = 0;
 	argv = 0;
 	mini.idx = 0;
+	mini.row_flag = 0;
 	mini.temp = NULL;
 	mini.atoi_flag = 0;
 	mini.make_history_flag = 0;
