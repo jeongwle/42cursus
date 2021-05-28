@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/28 01:15:52 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/28 14:40:09 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,17 @@ typedef struct	s_mini
 	char			*temp;
 	int				atoi_flag;
 	int				row_flag;
+	int				col_max_temp;
+	int				col_temp;
+	int				col;
+	int				row;
 	int				make_history_flag;
 }				t_mini;
 
 void		term_set(void);
 void		delete_end(t_mini *mini);
 void		delete_prev(void);
+void		get_cursor_position(int *col, int *row);
 void		signal_handler(int signum);
 void		init_history_param(t_mini *mini);
 void		malloc_error(void);
@@ -106,5 +111,9 @@ void		delete_oldpwd(t_mini *mini);
 
 void		print_export(t_export *curr);
 void		print_env(t_mini *mini);
+
+void		check_already_sub_two(t_export *curr, char *value_temp);
+int			check_already_sub(t_export *curr, char *str);
+int			check_already_exist(t_mini *mini, char *str);
 
 #endif

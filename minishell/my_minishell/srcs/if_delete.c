@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:08:03 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/27 19:44:50 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/28 14:52:41 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,22 @@ void	delete_end(t_mini *mini)
 	cm = tgetstr("cm", NULL);
 	ce = tgetstr("ce", NULL);
 	get_cursor_position(&col, &row);
-	if (col != 0 && col != 12)
+	if (mini->row_flag)
+	{
+		if (col == 0)
+		{
+			mini->row_flag -= 1;
+			tputs(tgoto(cm, mini->col_max_temp, row - 1), 1, putchar_tc);
+			tputs(ce, 1, putchar_tc);
+			return ;
+		}
 		--(col);
+	}
+	else
+	{
+		if (col != 0 && col != 12)
+			--(col);
+	}
 	tputs(tgoto(cm, col, row), 1, putchar_tc);
 	tputs(ce, 1, putchar_tc);
 	if (mini->curr->history)

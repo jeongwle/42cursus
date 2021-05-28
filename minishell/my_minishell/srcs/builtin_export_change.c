@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 21:41:55 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/28 01:00:10 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/28 11:46:55 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,29 +68,6 @@ void	delete_env_list(t_export *curr)
 	else if (!curr->prev && curr->next)
 		curr->next->prev = NULL;
 	free(curr);
-}*/
-/*
-void	delete_oldpwd(t_mini *mini)
-{
-	t_export	*curr;
-
-	curr = mini->exp;
-	while (curr)
-	{
-		if (curr->key && !ft_strcmp("OLDPWD", curr->key))
-		{
-			if (curr->value)
-			{
-				free(curr->value);
-				curr->value = NULL;
-			}
-			*(ft_strchr(curr->env_list, '=')) = '\0';
-			return ;
-		}
-		curr = curr->next;
-	}
-	if (!curr)
-		add_export_list(mini, "OLDPWD");
 }*/
 
 void	delete_oldpwd(t_mini *mini)

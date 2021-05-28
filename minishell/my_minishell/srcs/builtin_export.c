@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:46:45 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/28 01:15:19 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/28 11:30:35 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,6 @@ void		check_export_param(t_mini *mini, char **str)
 		while (curr)
 		{
 			print_export(curr);
-			/*
-			temp = ft_strchr(curr->export_list, '=');
-			if (temp && *(temp + 1))
-				printf("declare -x %s=\"%s\"\n", curr->key, curr->value);
-			else if (ft_strchr(curr->env_list, '='))
-				printf("declare -x %s=\"\"\n", curr->key);
-			else
-				printf("declare -x %s\n", curr->export_list);*/
 			ft_free(&curr->export_list);
 			curr = curr->next;
 		}

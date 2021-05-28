@@ -6,11 +6,21 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/27 19:44:44 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/28 14:41:02 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	check_row_flag(t_mini *mini)
+{
+	if (mini->col == 1 && mini->col_temp > mini->col)
+	{
+		mini->col_max_temp = mini->col_temp;
+		mini->row_flag += 1;
+	}
+	mini->col_temp = mini->col;
+}
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -21,6 +31,9 @@ int	main(int argc, char *argv[], char *envp[])
 	argv = 0;
 	mini.idx = 0;
 	mini.row_flag = 0;
+	mini.row = 0;
+	mini.col = 0;
+	mini.col_temp = 0;
 	mini.temp = NULL;
 	mini.atoi_flag = 0;
 	mini.make_history_flag = 0;
@@ -32,6 +45,11 @@ int	main(int argc, char *argv[], char *envp[])
 	write(1, "minishell > ", 12);
 	while (read(0, &compare, 4) > 0)
 	{
+		if (compare != BACKSPACE)
+		{
+			get_cursor_position(&mini.col, &mini.row);
+			check_row_flag(&mini);
+		}
 		if (compare == BACKSPACE)
 			delete_end(&mini);
 		else if (compare == ARROWUP || compare == ARROWDOWN)
