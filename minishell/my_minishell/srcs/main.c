@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/28 14:41:02 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/28 18:48:10 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	check_row_flag(t_mini *mini)
 {
-	if (mini->col == 1 && mini->col_temp > mini->col)
+	if (mini->col == 0 && mini->col_temp > mini->col)
 	{
 		mini->col_max_temp = mini->col_temp;
 		mini->row_flag += 1;
