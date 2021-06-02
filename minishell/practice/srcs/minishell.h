@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/02 19:06:03 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/28 18:36:05 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,22 @@
 #include <termios.h>
 #include <termcap.h>
 
+typedef	struct	s_cur
+{
+	int				row;
+	int				col;
+	int				col_temp;
+	int				col_max_temp;
+	int				row_flag;
+}				t_cur;
+
 typedef struct	s_lst
 {
 	char			*history;
 	struct s_lst	*next;
 	struct s_lst	*prev;
 	int				flag;
+	t_cur			cur;
 	char			*temp;
 }				t_lst;
 
@@ -115,7 +125,5 @@ void		print_env(t_mini *mini);
 void		check_already_sub_two(t_export *curr, char *value_temp);
 int			check_already_sub(t_export *curr, char *str);
 int			check_already_exist(t_mini *mini, char *str);
-
-int			check_plus(t_mini *mini, char *str, char **temp);
 
 #endif

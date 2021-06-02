@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:46:45 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/02 22:03:48 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/05/28 11:30:35 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,7 @@ void		make_export_list(t_mini *mini, char *envp[])
 
 void		add_export_list(t_mini *mini, char *str)
 {
-	t_export	*curr;
-	char		*temp;
-
 	mini_export_addback(mini, mini_export_new(str));
-	curr = mini->exp;
-	while (curr->next)
-		curr = curr->next;
-	if (curr->key && ft_strchr(curr->key, '+'))
-	{
-		*(ft_strchr(curr->key, '+')) = '\0';
-		temp = ft_strdup(curr->key);
-		free(curr->key);
-		curr->key = ft_strdup(temp);
-		free(temp);
-		free(curr->env_list);
-		curr->env_list = ft_strjoin(curr->key, "=");
-		temp = curr->env_list;
-		curr->env_list = ft_strjoin(temp, curr->value);
-		free(temp);
-	}
 }
 
 void		check_export_param(t_mini *mini, char **str)
