@@ -17,6 +17,7 @@ SRCS	= ./srcs/main.c \
 		  ./srcs/builtin_export_print.c \
 		  ./srcs/builtin_export_check.c \
 		  ./srcs/builtin_export_plus.c \
+		  ./srcs/builtin_unset.c \
 		  ./srcs/mini_utils.c \
 		  ./srcs/mini_utils_two.c
 
@@ -34,8 +35,8 @@ $(NAME) : $(OBJS)
 	make -C ./lexical_analyzer
 	cp ./lexical_analyzer/lexical_analyzer.a ./
 	cp ./libft/libft.a ./
-	$(CC) -lncurses -o $@ $^ ./libft.a ./lexical_analyzer.a
-#	$(CC) -fsanitize=address -lncurses -o $@ $^ ./libft.a ./lexical_analyzer.a
+#	$(CC) -lncurses -o $@ $^ ./libft.a ./lexical_analyzer.a
+	$(CC) -fsanitize=address -lncurses -o $@ $^ ./libft.a ./lexical_analyzer.a
 
 all : $(NAME)
 

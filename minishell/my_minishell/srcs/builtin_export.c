@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:46:45 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/02 22:03:48 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 02:19:44 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_export	*mini_export_new(char *str)
 			new->value = NULL;
 		*(ft_strchr(temp, '=')) = '\0';
 		new->key = ft_strdup(temp);
-		free(temp);
+		ft_free(&temp);
 	}
 	else
 	{
@@ -68,14 +68,14 @@ void		add_export_list(t_mini *mini, char *str)
 	{
 		*(ft_strchr(curr->key, '+')) = '\0';
 		temp = ft_strdup(curr->key);
-		free(curr->key);
+		ft_free(&curr->key);
 		curr->key = ft_strdup(temp);
-		free(temp);
-		free(curr->env_list);
+		ft_free(&temp);
+		ft_free(&curr->env_list);
 		curr->env_list = ft_strjoin(curr->key, "=");
 		temp = curr->env_list;
 		curr->env_list = ft_strjoin(temp, curr->value);
-		free(temp);
+		ft_free(&temp);
 	}
 }
 
@@ -123,7 +123,7 @@ void	init_export_param(t_mini *mini, char *envp[], int *i)
 			mini->exp->value = NULL;
 		*(ft_strchr(temp, '=')) = '\0';
 		mini->exp->key = ft_strdup(temp);
-		free(temp);
+		ft_free(&temp);
 	}
 	else
 	{

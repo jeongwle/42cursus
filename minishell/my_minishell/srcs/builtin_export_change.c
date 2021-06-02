@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 21:41:55 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/28 11:46:55 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 02:32:25 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	change_oldpwd(t_mini *mini, char *buf)
 		if (curr->key && !ft_strcmp("OLDPWD", curr->key))
 		{
 			if (curr->value)
-				free(curr->value);
+				ft_free(&curr->value);
 			curr->value = ft_strdup(buf);
-			free(curr->env_list);
+			ft_free(&curr->env_list);
 			temp = ft_strjoin(curr->key, "=");
 			curr->env_list = ft_strjoin(temp, curr->value);
-			free(temp);
+			ft_free(&temp);
 		}
 		curr = curr->next;
 	}
@@ -45,12 +45,12 @@ void	change_pwd(t_mini *mini, char *buf)
 		if (curr->key && !ft_strcmp("PWD", curr->key))
 		{
 			if (curr->value)
-				free(curr->value);
+				ft_free(&curr->value);
 			curr->value = ft_strdup(buf);
-			free(curr->env_list);
+			ft_free(&curr->env_list);
 			temp = ft_strjoin(curr->key, "=");
 			curr->env_list = ft_strjoin(temp, curr->value);
-			free(temp);
+			ft_free(&temp);
 		}
 		curr = curr->next;
 	}

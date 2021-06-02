@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 22:31:05 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/02 20:15:17 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 02:36:22 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		print_export(t_export *curr)
 		value_temp = ft_strdup(temp + 1);
 		*(temp) = '\0';
 		printf("declare -x %s=\"%s\"\n", curr->export_list, value_temp);
-		free(value_temp);
+		ft_free(&value_temp);
 	}
 	else if (temp)
 	{

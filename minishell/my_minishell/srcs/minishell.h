@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/02 19:06:03 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 02:39:40 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,7 @@ int			check_already_sub(t_export *curr, char *str);
 int			check_already_exist(t_mini *mini, char *str);
 
 int			check_plus(t_mini *mini, char *str, char **temp);
+
+void		unset(t_mini *mini, char **str);
 
 #endif

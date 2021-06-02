@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/28 18:48:10 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 02:07:49 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,16 @@ int	main(int argc, char *argv[], char *envp[])
 					mini.something = lexical_analyzer(mini.curr->next->history, 0, 0);
 					mini.lst = mini.something->content;
 					mini.make_history_flag = 0;
-					if (!ft_strncmp("pwd", ((char **)mini.lst->content)[0], 3))
+					if (!ft_strcmp("pwd", ((char **)mini.lst->content)[0]))
 						pwd();
-					else if (!ft_strncmp("cd", ((char **)mini.lst->content)[0], 2))
+					else if (!ft_strcmp("cd", ((char **)mini.lst->content)[0]))
 						cd(&mini, ((char **)mini.lst->content)[1]);
-					else if (!ft_strncmp("export", ((char **)mini.lst->content)[0], 6))
+					else if (!ft_strcmp("export", ((char **)mini.lst->content)[0]))
 						check_export_param(&mini, ((char **)mini.lst->content));
-					else if (!ft_strncmp("env", ((char **)mini.lst->content)[0], 3))
+					else if (!ft_strcmp("env", ((char **)mini.lst->content)[0]))
 						print_env(&mini);
+					else if (!ft_strcmp("unset", ((char **)mini.lst->content)[0]))
+						unset(&mini, ((char **)mini.lst->content));
 
 				}
 				write(1, "minishell > ", 12);

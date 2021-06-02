@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 22:06:26 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/02 22:15:27 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 02:34:56 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,18 @@ void	check_plus_sub_two(t_export *curr, char *value_temp)
 	{
 		temp = curr->value;
 		curr->value = ft_strjoin(temp, value_temp);
-		free(temp);
+		ft_free(&temp);
 	}
 	else
-		curr->value = ft_strdup(value_temp);
-	free(curr->env_list);
+	{
+		if (value_temp)
+			curr->value = ft_strdup(value_temp);
+	}
+	ft_free(&curr->env_list);
 	curr->env_list = ft_strjoin(curr->key, "=");
 	temp = curr->env_list;
 	curr->env_list = ft_strjoin(temp, curr->value);
-	free(temp);
+	ft_free(&temp);
 }
 
 int		check_plus_sub(t_export *curr, char *str)
@@ -59,12 +62,10 @@ int		check_plus_sub(t_export *curr, char *str)
 		value_temp = ft_strdup(ft_strchr(temp, '=') + 1);
 	else
 		value_temp = NULL;
-	free(temp);
+	ft_free(&temp);
+	check_plus_sub_two(curr, value_temp);
 	if (value_temp)
-	{
-		check_plus_sub_two(curr, value_temp);
-		free(value_temp);
-	}
+		ft_free(&value_temp);
 	return (1);
 }
 
@@ -77,21 +78,21 @@ int		check_plus(t_mini *mini, char *str, char **temp)
 	{
 		*(ft_strchr(*temp, '+')) = '\0';
 		key_temp = ft_strdup(*temp);
-		free(*temp);
+		ft_free(temp);
 	}
 	else
-		free(*temp);
+		ft_free(temp);
 	curr = mini->exp;
 	while (curr)
 	{
 		if (curr->key && !ft_strcmp(key_temp, curr->key))
 		{
-			free(key_temp);
+			ft_free(&key_temp);
 			return (check_plus_sub(curr, str));
 		}
 		curr = curr->next;
 	}
 	if (key_temp)
-		free(key_temp);
+		ft_free(&key_temp);
 	return (0);
 }
