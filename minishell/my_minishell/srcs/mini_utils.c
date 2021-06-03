@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 12:53:08 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/22 16:31:52 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 11:46:27 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	head_clear(t_mini *mini)
 	mini->curr = mini->head;
 }
 
-int	ft_strcmp(char *s1, char *s2)
+int		ft_strcmp(char *s1, char *s2)
 {
 	int	i;
 

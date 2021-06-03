@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:46:45 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/03 02:19:44 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 11:46:57 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void		check_export_param(t_mini *mini, char **str)
 	}
 }
 
-void	init_export_param(t_mini *mini, char *envp[], int *i)
+void		init_export_param(t_mini *mini, char *envp[], int *i)
 {
 	char	*temp;
 

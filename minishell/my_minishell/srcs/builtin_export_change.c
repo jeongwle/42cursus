@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 21:41:55 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/03 02:32:25 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 11:45:14 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,6 @@ void	change_pwd(t_mini *mini, char *buf)
 		curr = curr->next;
 	}
 }
-/*
-void	delete_env_list(t_export *curr)
-{
-	if (curr->prev && curr->next)
-	{
-		curr->prev->next = curr->next;
-		curr->next->prev = curr->prev;
-	}
-	else if (curr->prev && !curr->next)
-		curr->prev->next = NULL;
-	else if (!curr->prev && curr->next)
-		curr->next->prev = NULL;
-	free(curr);
-}*/
 
 void	delete_oldpwd(t_mini *mini)
 {

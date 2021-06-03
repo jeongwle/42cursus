@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 11:48:11 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/03 02:31:11 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 11:45:43 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		check_already_sub(t_export *curr, char *str)
 	if (ft_strchr(str, '='))
 	{
 		temp = ft_strdup(str);
-		if(*(ft_strchr(temp, '=') + 1))
+		if (*(ft_strchr(temp, '=') + 1))
 			value_temp = ft_strdup(ft_strchr(temp, '=') + 1);
 		else
 			value_temp = NULL;

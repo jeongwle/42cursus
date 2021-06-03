@@ -6,12 +6,11 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 02:02:43 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/03 02:39:59 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 11:46:03 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	delete_env_list(t_export *curr)
 {

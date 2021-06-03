@@ -6,12 +6,12 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/03 02:07:49 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 13:27:20 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void	check_row_flag(t_mini *mini)
 {
 	if (mini->col == 0 && mini->col_temp > mini->col)
@@ -20,7 +20,7 @@ void	check_row_flag(t_mini *mini)
 		mini->row_flag += 1;
 	}
 	mini->col_temp = mini->col;
-}
+}*/
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -45,11 +45,11 @@ int	main(int argc, char *argv[], char *envp[])
 	write(1, "minishell > ", 12);
 	while (read(0, &compare, 4) > 0)
 	{
-		if (compare != BACKSPACE)
+/*		if (compare != BACKSPACE)
 		{
 			get_cursor_position(&mini.col, &mini.row);
 			check_row_flag(&mini);
-		}
+		}*/
 		if (compare == BACKSPACE)
 			delete_end(&mini);
 		else if (compare == ARROWUP || compare == ARROWDOWN)
@@ -75,6 +75,8 @@ int	main(int argc, char *argv[], char *envp[])
 						print_env(&mini);
 					else if (!ft_strcmp("unset", ((char **)mini.lst->content)[0]))
 						unset(&mini, ((char **)mini.lst->content));
+					else
+						use_execve(&mini, ((char **)mini.lst->content));
 
 				}
 				write(1, "minishell > ", 12);
