@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/03 13:27:20 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 16:15:16 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ int	main(int argc, char *argv[], char *envp[])
 						print_env(&mini);
 					else if (!ft_strcmp("unset", ((char **)mini.lst->content)[0]))
 						unset(&mini, ((char **)mini.lst->content));
+					else if (!ft_strcmp("exit", ((char **)mini.lst->content)[0]))
+						mini_exit(&mini, ((char **)mini.lst->content));
+					else if (!ft_strcmp("echo", ((char **)mini.lst->content)[0]))
+						ft_echo(((char **)mini.lst->content));
 					else
 						use_execve(&mini, ((char **)mini.lst->content));
 

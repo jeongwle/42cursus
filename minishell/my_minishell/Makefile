@@ -18,6 +18,8 @@ SRCS	= ./srcs/main.c \
 		  ./srcs/builtin_export_check.c \
 		  ./srcs/builtin_export_plus.c \
 		  ./srcs/builtin_unset.c \
+		  ./srcs/builtin_exit.c \
+		  ./srcs/builtin_echo.c \
 		  ./srcs/execve.c \
 		  ./srcs/mini_utils.c \
 		  ./srcs/mini_utils_two.c

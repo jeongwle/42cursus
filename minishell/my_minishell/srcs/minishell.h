@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/03 12:07:12 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/03 16:15:52 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int			ft_strcmp(char *s1, char *s2);
 
 int			mini_lstsize(t_export *lst);
 
-void		mini_exit(t_mini *mini, char *s1, char *s2);
 void		pwd(void);
 void		cd(t_mini *mini, char *path);
 
@@ -123,5 +122,9 @@ int			check_plus(t_mini *mini, char *str, char **temp);
 void		unset(t_mini *mini, char **str);
 
 void		use_execve(t_mini *mini, char **str);
+
+void		mini_exit(t_mini *mini, char **str);
+
+void		ft_echo(char **str);
 
 #endif
