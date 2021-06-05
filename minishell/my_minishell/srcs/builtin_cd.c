@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:33:49 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/04 15:35:37 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/05 15:03:40 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		reverse_old_curr(t_mini *mini)
 		change_oldpwd(mini, curr_temp);
 		change_pwd(mini, old_temp);
 		chdir(old_temp);
-		printf("%s\n",old_temp);
+		printf("%s\n", old_temp);
 		ft_free(&old_temp);
 		ft_free(&curr_temp);
 	}

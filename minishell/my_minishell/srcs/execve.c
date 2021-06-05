@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 11:50:06 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/04 18:55:43 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/05 15:04:57 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ void	use_execve(t_mini *mini, char **str)
 	char	*execve_param;
 
 	i = 0;
-	mini->pid = 0;
-	mini->status = 0;
 	mini->pid = fork();
-	path = get_path_value(mini);
 	if (mini->pid != 0)
 	{
 		wait(&mini->status);
@@ -55,6 +52,7 @@ void	use_execve(t_mini *mini, char **str)
 	}
 	else
 	{
+		path = get_path_value(mini);
 		while (path[i])
 		{
 			execve_param = make_execve_param(str[0], path[i]);
