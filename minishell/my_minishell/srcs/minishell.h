@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/03 16:15:52 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/07 15:41:27 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct	s_mini
 	t_lst			*tail;
 	t_lst			*curr;
 	t_export		*exp;
+	struct termios	term_temp;
 	int				idx;
 	char			buf[4096];
 	char			*temp;
@@ -126,5 +127,8 @@ void		use_execve(t_mini *mini, char **str);
 void		mini_exit(t_mini *mini, char **str);
 
 void		ft_echo(char **str);
+
+void		store_present_term(t_mini *mini);
+void		change_term(t_mini *mini);
 
 #endif

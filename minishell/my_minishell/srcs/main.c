@@ -6,11 +6,12 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/05 15:15:39 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/07 16:05:20 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 /*
 void	check_row_flag(t_mini *mini)
 {
@@ -57,9 +58,38 @@ void	init_mini(t_mini *mini)
 	mini->temp = NULL;
 	mini->atoi_flag = 0;
 	mini->make_history_flag = 0;
+	store_present_term(mini);
 	term_set();
 	init_history_param(mini);
+}
 
+void	parse_by_input(t_mini *mini, long long int *compare)
+{
+	if (*compare == BACKSPACE)
+		delete_end(mini);
+	else if (*compare == ARROWUP || *compare == ARROWDOWN)
+		arrow_up_down(mini, *compare);
+	else
+	{
+		write(1, compare, 1);
+		if (*compare == '\n')
+		{
+			make_history_lst(mini);
+			if (mini->make_history_flag)
+				parse_by_builtin(mini);
+			write(1, "minishell > ", 12);
+		}
+		else
+		{
+			mini->buf[mini->idx] = *compare;
+			(mini->idx)++;
+			if (mini->curr->history && mini->curr != mini->head)
+				ifn_head(mini);
+			else if (mini->curr == mini->head)
+				if_head(mini);
+		}
+	}
+	*compare = 0;
 }
 
 int		main(int argc, char *argv[], char *envp[])
@@ -81,30 +111,9 @@ int		main(int argc, char *argv[], char *envp[])
 			get_cursor_position(&mini.col, &mini.row);
 			check_row_flag(&mini);
 		}*/
-		if (compare == BACKSPACE)
-			delete_end(&mini);
-		else if (compare == ARROWUP || compare == ARROWDOWN)
-			arrow_up_down(&mini, compare);
-		else
-		{
-			write(1, &compare, 1);
-			if (compare == '\n')
-			{
-				make_history_lst(&mini);
-				if (mini.make_history_flag)
-					parse_by_builtin(&mini);
-				write(1, "minishell > ", 12);
-			}
-			else
-			{
-				mini.buf[mini.idx] = compare;
-				mini.idx++;
-				if (mini.curr->history && mini.curr != mini.head)
-					ifn_head(&mini);
-				else if (mini.curr == mini.head)
-					if_head(&mini);
-			}
-		}
-		compare = 0;
+		if (compare == '\n')
+			change_term(&mini);
+		parse_by_input(&mini, &compare);
+		term_set();
 	}
 }
