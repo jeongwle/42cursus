@@ -3,10 +3,6 @@ NAME	=  minishell
 SRCS	= ./srcs/main.c \
 		  ./srcs/term_set.c \
 		  ./srcs/signal_handler.c \
-		  ./srcs/if_arrow.c \
-		  ./srcs/if_delete.c \
-		  ./srcs/history_set.c \
-		  ./srcs/history_exe.c \
 		  ./srcs/malloc_error.c \
 		  ./srcs/builtin_exit.c \
 		  ./srcs/builtin_pwd.c \
@@ -20,7 +16,11 @@ SRCS	= ./srcs/main.c \
 		  ./srcs/builtin_unset.c \
 		  ./srcs/builtin_exit.c \
 		  ./srcs/builtin_echo.c \
-		  ./srcs/execve.c \
+		  ./srcs/mini_arrow.c \
+		  ./srcs/mini_delete.c \
+		  ./srcs/mini_history_set.c \
+		  ./srcs/mini_history_exe.c \
+		  ./srcs/mini_execve.c \
 		  ./srcs/mini_utils.c \
 		  ./srcs/mini_utils_two.c
 
