@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/07 15:41:27 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:04:52 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct	s_mini
 	int				make_history_flag;
 }				t_mini;
 
-void		term_set(void);
 void		delete_end(t_mini *mini);
 void		delete_prev(void);
 void		get_cursor_position(int *col, int *row);
@@ -122,12 +121,14 @@ int			check_plus(t_mini *mini, char *str, char **temp);
 
 void		unset(t_mini *mini, char **str);
 
+char		**make_env(t_mini *mini);
 void		use_execve(t_mini *mini, char **str);
 
 void		mini_exit(t_mini *mini, char **str);
 
 void		ft_echo(char **str);
 
+void		term_set(void);
 void		store_present_term(t_mini *mini);
 void		change_term(t_mini *mini);
 

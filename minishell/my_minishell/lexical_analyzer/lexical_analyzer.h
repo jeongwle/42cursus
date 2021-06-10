@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 16:31:42 by mki               #+#    #+#             */
-/*   Updated: 2021/05/25 14:02:36 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:07:23 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 typedef struct			s_word
 {
-	char				**argv;
+	char				**arg;
 	int					*fd_in;
 	int					*fd_out;
 }						t_word;

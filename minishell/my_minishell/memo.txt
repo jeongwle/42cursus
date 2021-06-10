@@ -1,0 +1,3 @@
+if (something->next) == ;
+
+if (mini->lst->next) == |

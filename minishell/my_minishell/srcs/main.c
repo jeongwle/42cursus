@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/09 15:55:41 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:17:55 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	check_row_flag(t_mini *mini)
 
 void	parse_by_builtin(t_mini *mini)
 {
-	mini->something = lexical_analyzer(mini->curr->next->history, 0, 0);
-	mini->lst = mini->something->content;
+//	mini->something = lexical_analyzer(mini->curr->next->history, 0, 0);
+//	mini->lst = mini->something->content;
 	mini->make_history_flag = 0;
 	if (!ft_strcmp("pwd", ((char **)mini->lst->content)[0]))
 		pwd();
@@ -76,7 +76,17 @@ void	parse_by_input(t_mini *mini, long long int *compare)
 		{
 			make_history_lst(mini);
 			if (mini->make_history_flag)
+			{
+				mini->something = lexical_analyzer(mini->curr->next->history, 0, 0);
+				mini->lst = mini->something->content;
 				parse_by_builtin(mini);
+				while (mini->something->next)
+				{
+					mini->something = mini->something->next;
+					mini->lst = mini->something->content;
+					parse_by_builtin(mini);
+				}
+			}
 			write(1, "minishell > ", 12);
 		}
 		else
