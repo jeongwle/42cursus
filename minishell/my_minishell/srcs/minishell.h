@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/10 16:04:52 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/11 15:53:11 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,7 @@ void		ft_echo(char **str);
 void		term_set(void);
 void		store_present_term(t_mini *mini);
 void		change_term(t_mini *mini);
+
+void		test_pipe(t_mini *mini);
 
 #endif
