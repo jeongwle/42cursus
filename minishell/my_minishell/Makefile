@@ -22,6 +22,7 @@ SRCS	= ./srcs/main.c \
 		  ./srcs/mini_history_exe.c \
 		  ./srcs/mini_execve.c \
 		  ./srcs/mini_utils.c \
+		  ./srcs/mini_pipe.c \
 		  ./srcs/mini_utils_two.c
 
 OBJS	= $(SRCS:.c=.o)

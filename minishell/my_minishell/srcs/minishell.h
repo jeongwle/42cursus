@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/11 15:53:11 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/14 20:24:53 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ typedef struct	s_mini
 	int				col_temp;
 	int				col;
 	int				row;
-	pid_t			pid;
-	int				status;
+	pid_t			*pid;
+	int				**fds;
+	int				statu;
 	int				make_history_flag;
 }				t_mini;
 
@@ -133,5 +134,7 @@ void		store_present_term(t_mini *mini);
 void		change_term(t_mini *mini);
 
 void		test_pipe(t_mini *mini);
+void		parse_by_builtin(t_mini *mini, char **str);
+void		test(t_mini *mini);
 
 #endif

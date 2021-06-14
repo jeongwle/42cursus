@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 11:50:06 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/11 16:35:26 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/14 20:27:21 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,6 @@ void	use_execve(t_mini *mini, char **str)
 {
 	char	**env;
 
-	mini->pid = fork();
-	if (mini->pid != 0)
-	{
-		wait(&mini->status);
-		return ;
-	}
-	else
-	{
-		env = make_env(mini);
-		execute_execve(mini, str, env);
-		exit(0);
-	}
+	env = make_env(mini);
+	execute_execve(mini, str, env);
 }

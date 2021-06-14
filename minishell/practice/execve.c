@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int	main(void)
 {
@@ -10,4 +11,5 @@ int	main(void)
 	str[2] = NULL;
 
 	execve(str[0], str, NULL);
+	printf("1\n");
 }
