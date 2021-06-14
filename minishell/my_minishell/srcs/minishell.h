@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/14 20:24:53 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/14 20:28:35 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct	s_mini
 	int				row;
 	pid_t			*pid;
 	int				**fds;
-	int				statu;
+	int				status;
 	int				make_history_flag;
 }				t_mini;
 
