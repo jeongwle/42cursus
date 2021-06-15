@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/14 20:21:30 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/15 16:03:10 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ void	parse_by_builtin(t_mini *mini)
 		use_execve(mini, ((char **)mini->lst->content));
 }
 */
+
 void	parse_by_builtin(t_mini *mini, char **str)
 {
-//	mini->something = lexical_analyzer(mini->curr->next->history, 0, 0);
-//	mini->lst = mini->something->content;
 	mini->make_history_flag = 0;
 	if (!ft_strcmp("pwd", str[0]))
 		pwd();
@@ -86,23 +85,42 @@ void	init_mini(t_mini *mini)
 	init_history_param(mini);
 }
 
-int		is_builtin(char *str)
+int		is_builtin(char **str)
 {
-	if (!ft_strcmp("pwd", str))
+	if (!ft_strcmp("pwd", str[0]))
 		return (1);
-	else if (!ft_strcmp("cd", str))
+	else if (!ft_strcmp("cd", str[0]))
 		return (1);
-	else if (!ft_strcmp("export", str))
+	else if (!ft_strcmp("export", str[0]))
 		return (1);
-	else if (!ft_strcmp("env", str))
+	else if (!ft_strcmp("env", str[0]))
 		return (1);
-	else if (!ft_strcmp("unset", str))
+	else if (!ft_strcmp("unset", str[0]))
 		return (1);
-	else if (!ft_strcmp("exit", str))
+	else if (!ft_strcmp("exit", str[0]))
 		return (1);
-	else if (!ft_strcmp("echo", str))
+	else if (!ft_strcmp("echo", str[0]))
 		return (1);
 	return (0);
+}
+
+void	parse_by_input_sub(t_mini *mini)
+{
+	if (mini->make_history_flag)
+	{
+		mini->something = lexical_analyzer(mini->curr->next->history, 0, 0);
+		mini->lst = mini->something->content;
+		if (!mini->lst->next && is_builtin((char **)mini->lst->content))
+			parse_by_builtin(mini, ((char **)mini->lst->content));
+		else
+			is_pipe(mini);
+		while (mini->something->next)
+		{
+			mini->something = mini->something->next;
+			mini->lst = mini->something->content;
+			parse_by_builtin(mini, ((char **)mini->lst->content));
+		}
+	}
 }
 
 void	parse_by_input(t_mini *mini, long long int *compare)
@@ -117,21 +135,7 @@ void	parse_by_input(t_mini *mini, long long int *compare)
 		if (*compare == '\n')
 		{
 			make_history_lst(mini);
-			if (mini->make_history_flag)
-			{
-				mini->something = lexical_analyzer(mini->curr->next->history, 0, 0);
-				mini->lst = mini->something->content;
-				if (!mini->lst->next && is_builtin(((char **)mini->lst->content)[0]))
-					parse_by_builtin(mini, ((char **)mini->lst->content));
-				else
-					test(mini);
-				while (mini->something->next)
-				{
-					mini->something = mini->something->next;
-					mini->lst = mini->something->content;
-					parse_by_builtin(mini, ((char **)mini->lst->content));
-				}
-			}
+			parse_by_input_sub(mini);
 			write(1, "minishell > ", 12);
 		}
 		else
@@ -166,7 +170,9 @@ int		main(int argc, char *argv[], char *envp[])
 			get_cursor_position(&mini.col, &mini.row);
 			check_row_flag(&mini);
 		}*/
-		if (compare == '\n')
+		if (compare == '\t')
+			continue ;
+		else if (compare == '\n')
 			change_term(&mini);
 		parse_by_input(&mini, &compare);
 		term_set();

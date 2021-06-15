@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/14 20:28:35 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/15 13:26:18 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,7 @@ void		term_set(void);
 void		store_present_term(t_mini *mini);
 void		change_term(t_mini *mini);
 
-void		test_pipe(t_mini *mini);
 void		parse_by_builtin(t_mini *mini, char **str);
-void		test(t_mini *mini);
+void		is_pipe(t_mini *mini);
 
 #endif
