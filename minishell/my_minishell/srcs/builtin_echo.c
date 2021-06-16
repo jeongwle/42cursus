@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 10:31:01 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/04 11:42:51 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/16 18:33:16 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ void	is_not_n_option(int *i, char **str)
 {
 	while (str[*i])
 	{
-		printf("%s", str[*i]);
+		ft_putstr_fd(str[*i], 1);
+//		printf("%s", str[*i]);
 		if (str[*i + 1])
-			printf(" ");
+			write(1, " ", 1);
+//			printf(" ");
 		(*i)++;
 	}
-	printf("\n");
+	write(1, "\n", 1);
 }
 
 void	is_n_option(int *i, char **str)
@@ -73,7 +75,7 @@ void	ft_echo(char **str)
 
 	if (str[1] == NULL)
 	{
-		printf("\n");
+		write(1, "\n", 1);
 		return ;
 	}
 	i = 1;
@@ -83,11 +85,11 @@ void	ft_echo(char **str)
 	{
 		while (str[i])
 		{
-			printf("%s", str[i]);
+			ft_putstr_fd(str[i], 1);
 			if (str[i + 1])
-				printf(" ");
+				write(1, " ", 1);
 			i++;
 		}
-		printf("\n");
+		write(1, "\n", 1);
 	}
 }

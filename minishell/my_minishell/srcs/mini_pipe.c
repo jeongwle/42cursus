@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 12:17:15 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/16 15:54:57 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/16 18:25:56 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,32 @@ void	init_pipe_param(t_mini *mini, int *size)
 
 void	child_process(t_mini *mini, int i, int size, t_list *lst)
 {
+	t_word *word;
+
+	word = lst->content;
 	if (i != 0 && i != (size - 1))
 	{
-		dup2(mini->fds[i - 1][0], 0);
-		dup2(mini->fds[i][1], 1);
+		if (word->fd_in < 0)
+			dup2(mini->fds[i - 1][0], 0);
+		if (word->fd_out < 0)
+			dup2(mini->fds[i][1], 1);
 		close(mini->fds[i - 1][1]);
 		close(mini->fds[i][0]);
 	}
 	else if (i == 0 && size != 1)
 	{
-		dup2(mini->fds[i][1], 1);
+		if (word->fd_out < 0)
+			dup2(mini->fds[i][1], 1);
 		close(mini->fds[i][0]);
 	}
 	else if (i == (size - 1) && size != 1)
 	{
-		dup2(mini->fds[i - 1][0], 0);
+		if (word->fd_in < 0)
+			dup2(mini->fds[i - 1][0], 0);
 		close(mini->fds[i - 1][1]);
 	}
-	parse_by_builtin(mini, ((t_word *)lst->content)->argv);
+//	parse_by_builtin(mini, ((t_word *)lst->content)->argv);
+	parse_by_builtin(mini, word->argv, word);
 	exit(0);
 }
 

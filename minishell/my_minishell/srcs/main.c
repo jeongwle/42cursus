@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/16 17:03:22 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/16 18:33:41 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,38 @@ void	parse_by_builtin(t_mini *mini)
 }
 */
 
-void	parse_by_builtin(t_mini *mini, char **str)
+void	parse_by_builtin(t_mini *mini, char **str, t_word *word)
 {
-//	mini->make_history_flag = 0;
-	if (!ft_strcmp("pwd", str[0]))
-		pwd();
-	else if (!ft_strcmp("cd", str[0]))
-		cd(mini, str[1]);
-	else if (!ft_strcmp("export", str[0]))
-		check_export_param(mini, str);
-	else if (!ft_strcmp("env", str[0]))
-		print_env(mini);
-	else if (!ft_strcmp("unset", str[0]))
-		unset(mini, str);
-	else if (!ft_strcmp("exit", str[0]))
-		mini_exit(mini, str);
-	else if (!ft_strcmp("echo", str[0]))
-		ft_echo(str);
-	else
-		use_execve(mini, str);
+	int	std_fd[2];
+
+	pipe(std_fd);
+	dup2(1, std_fd[1]);
+	dup2(0, std_fd[0]);
+	if (word->fd_in > 0)
+		dup2(word->fd_in, 0);
+	if (word->fd_out > 0)
+		dup2(word->fd_out, 1);
+	if (str)
+	{
+		if (!ft_strcmp("pwd", str[0]))
+			pwd();
+		else if (!ft_strcmp("cd", str[0]))
+			cd(mini, str[1]);
+		else if (!ft_strcmp("export", str[0]))
+			check_export_param(mini, str);
+		else if (!ft_strcmp("env", str[0]))
+			print_env(mini);
+		else if (!ft_strcmp("unset", str[0]))
+			unset(mini, str);
+		else if (!ft_strcmp("exit", str[0]))
+			mini_exit(mini, str);
+		else if (!ft_strcmp("echo", str[0]))
+			ft_echo(str);
+		else
+			use_execve(mini, str);
+	}
+	dup2(std_fd[1], 1);
+	dup2(std_fd[0], 0);
 }
 
 void	init_mini(t_mini *mini)
@@ -87,20 +100,23 @@ void	init_mini(t_mini *mini)
 
 int		is_builtin(char **str)
 {
-	if (!ft_strcmp("pwd", str[0]))
-		return (1);
-	else if (!ft_strcmp("cd", str[0]))
-		return (1);
-	else if (!ft_strcmp("export", str[0]))
-		return (1);
-	else if (!ft_strcmp("env", str[0]))
-		return (1);
-	else if (!ft_strcmp("unset", str[0]))
-		return (1);
-	else if (!ft_strcmp("exit", str[0]))
-		return (1);
-	else if (!ft_strcmp("echo", str[0]))
-		return (1);
+	if (str)
+	{
+		if (!ft_strcmp("pwd", str[0]))
+			return (1);
+		else if (!ft_strcmp("cd", str[0]))
+			return (1);
+		else if (!ft_strcmp("export", str[0]))
+			return (1);
+		else if (!ft_strcmp("env", str[0]))
+			return (1);
+		else if (!ft_strcmp("unset", str[0]))
+			return (1);
+		else if (!ft_strcmp("exit", str[0]))
+			return (1);
+		else if (!ft_strcmp("echo", str[0]))
+			return (1);
+	}
 	return (0);
 }
 
@@ -110,21 +126,24 @@ void	parse_by_input_sub(t_mini *mini)
 	{
 		mini->make_history_flag = 0;
 		mini->semi = lexical_analyzer(mini->curr->next->history, mini, 0);
-		mini->pipe = mini->semi->content;
-		mini->word = mini->pipe->content;
-		if (!mini->pipe->next && is_builtin(mini->word->argv))
-			parse_by_builtin(mini, (mini->word->argv));
-		else
-			is_pipe(mini);
-		while (mini->semi->next)
+		if (mini->semi)
 		{
-			mini->semi = mini->semi->next;
 			mini->pipe = mini->semi->content;
 			mini->word = mini->pipe->content;
 			if (!mini->pipe->next && is_builtin(mini->word->argv))
-				parse_by_builtin(mini, (mini->word->argv));
+				parse_by_builtin(mini, mini->word->argv, mini->word);
 			else
 				is_pipe(mini);
+			while (mini->semi->next)
+			{
+				mini->semi = mini->semi->next;
+				mini->pipe = mini->semi->content;
+				mini->word = mini->pipe->content;
+				if (!mini->pipe->next && is_builtin(mini->word->argv))
+					parse_by_builtin(mini, mini->word->argv, mini->word);
+				else
+					is_pipe(mini);
+			}
 		}
 	}
 }
