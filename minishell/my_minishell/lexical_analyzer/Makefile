@@ -6,43 +6,34 @@
 #    By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 22:30:00 by mki               #+#    #+#              #
-#    Updated: 2021/05/22 14:59:10 by mki              ###   ########.fr        #
+#    Updated: 2021/06/15 21:06:55 by sehan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	lexical_analyzer.a
+NAME		=	liblex.a
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+ASAN		=	-fsanitize=address -g2
+CFLAGS		=	-Wall -Wextra -Werror -I ../ $(ASAN)
 AR			=	ar -rcs
-RM			=	rm -f
-.SUFFIXES	=	.c.o
+RM			=	rm -rf
 
-LEX			=	executor\
-				ft_isall\
-				ft_ismeta\
-				ft_isquotes\
-				ft_isspace\
-				ft_isspecial\
+LEX			=	ft_isall\
 				lexer\
 				lexical_analyzer\
 				make_string\
+				make_word_list\
+				make_word\
+				make_word2\
 				parser_backslash\
-				parser_dquotes\
-				parser_pipeline\
+				parser_env\
 				parser_quotes\
-				parser_redirection\
-				parser_semicolon\
 				parser\
-				token_find\
-				token_free\
-				#syntax_backslash\
-				syntax_dquotes\
+				syntax_backslash\
 				syntax_error\
-				syntax_pipeline\
+				syntax_multiline\
 				syntax_quotes\
 				syntax_redirection\
-				syntax_semicolon\
-				parser_env\
+				token\
 
 LEX_DIR		=	./
 LEX_SRCS	=	$(addprefix $(LEX_DIR), $(addsuffix .c, $(LEX))) 

@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 10:12:47 by mki               #+#    #+#             */
-/*   Updated: 2021/05/21 12:26:39 by mki              ###   ########.fr       */
+/*   Updated: 2021/06/16 12:05:28 by mki              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		token_string(t_list **begin_list, char *str, int idx)
 	len = idx;
 	while (str[len])
 	{
-		if (ft_isalpha(str[len]))
+		if (!ft_isall(str[len]))
 			len++;
 		else
 			break ;
@@ -51,6 +51,7 @@ int		space_token_compress(t_list *lst_begin)
 {
 	t_token	*token;
 	t_list	*lst;
+	t_list	*tmp;
 	char	c;
 
 	lst = lst_begin;
@@ -58,13 +59,44 @@ int		space_token_compress(t_list *lst_begin)
 	{
 		token = lst->content;
 		c = token->name;
+		if (token->name == '\"' && (tmp = dquotes_token_find(lst)))
+		{
+			lst = tmp->next;
+			continue ;
+		}
+		if (token->name == '\'' && (tmp = token_find(lst, '\'')))
+		{
+			lst = tmp->next;
+			continue ;
+		}
 		while (c == ' ' && lst->next)
-		{	
+		{
 			token = lst->next->content;
 			if (token->name == ' ')
 				lst_next_free(lst);
 			else
 				break ;
+		}
+		lst = lst->next;
+	}
+	return (0);
+}
+
+int		delete_last_semi(t_list *lst_begin)
+{
+	t_list	*lst;
+	t_token *token;
+	t_list	*lst_next;
+
+	lst = lst_begin;
+	while (lst)
+	{
+		if (lst->next)
+		{
+			lst_next = lst->next;
+			token = lst_next->content;
+			if (token->name == ';' && lst_next->next == NULL)
+				lst_next_free(lst);
 		}
 		lst = lst->next;
 	}
@@ -80,14 +112,14 @@ t_list	*lexer(char *str)
 	idx = 0;
 	while (str[idx])
 	{
-		if (ft_isalpha(str[idx]))
-			idx += token_string(&lst_token, str, idx);
-		else if (ft_isascii(str[idx]))
+		if (ft_isall(str[idx]))
 			idx += token_special(&lst_token, str[idx]);
 		else
-			idx++;
+			idx += token_string(&lst_token, str, idx);
 	}
 	if (space_token_compress(lst_token))
+		return (NULL);
+	if (delete_last_semi(lst_token))
 		return (NULL);
 	return (lst_token);
 }
