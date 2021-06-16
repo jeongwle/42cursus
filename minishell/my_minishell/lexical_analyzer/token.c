@@ -6,11 +6,11 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 12:12:40 by mki               #+#    #+#             */
-/*   Updated: 2021/06/15 21:44:28 by sehan            ###   ########.fr       */
+/*   Updated: 2021/06/16 12:55:47 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexical_analyzer.h"
+#include "../srcs/minishell.h"
 
 t_list	*token_find(t_list *lst, char c)
 {

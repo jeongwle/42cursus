@@ -6,11 +6,11 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 12:44:16 by mki               #+#    #+#             */
-/*   Updated: 2021/06/15 21:57:29 by sehan            ###   ########.fr       */
+/*   Updated: 2021/06/16 16:39:13 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexical_analyzer.h"
+#include "../srcs/minishell.h"
 
 void	print_lst_token(t_list *lst)
 {
@@ -24,7 +24,7 @@ void	print_lst_token(t_list *lst)
 	}
 }
 
-t_list	*lexical_analyzer(char *str, t_envp_list *lst_envp, int status)
+t_list	*lexical_analyzer(char *str, t_mini *mini, int status)
 {
 	t_list	*lst_word;
 	t_list	*lst;
@@ -40,7 +40,7 @@ t_list	*lexical_analyzer(char *str, t_envp_list *lst_envp, int status)
 	if (!(lst = lexer(trim)))
 		return (NULL);
 	free(trim);
-	if (parser(lst, lst_envp, status))
+	if (parser(lst, mini, status))
 	{
 		lst_token_free(lst);
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 12:28:04 by mki               #+#    #+#             */
-/*   Updated: 2021/06/16 11:34:53 by mki              ###   ########.fr       */
+/*   Updated: 2021/06/16 13:41:44 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,6 @@ typedef struct			s_word
 	int					fd_out;
 }						t_word;
 
-typedef struct			s_envp_list
-{
-	struct s_envp_list	*next;
-	void				*key;
-	void				*value;
-}						t_envp_list;
-
 typedef struct			s_token
 {
 	char				name;
@@ -53,16 +46,16 @@ int						ft_isspace(char c);
 int						ft_isspecial(char c);
 t_list					*lexer(char *str);
 t_list					*lexical_analyzer
-(char *str, t_envp_list *lst_envp, int status);
+(char *str, t_mini *mini, int status);
 t_list					*make_string(t_list *start, t_list *end);
 int						parser_backslash(t_list *lst_begin, int mode);
 int						parser_dquotes
-(t_list *lst_begin, t_envp_list *lst_envp, int status);
+(t_list *lst_begin, t_mini *mini, int status);
 int						parser_env
-(t_list *lst_begin, t_envp_list *lst_envp, int status);
+(t_list *lst_begin, t_mini *mini, int status);
 int						parser_quotes(t_list *lst_begin);
 int						parser
-(t_list *lst_begin, t_envp_list *lst_envp, int status);
+(t_list *lst_begin, t_mini *mini, int status);
 int						syntax_backslash(t_list *lst_begin);
 int						syntax_dquotes(t_list *lst_begin);
 int						syntax_error(int num);

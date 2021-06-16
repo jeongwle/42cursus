@@ -6,11 +6,11 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:05:13 by sehan             #+#    #+#             */
-/*   Updated: 2021/06/15 22:11:55 by sehan            ###   ########.fr       */
+/*   Updated: 2021/06/16 12:53:42 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexical_analyzer.h"
+#include "../srcs/minishell.h"
 
 void	malloc_argv(t_word *word, int *i, int *j, int size)
 {

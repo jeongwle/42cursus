@@ -6,11 +6,11 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 12:30:01 by mki               #+#    #+#             */
-/*   Updated: 2021/06/15 14:15:35 by mki              ###   ########.fr       */
+/*   Updated: 2021/06/16 13:08:52 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../srcs/minishell.h"
 
 void	parser_dollar_question_mark(t_list *lst_begin, int status)
 {
@@ -25,17 +25,17 @@ void	parser_dollar_question_mark(t_list *lst_begin, int status)
 	token->value = ft_itoa(status);
 }
 
-void	parser_env_trans(t_list *lst_begin, t_envp_list *lst_envp, char *key)
+void	parser_env_trans(t_list *lst_begin, t_mini *mini, char *key)
 {
-	t_envp_list	*lst_envp_tmp;
 	t_token		*token;
+	char		*temp;
 
 	token = lst_begin->content;
-	if ((lst_envp_tmp = ft_find_env(lst_envp, key)))
+	if ((temp = find_env(mini, key)))
 	{
 		token->name = 's';
 		free(token->value);
-		token->value = ft_strdup(lst_envp_tmp->value);
+		token->value = temp;
 	}
 	else
 	{
@@ -45,7 +45,7 @@ void	parser_env_trans(t_list *lst_begin, t_envp_list *lst_envp, char *key)
 	free(key);
 }
 
-void	parser_env_var(t_list *lst_begin, t_envp_list *lst_envp)
+void	parser_env_var(t_list *lst_begin, t_mini *mini)
 {
 	t_token	*t;
 	char	*key;
@@ -64,10 +64,10 @@ void	parser_env_var(t_list *lst_begin, t_envp_list *lst_envp)
 		else
 			t = lst_begin->next->content;
 	}
-	parser_env_trans(lst_begin, lst_envp, key);
+	parser_env_trans(lst_begin, mini, key);
 }
 
-int		parser_env(t_list *lst_begin, t_envp_list *lst_envp, int status)
+int		parser_env(t_list *lst_begin, t_mini *mini, int status)
 {
 	t_token	*token;
 
@@ -75,7 +75,7 @@ int		parser_env(t_list *lst_begin, t_envp_list *lst_envp, int status)
 	{
 		token = lst_begin->next->content;
 		if (token->name == 's' || token->name == '_')
-			parser_env_var(lst_begin, lst_envp);
+			parser_env_var(lst_begin, mini);
 		else if (token->name == '?')
 			parser_dollar_question_mark(lst_begin, status);
 		else

@@ -6,14 +6,14 @@
 #    By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 22:30:00 by mki               #+#    #+#              #
-#    Updated: 2021/06/15 21:06:55 by sehan            ###   ########.fr        #
+#    Updated: 2021/06/16 15:49:14 by jeongwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	liblex.a
 CC			=	gcc
 ASAN		=	-fsanitize=address -g2
-CFLAGS		=	-Wall -Wextra -Werror -I ../ $(ASAN)
+CFLAGS		=	-Wall -Wextra -Werror -I ../srcs #$(ASAN)
 AR			=	ar -rcs
 RM			=	rm -rf
 

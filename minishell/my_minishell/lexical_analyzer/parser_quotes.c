@@ -6,11 +6,11 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 21:39:56 by mki               #+#    #+#             */
-/*   Updated: 2021/06/15 21:45:34 by sehan            ###   ########.fr       */
+/*   Updated: 2021/06/16 13:06:59 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexical_analyzer.h"
+#include "../srcs/minishell.h"
 
 t_list	*dquotes_token_find(t_list *lst)
 {
@@ -29,7 +29,7 @@ t_list	*dquotes_token_find(t_list *lst)
 	return (lst);
 }
 
-int		parser_dquotes(t_list *lst_begin, t_envp_list *lst_envp, int status)
+int		parser_dquotes(t_list *lst_begin, t_mini *mini, int status)
 {
 	t_list	*lst;
 	t_list	*end;
@@ -42,7 +42,7 @@ int		parser_dquotes(t_list *lst_begin, t_envp_list *lst_envp, int status)
 		token = lst->content;
 		if (token->name == '\\' && parser_backslash(lst, 1))
 			return (syntax_error(BACKSLASH_MULTI));
-		else if (token->name == '$' && parser_env(lst, lst_envp, status))
+		else if (token->name == '$' && parser_env(lst, mini, status))
 			return (syntax_error(DQUOTES_MULTI));
 		lst = lst->next;
 	}

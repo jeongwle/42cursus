@@ -6,11 +6,11 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 12:51:07 by mki               #+#    #+#             */
-/*   Updated: 2021/06/16 10:08:28 by mki              ###   ########.fr       */
+/*   Updated: 2021/06/16 12:55:42 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexical_analyzer.h"
+#include "../srcs/minishell.h"
 
 static int	check(t_list *lst, t_token *token)
 {

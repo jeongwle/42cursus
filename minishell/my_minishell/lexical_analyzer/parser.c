@@ -6,11 +6,11 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 10:12:50 by mki               #+#    #+#             */
-/*   Updated: 2021/06/15 16:05:46 by mki              ###   ########.fr       */
+/*   Updated: 2021/06/16 13:46:12 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexical_analyzer.h"
+#include "../srcs/minishell.h"
 
 int	syntax_check(t_list *lst_begin)
 {
@@ -19,14 +19,14 @@ int	syntax_check(t_list *lst_begin)
 	return (0);
 }
 
-int	parser_if(t_list *lst, t_envp_list *lst_envp, char name, int status)
+int	parser_if(t_list *lst, t_mini *mini, char name, int status)
 {
 	if (name == '\\')
 		return (parser_backslash(lst, 0));
 	else if (name == '\"')
-		return (parser_dquotes(lst, lst_envp, status));
+		return (parser_dquotes(lst, mini, status));
 	else if (name == '$')
-		return (parser_env(lst, lst_envp, status));
+		return (parser_env(lst, mini, status));
 	else if (name == '\'')
 		return (parser_quotes(lst));
 	return (0);
@@ -78,7 +78,7 @@ int	turn_into_string_except_pss(t_list *lst_begin)
 	return (0);
 }
 
-int	parser(t_list *lst_begin, t_envp_list *lst_envp, int status)
+int	parser(t_list *lst_begin, t_mini *mini, int status)
 {
 	t_list	*lst;
 	t_token *token;
@@ -89,7 +89,7 @@ int	parser(t_list *lst_begin, t_envp_list *lst_envp, int status)
 	while (lst)
 	{
 		token = lst->content;
-		if (parser_if(lst, lst_envp, token->name, status))
+		if (parser_if(lst, mini, token->name, status))
 			return (1);
 		lst = lst->next;
 	}

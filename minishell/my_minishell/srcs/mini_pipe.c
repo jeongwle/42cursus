@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 12:17:15 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/15 14:18:51 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/16 15:54:57 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_pipe_param(t_mini *mini, int *size)
 	int		i;
 	t_list	*lst;
 
-	lst = mini->lst;
+	lst = mini->pipe;
 	i = ft_lstsize(lst);
 	*size = i;
 	mini->pid = (pid_t *)malloc(sizeof(pid_t) * i);
@@ -49,7 +49,7 @@ void	child_process(t_mini *mini, int i, int size, t_list *lst)
 		dup2(mini->fds[i - 1][0], 0);
 		close(mini->fds[i - 1][1]);
 	}
-	parse_by_builtin(mini, ((char **)lst->content));
+	parse_by_builtin(mini, ((t_word *)lst->content)->argv);
 	exit(0);
 }
 
@@ -81,7 +81,7 @@ void	is_pipe(t_mini *mini)
 	int		size;
 
 	i = -1;
-	lst = mini->lst;
+	lst = mini->pipe;
 	init_pipe_param(mini, &size);
 	while (++i < size)
 	{

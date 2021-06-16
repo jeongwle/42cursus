@@ -6,11 +6,11 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 12:25:33 by mki               #+#    #+#             */
-/*   Updated: 2021/05/20 12:57:57 by mki              ###   ########.fr       */
+/*   Updated: 2021/06/16 12:54:15 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexical_analyzer.h"
+#include "../srcs/minishell.h"
 
 int	isspecial_in_dquote(char c)
 {

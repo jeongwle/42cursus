@@ -31,16 +31,17 @@ CC		= gcc
 C		= clang
 
 .c.o :
-	$(CC) -c $< -o $@
+	$(CC) -c -g $< -o $@
 
 $(NAME) : $(OBJS)
 	make -C ./libft
 	make bonus -C ./libft
 	make -C ./lexical_analyzer
-	cp ./lexical_analyzer/lexical_analyzer.a ./
+	cp ./lexical_analyzer/liblex.a ./
 	cp ./libft/libft.a ./
-	$(CC) -lncurses -o $@ $^ ./libft.a ./lexical_analyzer.a
-#	$(CC) -fsanitize=address -lncurses -o $@ $^ ./libft.a ./lexical_analyzer.a
+#	$(CC) -lncurses -o $@ $^ ./libft.a
+#	$(CC) -lncurses -o $@ $^ ./libft.a ./liblex.a
+	$(CC) -fsanitize=address -lncurses -o $@ $^ ./libft.a ./liblex.a
 
 all : $(NAME)
 
@@ -50,7 +51,7 @@ fclean : clean
 clean :
 	$(RM) $(OBJS)
 	$(RM) ./libft.a ./libft/libft.a
-	$(RM) ./lexical_analyzer.a ./lexical_analyzer/lexical_analyzer.a
+	$(RM) ./liblex.a ./lexical_analyzer/liblex.a
 	make clean -C ./libft
 	make clean -C ./lexical_analyzer
 

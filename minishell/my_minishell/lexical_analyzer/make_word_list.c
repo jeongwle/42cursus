@@ -6,11 +6,11 @@
 /*   By: sehan <sehan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:11:30 by sehan             #+#    #+#             */
-/*   Updated: 2021/06/15 17:59:39 by sehan            ###   ########.fr       */
+/*   Updated: 2021/06/16 12:53:55 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexical_analyzer.h"
+#include "../srcs/minishell.h"
 
 t_list	*make_word_list(t_list *lst, t_word **word)
 {

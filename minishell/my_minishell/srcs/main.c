@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/15 16:03:10 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/16 17:03:22 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	parse_by_builtin(t_mini *mini)
 
 void	parse_by_builtin(t_mini *mini, char **str)
 {
-	mini->make_history_flag = 0;
+//	mini->make_history_flag = 0;
 	if (!ft_strcmp("pwd", str[0]))
 		pwd();
 	else if (!ft_strcmp("cd", str[0]))
@@ -108,17 +108,23 @@ void	parse_by_input_sub(t_mini *mini)
 {
 	if (mini->make_history_flag)
 	{
-		mini->something = lexical_analyzer(mini->curr->next->history, 0, 0);
-		mini->lst = mini->something->content;
-		if (!mini->lst->next && is_builtin((char **)mini->lst->content))
-			parse_by_builtin(mini, ((char **)mini->lst->content));
+		mini->make_history_flag = 0;
+		mini->semi = lexical_analyzer(mini->curr->next->history, mini, 0);
+		mini->pipe = mini->semi->content;
+		mini->word = mini->pipe->content;
+		if (!mini->pipe->next && is_builtin(mini->word->argv))
+			parse_by_builtin(mini, (mini->word->argv));
 		else
 			is_pipe(mini);
-		while (mini->something->next)
+		while (mini->semi->next)
 		{
-			mini->something = mini->something->next;
-			mini->lst = mini->something->content;
-			parse_by_builtin(mini, ((char **)mini->lst->content));
+			mini->semi = mini->semi->next;
+			mini->pipe = mini->semi->content;
+			mini->word = mini->pipe->content;
+			if (!mini->pipe->next && is_builtin(mini->word->argv))
+				parse_by_builtin(mini, (mini->word->argv));
+			else
+				is_pipe(mini);
 		}
 	}
 }

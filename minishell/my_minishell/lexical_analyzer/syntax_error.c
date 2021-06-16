@@ -6,11 +6,11 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 11:04:05 by mki               #+#    #+#             */
-/*   Updated: 2021/06/15 15:55:59 by mki              ###   ########.fr       */
+/*   Updated: 2021/06/16 12:55:12 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexical_analyzer.h"
+#include "../srcs/minishell.h"
 
 int		syntax_error(int num)
 {

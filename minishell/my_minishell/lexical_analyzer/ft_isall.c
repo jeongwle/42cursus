@@ -6,11 +6,11 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 10:18:13 by mki               #+#    #+#             */
-/*   Updated: 2021/06/15 12:03:59 by mki              ###   ########.fr       */
+/*   Updated: 2021/06/16 12:52:08 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexical_analyzer.h"
+#include "../srcs/minishell.h"
 
 int	ft_isspecial(char c)
 {

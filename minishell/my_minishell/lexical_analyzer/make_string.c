@@ -6,11 +6,11 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 18:52:42 by mki               #+#    #+#             */
-/*   Updated: 2021/06/15 12:45:16 by mki              ###   ########.fr       */
+/*   Updated: 2021/06/16 12:53:10 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexical_analyzer.h"
+#include "../srcs/minishell.h"
 
 t_list	*make_string(t_list *start, t_list *end)
 {
