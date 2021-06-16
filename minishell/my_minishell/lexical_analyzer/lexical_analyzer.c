@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 12:44:16 by mki               #+#    #+#             */
-/*   Updated: 2021/06/08 12:31:59 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/15 21:57:29 by sehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,29 @@ void	print_lst_token(t_list *lst)
 
 t_list	*lexical_analyzer(char *str, t_envp_list *lst_envp, int status)
 {
-	t_list	*ret;
+	t_list	*lst_word;
+	t_list	*lst;
+	char	*trim;
+	t_word	*word;
 
-	// if (!(ret = lexer(str)))
-	// 	return (NULL);
-	// if (parser(ret, lst_envp, status))
-	// 	return (NULL);
-	// print_lst_token(ret);
-	// lst_token_free(ret, NULL);
-	lst_envp = 0;
-	status = 0;
-	if (!(ret = executor(str)))
+	trim = ft_strtrim(str, " ");
+	if (syntax_multline(trim))
+	{
+		free(trim);
 		return (NULL);
-	return (ret);
+	}
+	if (!(lst = lexer(trim)))
+		return (NULL);
+	free(trim);
+	if (parser(lst, lst_envp, status))
+	{
+		lst_token_free(lst);
+		return (NULL);
+	}
+	word = make_word(lst);
+	lst_word = make_word_list(lst, &word);
+	lst_token_free(lst);
+	if (!lst_word)
+		return (NULL);
+	return (lst_word);
 }
