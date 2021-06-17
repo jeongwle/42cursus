@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 21:10:39 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/05/28 11:50:00 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/17 14:29:10 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,42 @@ void	put_export_list(t_mini *mini)
 			curr->export_list = ft_strdup(curr->env_list);
 		curr = curr->next;
 	}
+}
+
+
+int		check_argument_sub(char *str)
+{
+	write(1, "bash: export: '", 15);
+	ft_putstr_fd(str, 1);
+	write(1, "': not a valid identifier\n", 26);
+	return (1);
+}
+
+int		check_argument(char *str)
+{
+	int	i;
+	int	flag;
+
+	i = 0;
+	flag = 0;
+	if (!ft_isalpha(str[i]) && str[i] != '_')
+		return (check_argument_sub(str));
+	i++;
+	while (str[i] != '=')
+	{
+		if (ft_isalpha(str[i]))
+			i++;
+		else if (ft_isdigit(str[i]))
+			i++;
+		else if (str[i] == '_')
+			i++;
+		else if (!flag && str[i] == '+' && (str[i + 1] && str[i + 1] == '='))
+		{
+			i++;
+			flag = 1;
+		}
+		else
+			return (check_argument_sub(str));
+	}
+	return (0);
 }

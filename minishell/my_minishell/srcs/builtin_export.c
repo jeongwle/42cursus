@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:46:45 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/03 11:46:57 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/17 14:07:00 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ void		check_export_param(t_mini *mini, char **str)
 	i = 1;
 	while (str[i])
 	{
-		if (!check_already_exist(mini, str[i]))
+		if (check_argument(str[i]))
+			;
+		else if (!check_already_exist(mini, str[i]))
 			add_export_list(mini, str[i]);
 		i++;
 	}

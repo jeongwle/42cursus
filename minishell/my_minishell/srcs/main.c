@@ -6,46 +6,35 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/16 18:33:41 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/17 17:04:40 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-void	check_row_flag(t_mini *mini)
+t_mini	g_mini;
+
+void	parse_by_builtin_sub(t_mini *mini, char **str, t_word *word)
 {
-	if (mini->col == 0 && mini->col_temp > mini->col)
-	{
-		mini->col_max_temp = mini->col_temp;
-		mini->row_flag += 1;
-	}
-	mini->col_temp = mini->col;
-}*/
-/*
-void	parse_by_builtin(t_mini *mini)
-{
-//	mini->something = lexical_analyzer(mini->curr->next->history, 0, 0);
-//	mini->lst = mini->something->content;
-	mini->make_history_flag = 0;
-	if (!ft_strcmp("pwd", ((char **)mini->lst->content)[0]))
+	if (!ft_strcmp("pwd", str[0]))
 		pwd();
-	else if (!ft_strcmp("cd", ((char **)mini->lst->content)[0]))
-		cd(mini, ((char **)mini->lst->content)[1]);
-	else if (!ft_strcmp("export", ((char **)mini->lst->content)[0]))
-		check_export_param(mini, ((char **)mini->lst->content));
-	else if (!ft_strcmp("env", ((char **)mini->lst->content)[0]))
+	else if (!ft_strcmp("cd", str[0]))
+		cd(mini, str[1]);
+	else if (!ft_strcmp("export", str[0]))
+		check_export_param(mini, str);
+	else if (!ft_strcmp("env", str[0]))
 		print_env(mini);
-	else if (!ft_strcmp("unset", ((char **)mini->lst->content)[0]))
-		unset(mini, ((char **)mini->lst->content));
-	else if (!ft_strcmp("exit", ((char **)mini->lst->content)[0]))
-		mini_exit(mini, ((char **)mini->lst->content));
-	else if (!ft_strcmp("echo", ((char **)mini->lst->content)[0]))
-		ft_echo(((char **)mini->lst->content));
+	else if (!ft_strcmp("unset", str[0]))
+		unset(mini, str);
+	else if (!ft_strcmp("exit", str[0]))
+		mini_exit(mini, str);
+	else if (!ft_strcmp("echo", str[0]))
+		ft_echo(str);
+	else if (word->fd_in == -1)
+		printf("bash: %s: No such file or directory\n", &word->argv[0][1]);
 	else
-		use_execve(mini, ((char **)mini->lst->content));
+		use_execve(mini, str);
 }
-*/
 
 void	parse_by_builtin(t_mini *mini, char **str, t_word *word)
 {
@@ -59,24 +48,7 @@ void	parse_by_builtin(t_mini *mini, char **str, t_word *word)
 	if (word->fd_out > 0)
 		dup2(word->fd_out, 1);
 	if (str)
-	{
-		if (!ft_strcmp("pwd", str[0]))
-			pwd();
-		else if (!ft_strcmp("cd", str[0]))
-			cd(mini, str[1]);
-		else if (!ft_strcmp("export", str[0]))
-			check_export_param(mini, str);
-		else if (!ft_strcmp("env", str[0]))
-			print_env(mini);
-		else if (!ft_strcmp("unset", str[0]))
-			unset(mini, str);
-		else if (!ft_strcmp("exit", str[0]))
-			mini_exit(mini, str);
-		else if (!ft_strcmp("echo", str[0]))
-			ft_echo(str);
-		else
-			use_execve(mini, str);
-	}
+		parse_by_builtin_sub(mini, str, word);
 	dup2(std_fd[1], 1);
 	dup2(std_fd[0], 0);
 }
@@ -84,10 +56,6 @@ void	parse_by_builtin(t_mini *mini, char **str, t_word *word)
 void	init_mini(t_mini *mini)
 {
 	mini->idx = 0;
-	mini->row_flag = 0;
-	mini->row = 0;
-	mini->col = 0;
-	mini->col_temp = 0;
 	mini->pid = 0;
 	mini->status = 0;
 	mini->temp = NULL;
@@ -179,27 +147,39 @@ void	parse_by_input(t_mini *mini, long long int *compare)
 int		main(int argc, char *argv[], char *envp[])
 {
 	long long int	compare;
-	t_mini			mini;
 
 	argc = 0;
 	argv = 0;
 	compare = 0;
-	init_mini(&mini);
-	make_export_list(&mini, envp);
+	init_mini(&g_mini);
+	make_export_list(&g_mini, envp);
 	signal(SIGINT, (void *)signal_handler);
+	signal(SIGQUIT, (void *)signal_handler);
 	write(1, "minishell > ", 12);
 	while (read(0, &compare, 4) > 0)
 	{
-/*		if (compare != BACKSPACE)
+		if (compare == '\t' || compare == ARROWLEFT || compare == ARROWRIGHT)
 		{
-			get_cursor_position(&mini.col, &mini.row);
-			check_row_flag(&mini);
-		}*/
-		if (compare == '\t')
-			continue ;
+			compare = 0;
+			continue ; 
+		}
 		else if (compare == '\n')
-			change_term(&mini);
-		parse_by_input(&mini, &compare);
+			change_term(&g_mini);
+		else if (compare == 4)
+		{
+			//frefre inisfree
+			if (!g_mini.curr->history || !*(g_mini.curr->history))
+			{
+				ft_putstr_fd("exit\n", 1);
+				exit(0);
+			}
+			else
+			{
+				compare = 0;
+				continue ;
+			}
+		}
+		parse_by_input(&g_mini, &compare);
 		term_set();
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 11:50:06 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/14 20:27:21 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/17 12:42:52 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,35 @@ char	*make_execve_param(char *str, char *path)
 	return (res);
 }
 
-void	execute_execve(t_mini *mini, char **str, char **env)
+int		execute_execve(t_mini *mini, char **str, char **env)
 {
 	char	**path;
 	char	*res;
 	char	*execve_param;
 	int		i;
+	int		return_value;
 
 	i = 0;
 	path = get_path_value(mini);
-	while (path[i])
+	return_value = -1;
+	while (path[i] && return_value == -1)
 	{
 		execve_param = make_execve_param(str[0], path[i]);
-		execve(execve_param, str, env);
+		return_value = execve(execve_param, str, env);
 		ft_free(&execve_param);
 		ft_free(&path[i]);
 		i++;
 	}
 	ft_free(path);
-	res = getcwd(NULL, 0);
-	execve_param = make_execve_param(str[0], res);
-	execve(execve_param, str, env);
-	ft_free(&execve_param);
-	ft_free(&res);
+	if (return_value == -1)
+	{
+		res = getcwd(NULL, 0);
+		execve_param = make_execve_param(str[0], res);
+		return_value = execve(execve_param, str, env);
+		ft_free(&execve_param);
+		ft_free(&res);
+	}
+	return (return_value);
 }
 
 char	**make_env(t_mini *mini)
@@ -88,7 +94,14 @@ char	**make_env(t_mini *mini)
 void	use_execve(t_mini *mini, char **str)
 {
 	char	**env;
+	int		res;
 
 	env = make_env(mini);
-	execute_execve(mini, str, env);
+	res = execute_execve(mini, str, env);
+	if (res == -1)
+	{
+		write(1, "bash: ", 6);
+		ft_putstr_fd(str[0], 1);
+		write(1, ": command not found\n", 20);
+	}
 }

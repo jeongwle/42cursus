@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 10:03:50 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/04 16:38:34 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/17 16:32:56 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void			mini_exit(t_mini *mini, char **str)
 
 	res = 0;
 	write(1, "exit\n", 5);
-	if (str[1])
+	if (str != NULL && str[1])
 	{
 		res = mini_atoi(str[1], mini);
 		if (sentence(str[1]) || mini->atoi_flag && res == -1)
