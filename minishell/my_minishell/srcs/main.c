@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/17 17:04:40 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/17 20:23:37 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	parse_by_input(t_mini *mini, long long int *compare)
 			make_history_lst(mini);
 			parse_by_input_sub(mini);
 			write(1, "minishell > ", 12);
+			mini->semi = NULL;
 		}
 		else
 		{
@@ -149,6 +150,7 @@ int		main(int argc, char *argv[], char *envp[])
 	long long int	compare;
 
 	argc = 0;
+	g_mini.program_name = argv[0];
 	argv = 0;
 	compare = 0;
 	init_mini(&g_mini);

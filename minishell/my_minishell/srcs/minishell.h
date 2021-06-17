@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/17 16:03:12 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/17 20:18:08 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,13 @@ typedef struct	s_mini
 	int				idx;
 	char			buf[4096];
 	char			*temp;
+	char			*program_name;
 	int				atoi_flag;
 	pid_t			*pid;
 	int				**fds;
 	int				status;
 	int				make_history_flag;
+	int				sig_flag;
 }				t_mini;
 
 extern			t_mini	g_mini;

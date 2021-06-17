@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 12:17:15 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/16 18:25:56 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/17 20:23:11 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void	is_pipe(t_mini *mini)
 	while (++i < size)
 	{
 		pipe(mini->fds[i]);
+		if (mini->word->argv && !ft_strcmp(mini->word->argv[0], mini->program_name))
+			mini->sig_flag = 1;
 		mini->pid[i] = fork();
 		if (mini->pid[i] == 0)
 			child_process(mini, i, size, lst);
@@ -104,5 +106,6 @@ void	is_pipe(t_mini *mini)
 	i = -1;
 	while (++i < size)
 		waitpid(mini->pid[i], NULL, 0);
+	mini->sig_flag = 0;
 	free_pid_fd(mini, size);
 }
