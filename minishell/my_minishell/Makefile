@@ -39,8 +39,8 @@ $(NAME) : $(OBJS)
 	make -C ./lexical_analyzer
 	cp ./lexical_analyzer/liblex.a ./
 	cp ./libft/libft.a ./
-#	$(CC) -lncurses -o $@ $^ ./libft.a ./liblex.a
-	$(CC) -fsanitize=address -lncurses -o $@ $^ ./libft.a ./liblex.a
+	$(CC) -lncurses -o $@ $^ ./libft.a ./liblex.a
+#	$(CC) -fsanitize=address -lncurses -o $@ $^ ./libft.a ./liblex.a
 
 all : $(NAME)
 

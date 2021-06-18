@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 12:44:16 by mki               #+#    #+#             */
-/*   Updated: 2021/06/16 16:39:13 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 16:40:34 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ t_list	*lexical_analyzer(char *str, t_mini *mini, int status)
 		return (NULL);
 	}
 	if (!(lst = lexer(trim)))
+	{
+		lst_token_free(lst);
 		return (NULL);
+	}
 	free(trim);
 	if (parser(lst, mini, status))
 	{

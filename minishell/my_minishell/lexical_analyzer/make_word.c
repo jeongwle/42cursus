@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 12:54:15 by mki               #+#    #+#             */
-/*   Updated: 2021/06/16 12:53:31 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 12:22:46 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	word_init(t_word **word, int i)
 		word[0][j].fd_out = -2;
 		j++;
 	}
+	g_mini.word_cnt = i + 1;
 }
 
 int		*string_size(t_list *lst, t_word **word)

@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 22:31:05 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/03 02:36:22 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 15:28:18 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void		print_export(t_export *curr)
 	}
 	else
 		printf("declare -x %s\n", curr->export_list);
+	g_mini.status = 0;
 }
 
 void		print_env(t_mini *mini)
@@ -50,4 +51,5 @@ void		print_env(t_mini *mini)
 		}
 		curr = curr->next;
 	}
+	g_mini.status = 0;
 }

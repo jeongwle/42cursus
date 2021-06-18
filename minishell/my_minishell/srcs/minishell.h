@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/17 20:18:08 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 15:52:34 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct	s_mini
 {
 	t_list			*semi;
 	t_list			*pipe;
+	t_list			*semi_temp;
 	t_word			*word;
 	t_lst			*head;
 	t_lst			*tail;
@@ -87,6 +88,7 @@ typedef struct	s_mini
 	int				status;
 	int				make_history_flag;
 	int				sig_flag;
+	int				word_cnt;
 }				t_mini;
 
 extern			t_mini	g_mini;
@@ -117,6 +119,7 @@ int				ft_strcmp(char *s1, char *s2);
 
 int				mini_lstsize(t_export *lst);
 char			*find_env(t_mini *mini, char *key);
+void			ft_free_double(char **s1, char **s2);
 
 void			pwd(void);
 void			cd(t_mini *mini, char *path);
@@ -124,7 +127,7 @@ void			cd(t_mini *mini, char *path);
 void			mini_export_addback(t_mini *mini, t_export *new);
 void			sort_export(t_mini *mini);
 void			put_export_list(t_mini *mini);
-int				check_argument(char *str);
+int				check_argument(char *str, char c);
 
 t_export		*mini_export_new(char *str);
 void			make_export_list(t_mini *mini, char *envp[]);

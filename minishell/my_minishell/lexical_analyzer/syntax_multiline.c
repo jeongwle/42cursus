@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 11:48:52 by mki               #+#    #+#             */
-/*   Updated: 2021/06/16 12:55:23 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 16:47:22 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,7 @@ int	syntax_multline(char *str)
 				return (syntax_error(PIPELINE_MULTI));
 		i++;
 	}
+	if (str[0] == ';')
+		return (syntax_error(SYNTAX));
 	return (0);
 }

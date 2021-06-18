@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:46:45 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/17 14:07:00 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 16:00:35 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void		add_export_list(t_mini *mini, char *str)
 		curr->env_list = ft_strjoin(temp, curr->value);
 		ft_free(&temp);
 	}
+	mini->status = 0;
 }
 
 void		check_export_param(t_mini *mini, char **str)
@@ -88,7 +89,7 @@ void		check_export_param(t_mini *mini, char **str)
 	i = 1;
 	while (str[i])
 	{
-		if (check_argument(str[i]))
+		if (check_argument(str[i], 'e'))
 			;
 		else if (!check_already_exist(mini, str[i]))
 			add_export_list(mini, str[i]);

@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 11:50:06 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/17 12:42:52 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 14:20:12 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ int		execute_execve(t_mini *mini, char **str, char **env)
 	{
 		execve_param = make_execve_param(str[0], path[i]);
 		return_value = execve(execve_param, str, env);
-		ft_free(&execve_param);
-		ft_free(&path[i]);
+		ft_free_double(&execve_param, &path[i]);
 		i++;
 	}
 	ft_free(path);
@@ -64,8 +63,7 @@ int		execute_execve(t_mini *mini, char **str, char **env)
 		res = getcwd(NULL, 0);
 		execve_param = make_execve_param(str[0], res);
 		return_value = execve(execve_param, str, env);
-		ft_free(&execve_param);
-		ft_free(&res);
+		ft_free_double(&execve_param, &res);
 	}
 	return (return_value);
 }
@@ -103,5 +101,6 @@ void	use_execve(t_mini *mini, char **str)
 		write(1, "bash: ", 6);
 		ft_putstr_fd(str[0], 1);
 		write(1, ": command not found\n", 20);
+		exit(127);
 	}
 }

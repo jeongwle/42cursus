@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 12:30:01 by mki               #+#    #+#             */
-/*   Updated: 2021/06/16 13:08:52 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 16:51:48 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	parser_dollar_question_mark(t_list *lst_begin, int status)
 	lst_begin->next = lst_next->next;
 	token_free(lst_next);
 	token->name = 's';
+	free(token->value);
 	token->value = ft_itoa(status);
 }
 

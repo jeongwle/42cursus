@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/17 20:23:37 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 14:43:27 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,72 @@ int		is_builtin(char **str)
 	return (0);
 }
 
+void	free_split(char **split)
+{
+	int		i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		split[i] = NULL;
+		i++;
+	}
+	free(split);
+	split = NULL;
+}
+
+void	free_command_list(t_mini *mini)
+{
+	t_list	*curr;
+	t_list	*pipe;
+	t_word	*word;
+	t_list	*temp;
+
+	pipe = NULL;
+	word = NULL;
+	temp = NULL;
+	if (mini->semi_temp)
+	{
+		curr = mini->semi_temp;
+		word = ((t_list *)curr->content)->content;
+		while (curr) // mini->semi
+		{
+			if (curr->content)
+				pipe = curr->content;
+			if (pipe) // mini->pipe
+			{
+				while (pipe)
+				{
+					temp = pipe;
+					pipe = pipe->next;
+					free(temp);
+					temp = NULL;
+				}
+			}
+			temp = curr;
+			curr = curr->next;
+			free(temp);
+			temp = NULL;
+		}
+	}
+	while (--mini->word_cnt >= 0)
+		free_split(word[mini->word_cnt].argv);
+	free(word);
+	word = NULL;
+}
+
 void	parse_by_input_sub(t_mini *mini)
 {
 	if (mini->make_history_flag)
 	{
 		mini->make_history_flag = 0;
-		mini->semi = lexical_analyzer(mini->curr->next->history, mini, 0);
+		if (mini->status > 256)
+			mini->status /= 256;
+		mini->semi = lexical_analyzer(mini->curr->next->history, mini, mini->status);
 		if (mini->semi)
 		{
+			mini->semi_temp = mini->semi;
 			mini->pipe = mini->semi->content;
 			mini->word = mini->pipe->content;
 			if (!mini->pipe->next && is_builtin(mini->word->argv))
@@ -112,9 +170,11 @@ void	parse_by_input_sub(t_mini *mini)
 				else
 					is_pipe(mini);
 			}
+			free_command_list(mini);
 		}
 	}
 }
+
 
 void	parse_by_input(t_mini *mini, long long int *compare)
 {
@@ -145,19 +205,8 @@ void	parse_by_input(t_mini *mini, long long int *compare)
 	*compare = 0;
 }
 
-int		main(int argc, char *argv[], char *envp[])
+void	start_minishell(long long int compare)
 {
-	long long int	compare;
-
-	argc = 0;
-	g_mini.program_name = argv[0];
-	argv = 0;
-	compare = 0;
-	init_mini(&g_mini);
-	make_export_list(&g_mini, envp);
-	signal(SIGINT, (void *)signal_handler);
-	signal(SIGQUIT, (void *)signal_handler);
-	write(1, "minishell > ", 12);
 	while (read(0, &compare, 4) > 0)
 	{
 		if (compare == '\t' || compare == ARROWLEFT || compare == ARROWRIGHT)
@@ -169,7 +218,6 @@ int		main(int argc, char *argv[], char *envp[])
 			change_term(&g_mini);
 		else if (compare == 4)
 		{
-			//frefre inisfree
 			if (!g_mini.curr->history || !*(g_mini.curr->history))
 			{
 				ft_putstr_fd("exit\n", 1);
@@ -184,4 +232,45 @@ int		main(int argc, char *argv[], char *envp[])
 		parse_by_input(&g_mini, &compare);
 		term_set();
 	}
+}
+
+int		main(int argc, char *argv[], char *envp[])
+{
+	long long int	compare;
+
+	argc = 0;
+	g_mini.program_name = argv[0];
+	argv = 0;
+	compare = 0;
+	init_mini(&g_mini);
+	make_export_list(&g_mini, envp);
+	signal(SIGINT, (void *)signal_handler);
+	signal(SIGQUIT, (void *)signal_handler);
+	write(1, "minishell > ", 12);
+	start_minishell(compare);
+/*	while (read(0, &compare, 4) > 0)
+	{
+		if (compare == '\t' || compare == ARROWLEFT || compare == ARROWRIGHT)
+		{
+			compare = 0;
+			continue ; 
+		}
+		else if (compare == '\n')
+			change_term(&g_mini);
+		else if (compare == 4)
+		{
+			if (!g_mini.curr->history || !*(g_mini.curr->history))
+			{
+				ft_putstr_fd("exit\n", 1);
+				exit(0);
+			}
+			else
+			{
+				compare = 0;
+				continue ;
+			}
+		}
+		parse_by_input(&g_mini, &compare);
+		term_set();
+	}*/
 }

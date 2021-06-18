@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 21:10:39 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/17 14:29:10 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 15:54:14 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,19 @@ void	put_export_list(t_mini *mini)
 	}
 }
 
-
-int		check_argument_sub(char *str)
+int		check_argument_sub(char *str, char c)
 {
-	write(1, "bash: export: '", 15);
+	if (c == 'e')
+		write(1, "bash: export: `", 15);
+	else if (c == 'u')
+		write(1, "bash: unset: `", 15);
 	ft_putstr_fd(str, 1);
 	write(1, "': not a valid identifier\n", 26);
+	g_mini.status = 1;
 	return (1);
 }
 
-int		check_argument(char *str)
+int		check_argument(char *str, char c)
 {
 	int	i;
 	int	flag;
@@ -82,9 +85,9 @@ int		check_argument(char *str)
 	i = 0;
 	flag = 0;
 	if (!ft_isalpha(str[i]) && str[i] != '_')
-		return (check_argument_sub(str));
+		return (check_argument_sub(str, c));
 	i++;
-	while (str[i] != '=')
+	while (str[i] != '=' && str[i])
 	{
 		if (ft_isalpha(str[i]))
 			i++;
@@ -98,7 +101,7 @@ int		check_argument(char *str)
 			flag = 1;
 		}
 		else
-			return (check_argument_sub(str));
+			return (check_argument_sub(str, c));
 	}
 	return (0);
 }

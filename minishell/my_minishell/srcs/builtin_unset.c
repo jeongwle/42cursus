@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 02:02:43 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/03 11:46:03 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 15:53:00 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,19 @@ void	find_exist(t_mini *mini, char *str)
 void	unset(t_mini *mini, char **str)
 {
 	int	i;
+	int	res;
 
 	i = 1;
 	while (str[i])
 	{
+		res = check_argument(str[i], 'u');
+		if (res == 1)
+		{
+			mini->status = 1;
+			return ;
+		}
 		find_exist(mini, str[i]);
 		i++;
 	}
+	mini->status = 0;
 }

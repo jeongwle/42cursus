@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:05:03 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/07 15:47:18 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 14:45:53 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ void	pwd(void)
 	write(1, res, ft_strlen(res));
 	write(1, "\n", 1);
 	free(res);
+	g_mini.status = 0;
 }

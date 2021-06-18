@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 10:12:47 by mki               #+#    #+#             */
-/*   Updated: 2021/06/16 16:22:25 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 16:41:52 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int		delete_last_semi(t_list *lst_begin)
 	t_list	*lst_next;
 
 	lst = lst_begin;
+	token = lst->content;
 	while (lst)
 	{
 		if (lst->next)

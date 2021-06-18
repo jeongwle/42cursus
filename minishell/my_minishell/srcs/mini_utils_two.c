@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 16:45:42 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/16 16:57:07 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/18 00:18:15 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,12 @@ char	*find_env(t_mini *mini, char *key)
 		curr = curr->next;
 	}
 	return (NULL);
+}
+
+void	ft_free_double(char **s1, char **s2)
+{
+	free(*s1);
+	*s1 = NULL;
+	free(*s2);
+	*s2 = NULL;
 }
