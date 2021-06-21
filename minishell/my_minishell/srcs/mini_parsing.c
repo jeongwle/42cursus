@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 16:17:11 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/21 19:00:17 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/21 21:25:04 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	parse_by_input_sub(t_mini *mini)
 	{
 		temp = mini->curr->next->history;
 		mini->make_history_flag = 0;
-		if (mini->status > 256 && mini->status != 258)
+		if (mini->status > 255 && mini->status != 258)
 			mini->status /= 256;
 		while (ft_isspace(temp[i]))
 			i++;

@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 10:03:50 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/21 19:25:58 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/21 20:19:31 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void			mini_exit(t_mini *mini, char **str)
 			write(1, str[1], ft_strlen(str[1]));
 			write(1, ": numeric argument required\n", 29);
 			mini->status = 255;
+			exit(mini->status);
 		}
 		else if (str[2])
 		{
@@ -100,9 +101,7 @@ void			mini_exit(t_mini *mini, char **str)
 			mini->status = 1;
 			return ;
 		}
-		else
-			mini->status = 0;
 	}
 	mini->atoi_flag = 0;
-	exit(mini->status);
+	exit(res % 256);
 }

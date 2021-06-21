@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:33:49 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/21 15:36:45 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/21 21:06:54 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ void		cd(t_mini *mini, char *path)
 		free(buf);
 		buf = getcwd(NULL, 0);
 		change_pwd(mini, buf);
-		mini->status = 0;
 	}
 	else
 	{
+		if (mini->pipe->next)
+			dup2(2, 1);
 		printf("bash: cd: %s: %s\n", path, strerror(errno));
 		mini->status = 1;
 	}

@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 21:10:39 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/18 15:54:14 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/21 20:37:20 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,12 @@ void	put_export_list(t_mini *mini)
 
 int		check_argument_sub(char *str, char c)
 {
+	if (g_mini.pipe->next)
+		dup2(2, 1);
 	if (c == 'e')
 		write(1, "bash: export: `", 15);
 	else if (c == 'u')
-		write(1, "bash: unset: `", 15);
+		write(1, "bash: unset: `", 14);
 	ft_putstr_fd(str, 1);
 	write(1, "': not a valid identifier\n", 26);
 	g_mini.status = 1;

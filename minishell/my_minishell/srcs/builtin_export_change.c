@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 21:41:55 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/03 11:45:14 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/21 21:06:47 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	change_pwd(t_mini *mini, char *buf)
 		}
 		curr = curr->next;
 	}
+	mini->status = 0;
 }
 
 void	delete_oldpwd(t_mini *mini)

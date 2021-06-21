@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 12:17:15 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/21 18:53:39 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/21 21:22:18 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	child_process(t_mini *mini, int i, int size, t_list *lst)
 	}
 	close_fd(mini, i, 1, size);
 	parse_by_builtin(mini, word->argv, word);
-	exit(0);
+	exit(mini->status);
 }
 
 void	free_pid_fd(t_mini *mini, int size)
@@ -77,6 +77,9 @@ void	free_pid_fd(t_mini *mini, int size)
 	free(mini->fds);
 	free(mini->pid);
 	mini->pid = NULL;
+	if (mini->status_temp)
+		mini->status = mini->status_temp;
+	mini->status_temp = 0;
 }
 
 void	is_pipe(t_mini *mini)
