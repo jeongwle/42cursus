@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 16:45:42 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/18 00:18:15 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/21 16:48:43 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,41 @@ void	ft_free_double(char **s1, char **s2)
 	*s1 = NULL;
 	free(*s2);
 	*s2 = NULL;
+}
+
+void	free_cmd_list_sub(t_list **temp, t_list **param)
+{
+	*temp = *param;
+	*param = (*param)->next;
+	free(*temp);
+	*temp = NULL;
+}
+
+void	free_command_list(t_mini *mini)
+{
+	t_list	*curr;
+	t_list	*pipe;
+	t_word	*word;
+	t_list	*temp;
+
+	if (mini->semi_temp)
+	{
+		curr = mini->semi_temp;
+		word = ((t_list *)curr->content)->content;
+		while (curr)
+		{
+			if (curr->content)
+				pipe = curr->content;
+			if (pipe)
+			{
+				while (pipe)
+					free_cmd_list_sub(&temp, &pipe);
+			}
+			free_cmd_list_sub(&temp, &curr);
+		}
+	}
+	while (--mini->word_cnt >= 0)
+		free_split(word[mini->word_cnt].argv);
+	free(word);
+	word = NULL;
 }

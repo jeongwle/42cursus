@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 10:03:50 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/17 16:32:56 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/21 19:25:58 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,15 @@ long long int	mini_atoi(const char *str, t_mini *mini)
 
 static int		sentence(char *str)
 {
-	int i;
+	size_t	i;
 
 	i = 0;
-	while (ft_isdigit(str[i]))
+	if (str[0] == '-')
 		i++;
+	while (ft_isdigit(str[i]))
+	{
+		i++;
+	}
 	if (i == ft_strlen(str))
 		return (0);
 	return (1);
@@ -83,18 +87,22 @@ void			mini_exit(t_mini *mini, char **str)
 	if (str != NULL && str[1])
 	{
 		res = mini_atoi(str[1], mini);
-		if (sentence(str[1]) || mini->atoi_flag && res == -1)
+		if (sentence(str[1]) || (mini->atoi_flag && res == -1))
 		{
 			write(1, "bash: exit: ", 12);
 			write(1, str[1], ft_strlen(str[1]));
 			write(1, ": numeric argument required\n", 29);
+			mini->status = 255;
 		}
 		else if (str[2])
 		{
 			write(1, "bash: exit: too many arguments\n", 31);
+			mini->status = 1;
 			return ;
 		}
+		else
+			mini->status = 0;
 	}
 	mini->atoi_flag = 0;
-	exit(0);
+	exit(mini->status);
 }

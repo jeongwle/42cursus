@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 12:44:16 by mki               #+#    #+#             */
-/*   Updated: 2021/06/18 16:40:34 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/21 17:41:02 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@ void	print_lst_token(t_list *lst)
 	}
 }
 
-t_list	*lexical_analyzer(char *str, t_mini *mini, int status)
+t_list	*lexical_helper(char *str)
 {
-	t_list	*lst_word;
-	t_list	*lst;
 	char	*trim;
-	t_word	*word;
+	t_list	*lst;
 
 	trim = ft_strtrim(str, " ");
 	if (syntax_multline(trim))
@@ -40,9 +38,22 @@ t_list	*lexical_analyzer(char *str, t_mini *mini, int status)
 	if (!(lst = lexer(trim)))
 	{
 		lst_token_free(lst);
+		free(trim);
 		return (NULL);
 	}
 	free(trim);
+	return (lst);
+}
+
+t_list	*lexical_analyzer(char *str, t_mini *mini, int status)
+{
+	t_list	*lst_word;
+	t_list	*lst;
+	t_word	*word;
+
+	lst = lexical_helper(str);
+	if (lst == NULL)
+		return (NULL);
 	if (parser(lst, mini, status))
 	{
 		lst_token_free(lst);

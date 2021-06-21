@@ -6,7 +6,7 @@
 /*   By: jeongwle <jeongwle@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:46:45 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/18 16:00:35 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/21 19:20:34 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void		check_export_param(t_mini *mini, char **str)
 {
 	int			i;
 	t_export	*curr;
-	char		*temp;
 
 	i = 1;
 	while (str[i])

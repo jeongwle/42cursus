@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 18:14:35 by mki               #+#    #+#             */
-/*   Updated: 2020/10/11 20:45:43 by mki              ###   ########.fr       */
+/*   Updated: 2021/06/21 19:04:26 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_isset(char c, char const *set)
 	return (0);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char		*ft_strtrim(char const *s1, char const *set)
 {
 	char	*ret;
 	size_t	start;

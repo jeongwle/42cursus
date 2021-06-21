@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 10:12:47 by mki               #+#    #+#             */
-/*   Updated: 2021/06/18 16:41:52 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/21 17:46:59 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,41 +45,6 @@ int		token_special(t_list **begin_list, char c)
 	token->value[1] = '\0';
 	ft_lstadd_back(begin_list, ft_lstnew(token));
 	return (1);
-}
-
-int		space_token_compress(t_list *lst_begin)
-{
-	t_token	*token;
-	t_list	*lst;
-	t_list	*tmp;
-	char	c;
-
-	lst = lst_begin;
-	while (lst)
-	{
-		token = lst->content;
-		c = token->name;
-		if (token->name == '\"' && (tmp = dquotes_token_find(lst)))
-		{
-			lst = tmp->next;
-			continue ;
-		}
-		if (token->name == '\'' && (tmp = token_find(lst, '\'')))
-		{
-			lst = tmp->next;
-			continue ;
-		}
-		while (c == ' ' && lst->next)
-		{
-			token = lst->next->content;
-			if (token->name == ' ')
-				lst_next_free(lst);
-			else
-				break ;
-		}
-		lst = lst->next;
-	}
-	return (0);
 }
 
 int		delete_last_semi(t_list *lst_begin)

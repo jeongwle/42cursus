@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/18 15:52:34 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/21 17:48:22 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int				ft_strcmp(char *s1, char *s2);
 int				mini_lstsize(t_export *lst);
 char			*find_env(t_mini *mini, char *key);
 void			ft_free_double(char **s1, char **s2);
+void			free_command_list(t_mini *mini);
 
 void			pwd(void);
 void			cd(t_mini *mini, char *path);
@@ -162,7 +163,12 @@ void			store_present_term(t_mini *mini);
 void			change_term(t_mini *mini);
 
 void			parse_by_builtin(t_mini *mini, char **str, t_word *word);
+void			parse_by_input(t_mini *mini, long long int *compare);
+
 void			is_pipe(t_mini *mini);
+
+int				is_builtin(char **str);
+void			free_split(char **split);
 
 t_list			*executor(char *str, t_list *lst_begin);
 int				ft_isall(char c);
@@ -201,5 +207,7 @@ void			right_angle_bracket
 (t_list **lst, t_word *word, int *i);
 t_list			*make_word_list(t_list *lst, t_word **word);
 t_list			*dquotes_token_find(t_list *lst);
+void			space_helper(t_list *lst, char c);
+int				space_token_compress(t_list *lst_begin);
 
 #endif

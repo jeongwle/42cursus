@@ -23,24 +23,41 @@ SRCS	= ./srcs/main.c \
 		  ./srcs/mini_execve.c \
 		  ./srcs/mini_utils.c \
 		  ./srcs/mini_pipe.c \
-		  ./srcs/mini_utils_two.c
+		  ./srcs/mini_parsing.c \
+		  ./srcs/mini_utils_two.c \
+		  ./lexical_analyzer/ft_isall.c \
+		  ./lexical_analyzer/lexer.c \
+		  ./lexical_analyzer/lexer_space.c \
+		  ./lexical_analyzer/lexical_analyzer.c \
+		  ./lexical_analyzer/make_string.c \
+		  ./lexical_analyzer/make_word_list.c \
+		  ./lexical_analyzer/make_word.c \
+		  ./lexical_analyzer/make_word2.c \
+		  ./lexical_analyzer/parser_backslash.c \
+		  ./lexical_analyzer/parser_env.c \
+		  ./lexical_analyzer/parser_quotes.c \
+		  ./lexical_analyzer/parser.c \
+		  ./lexical_analyzer/syntax_backslash.c \
+		  ./lexical_analyzer/syntax_error.c \
+		  ./lexical_analyzer/syntax_multiline.c \
+		  ./lexical_analyzer/syntax_quotes.c \
+		  ./lexical_analyzer/syntax_redirection.c \
+		  ./lexical_analyzer/token.c
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f
 CC		= gcc
+CFLAGS	= -Wall -Wextra -Werror
 C		= clang
 
 .c.o :
-	$(CC) -c -g $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME) : $(OBJS)
 	make -C ./libft
 	make bonus -C ./libft
-	make -C ./lexical_analyzer
-	cp ./lexical_analyzer/liblex.a ./
 	cp ./libft/libft.a ./
-	$(CC) -lncurses -o $@ $^ ./libft.a ./liblex.a
-#	$(CC) -fsanitize=address -lncurses -o $@ $^ ./libft.a ./liblex.a
+	$(CC) $(CFLAGS) -lncurses -o $@ $^ ./libft.a
 
 all : $(NAME)
 
@@ -50,9 +67,7 @@ fclean : clean
 clean :
 	$(RM) $(OBJS)
 	$(RM) ./libft.a ./libft/libft.a
-	$(RM) ./liblex.a ./lexical_analyzer/liblex.a
 	make clean -C ./libft
-	make clean -C ./lexical_analyzer
 
 re : fclean all
 

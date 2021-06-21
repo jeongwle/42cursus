@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:05:13 by sehan             #+#    #+#             */
-/*   Updated: 2021/06/16 12:53:42 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/21 15:29:29 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,8 @@ void	open_fail(t_list **lst, t_word *word, int *i, int *j)
 		(*lst) = (*lst)->next;
 		token = (*lst)->content;
 	}
-	if (*j > 0)
-	{
-		while ((*j)--)
-			free(word[*i].argv[*j]);
-	}
+	while (*j >= 0)
+		free(word[*i].argv[(*j)--]);
 	free(word[*i].argv);
 	word[*i].argv = NULL;
 }
