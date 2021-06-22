@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:16:04 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/21 20:57:40 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/22 15:31:46 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_mini(t_mini *mini)
 	mini->idx = 0;
 	mini->pid = 0;
 	mini->status = 0;
+	mini->return_value = -1;
 	mini->temp = NULL;
 	mini->atoi_flag = 0;
 	mini->make_history_flag = 0;

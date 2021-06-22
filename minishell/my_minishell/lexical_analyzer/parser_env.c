@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 12:30:01 by mki               #+#    #+#             */
-/*   Updated: 2021/06/22 13:18:47 by mki              ###   ########.fr       */
+/*   Updated: 2021/06/22 16:33:17 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,17 @@ void	parser_env_var(t_list *lst_begin, t_mini *mini)
 int		parser_env(t_list *lst_begin, t_mini *mini, int status)
 {
 	t_token	*token;
+	char	c;
 
 	if (lst_begin->next)
 	{
 		token = lst_begin->next->content;
+		c = token->name;
 		if (token->name == 's' || token->name == '_')
 			parser_env_var(lst_begin, mini);
 		else if (token->name == '?')
 			parser_dollar_question_mark(lst_begin, status);
-		else if (token->name == '\"' || token->name == ' ')
+		else if (ft_isspace(c) || ft_ismeta(c) || ft_isquotes(c))
 		{
 			token = lst_begin->content;
 			token->name = 's';

@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:33:49 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/21 21:06:54 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/22 16:43:41 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ t_export	*find_curr_value(t_mini *mini)
 	while (curr)
 	{
 		if (curr->key && !ft_strcmp("PWD", curr->key))
-			break ;
+			return (curr);
 		curr = curr->next;
 	}
-	return (curr);
+	return (NULL);
 }
 
 t_export	*find_old_value(t_mini *mini)
@@ -34,10 +34,10 @@ t_export	*find_old_value(t_mini *mini)
 	while (curr)
 	{
 		if (curr->key && !ft_strcmp("OLDPWD", curr->key))
-			break ;
+			return (curr);
 		curr = curr->next;
 	}
-	return (curr);
+	return (NULL);
 }
 
 void		reverse_old_curr(t_mini *mini)
@@ -47,17 +47,25 @@ void		reverse_old_curr(t_mini *mini)
 	char		*curr_temp;
 
 	temp = find_old_value(mini);
-	if (temp->value)
+	if (temp && temp->value)
 	{
 		old_temp = ft_strdup(temp->value);
 		temp = find_curr_value(mini);
-		curr_temp = ft_strdup(temp->value);
-		change_oldpwd(mini, curr_temp);
-		change_pwd(mini, old_temp);
-		chdir(old_temp);
-		printf("%s\n", old_temp);
-		ft_free(&old_temp);
-		ft_free(&curr_temp);
+		if (temp && temp->value)
+		{
+			curr_temp = ft_strdup(temp->value);
+			change_oldpwd(mini, curr_temp);
+			change_pwd(mini, old_temp);
+			chdir(old_temp);
+			printf("%s\n", old_temp);
+			ft_free(&old_temp);
+			ft_free(&curr_temp);
+		}
+		else
+		{
+			free(old_temp);
+			return ;
+		}
 	}
 }
 

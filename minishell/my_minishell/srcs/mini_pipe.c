@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 12:17:15 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/21 21:22:18 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/22 15:44:14 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	free_pid_fd(t_mini *mini, int size)
 	free(mini->fds);
 	free(mini->pid);
 	mini->pid = NULL;
-	if (mini->status_temp)
+	if (mini->status_temp && mini->status != 32512)
 		mini->status = mini->status_temp;
 	mini->status_temp = 0;
 }

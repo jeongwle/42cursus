@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 11:50:06 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/18 14:20:12 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/22 17:07:28 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ char	**get_path_value(t_mini *mini)
 	while (curr)
 	{
 		if (curr->key && !ft_strcmp("PATH", curr->key))
-			break ;
+			return (ft_split(curr->value, ':'));
 		curr = curr->next;
 	}
-	return (ft_split(curr->value, ':'));
+	return (NULL);
 }
 
 char	*make_execve_param(char *str, char *path)
@@ -39,33 +39,33 @@ char	*make_execve_param(char *str, char *path)
 	return (res);
 }
 
-int		execute_execve(t_mini *mini, char **str, char **env)
+int		execute_execve(t_mini *mini, char **str, char **env, int i)
 {
 	char	**path;
 	char	*res;
 	char	*execve_param;
-	int		i;
-	int		return_value;
 
-	i = 0;
 	path = get_path_value(mini);
-	return_value = -1;
-	while (path[i] && return_value == -1)
+	mini->return_value = execve(str[0], str, env);
+	if (path)
 	{
-		execve_param = make_execve_param(str[0], path[i]);
-		return_value = execve(execve_param, str, env);
-		ft_free_double(&execve_param, &path[i]);
-		i++;
+		while (path[i] && mini->return_value == -1)
+		{
+			execve_param = make_execve_param(str[0], path[i]);
+			mini->return_value = execve(execve_param, str, env);
+			ft_free_double(&execve_param, &path[i]);
+			i++;
+		}
+		ft_free(path);
 	}
-	ft_free(path);
-	if (return_value == -1)
+	if (mini->return_value == -1)
 	{
 		res = getcwd(NULL, 0);
 		execve_param = make_execve_param(str[0], res);
-		return_value = execve(execve_param, str, env);
+		mini->return_value = execve(execve_param, str, env);
 		ft_free_double(&execve_param, &res);
 	}
-	return (return_value);
+	return (mini->return_value);
 }
 
 char	**make_env(t_mini *mini)
@@ -93,14 +93,19 @@ void	use_execve(t_mini *mini, char **str)
 {
 	char	**env;
 	int		res;
+	char	**path;
 
 	env = make_env(mini);
-	res = execute_execve(mini, str, env);
+	res = execute_execve(mini, str, env, 0);
+	path = get_path_value(mini);
 	if (res == -1)
 	{
 		write(1, "bash: ", 6);
 		ft_putstr_fd(str[0], 1);
-		write(1, ": command not found\n", 20);
+		if (str[0][0] == '/' || !path)
+			ft_putstr_fd(": No such file or directory\n", 1);
+		else
+			write(1, ": command not found\n", 20);
 		exit(127);
 	}
 }

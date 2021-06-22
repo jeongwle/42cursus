@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 16:17:11 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/21 21:25:04 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/22 17:30:40 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,11 @@ void	parse_by_builtin_sub(t_mini *mini, char **str, t_word *word)
 	else if (!ft_strcmp("echo", str[0]))
 		ft_echo(str);
 	else if (word->fd_in == -1)
-		printf("bash: %s: No such file or directory\n", &word->argv[0][1]);
+	{
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd(&word->argv[0][1], 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+	}
 	else
 		use_execve(mini, str);
 }

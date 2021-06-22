@@ -6,7 +6,7 @@
 /*   By: jeongwle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:50:22 by jeongwle          #+#    #+#             */
-/*   Updated: 2021/06/21 20:58:34 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/22 15:13:42 by jeongwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct	s_mini
 	int				make_history_flag;
 	int				sig_flag;
 	int				word_cnt;
+	int				return_value;
 }				t_mini;
 
 extern			t_mini	g_mini;
