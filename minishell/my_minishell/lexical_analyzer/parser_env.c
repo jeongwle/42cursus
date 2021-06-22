@@ -6,7 +6,7 @@
 /*   By: mki <mki@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 12:30:01 by mki               #+#    #+#             */
-/*   Updated: 2021/06/18 16:51:48 by jeongwle         ###   ########.fr       */
+/*   Updated: 2021/06/22 13:18:47 by mki              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ int		parser_env(t_list *lst_begin, t_mini *mini, int status)
 			parser_env_var(lst_begin, mini);
 		else if (token->name == '?')
 			parser_dollar_question_mark(lst_begin, status);
+		else if (token->name == '\"' || token->name == ' ')
+		{
+			token = lst_begin->content;
+			token->name = 's';
+		}
 		else
 			return (1);
 	}
